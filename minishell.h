@@ -18,11 +18,12 @@ void	init_data(t_data *data);
 void	copy_env(t_data *data, char **env);
 void	execute_builtin(char **line, t_data *data);
 int		is_builtin(char **line);
+int	valid_num(char *str);
 
 //handle_builtins
 void	handle_my_echo(char **line);
 void	my_cd(char **line);
-void	handle_exit(char **line);
+void	my_exit(char **line);
 
 //	builtins
 void	my_echo(char **args, int i);
