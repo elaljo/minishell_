@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/19 20:44:14 by moelalj           #+#    #+#             */
-/*   Updated: 2023/08/19 20:44:14 by moelalj          ###   ########.fr       */
+/*   Created: 2023/08/24 16:27:33 by moelalj           #+#    #+#             */
+/*   Updated: 2023/08/24 16:27:34 by moelalj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void copy_env(t_data *data, char **env)
+void	my_unset(char **line, t_data *data)
 {
+	int	n_arg;
 	int	i;
-	
-	while (env[data->len_env] != NULL)
-		data->len_env++;
-	data->c_env = ft_calloc(data->len_env + 1, sizeof(char *));
-	i = 0;
-	while (env[i] != NULL)
-	{
-		data->c_env[i] = ft_strdup(env[i]);
-		i++;
-	}
-}
+	int removal;
 
-void	my_env(t_data *data)
-{
-	int	i; 
-	
-	i = 0;
-	while (data->c_env[i] != NULL)
+	n_arg = 1;
+	while(line[n_arg])
 	{
-		if(ft_search(data->c_env[i], '=') == 1)
-			printf("%s\n", data->c_env[i]);
-		i++;
+		i = 0;
+		while(data->c_env[i])
+		{
+			if (data->c_env[i] == line[n_arg])
+			{
+				removal = i;
+				while (removal < len_arr(data->c_env) - 1)
+				{
+						data->c_env[removal] = line[]
+				}
+			}
+		}
 	}
 }

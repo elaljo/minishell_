@@ -14,7 +14,12 @@
 
 void	my_exit(char **line)
 {
-	if (line[1])
+	if (ft_strcmp(line[0], "exit") == 0 && !line[1])
+	{
+		ft_putstr_fd("exit\n", 1);
+		exit (0);
+	}
+	else if (line[1])
 	{
 		if (valid_num(line[1]) == 0)
 		{
@@ -30,7 +35,7 @@ void	my_exit(char **line)
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 			return ;
 		}
-		else
+		else if(line[0] && line[1])
 		{
 			ft_putstr_fd("exit\n", 1);
 			exit(ft_atoi(line[1]));

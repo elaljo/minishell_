@@ -27,7 +27,6 @@ int	valid_num(char *str)
 	return (1);
 }
 
-
 void	execute_builtin(char **line, t_data *data)
 {
 	if (ft_strcmp(line[0], "echo") == 0)
@@ -36,15 +35,19 @@ void	execute_builtin(char **line, t_data *data)
 		my_cd(line);
 	else if (ft_strcmp(line[0], "pwd") == 0)
 		my_pwd();
-	else if (ft_strcmp(line[0], "exit") == 0)
-		my_exit(line);
+	else if (ft_strcmp(line[0], "export") == 0)
+		my_export(line, data);
+	else if (ft_strcmp(line[0], "unset") == 0)
+		my_unset(line, data);
 	else if (ft_strcmp(line[0], "env") == 0)
 		my_env(data);
+	else if (ft_strcmp(line[0], "exit") == 0)
+		my_exit(line);
 }
 
 int	is_builtin(char **line)
 {
-	char *arr[] = {"echo", "cd", "pwd", "exit", "env", "export", NULL};
+	char *arr[] = {"echo", "cd", "pwd", "exit", "env", "export", "unset", NULL};
 	int i;
 
 	i = -1;
@@ -59,26 +62,8 @@ int	is_builtin(char **line)
 void	init_data(t_data *data)
 {
 	data->c_env = NULL;
-}
-
-void copy_env(t_data *data, char **env)
-{
-	int i;
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		ft_strlen(env[i]);
-		i++;
-	}
-	data->c_env = (char **)malloc(sizeof(char *) * i + 1);
-	i = 0;
-	while (env[i] != NULL)
-	{
-		data->c_env[i] = ft_strdup(env[i]);
-		i++;
-	}
-	data->c_env[i] = NULL;
+	data->len_env = 0;
+	data->key_env= NULL;
 }
 
 int main(int ac, char *av[], char **env)
@@ -92,6 +77,7 @@ int main(int ac, char *av[], char **env)
 
 	init_data(&data);
 	copy_env(&data, env);
+	data.key_env = ft_calloc(data.len_env + 1, sizeof(char *));
 	while (1)
 	{
 		line = readline("minishell: ");

@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_needeed.c                                    :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 15:09:45 by moelalj           #+#    #+#             */
-/*   Updated: 2023/08/19 15:09:46 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/08/23 17:40:41 by moelalj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 size_t ft_strlen(char *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -23,7 +25,6 @@ size_t ft_strlen(char *s)
 }
 
 void	ft_putstr_fd(char *s, int fd)
-
 {
 	if (s)
 		write(fd, s, ft_strlen(s));
@@ -78,8 +79,10 @@ char	*ft_strdup(char *str)
 	char	*ptr;
 	size_t	i;
 
+	if (!str)
+		return (NULL);
 	l = ft_strlen(str);
-	ptr = (char *)malloc(l + 1 * sizeof(char));
+	ptr = (char *)ft_calloc(l + 1 , sizeof(char));
 	if (!ptr)
 		return (NULL);
 	i = 0;
@@ -88,7 +91,30 @@ char	*ft_strdup(char *str)
 		ptr[i] = str[i];
 		i++;
 	}
-	ptr[i] = '\0';
 	return (ptr);
 }
 
+int	ft_isalnum(char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		if ((c[i] >= '0' && c[i] <= '9')
+			|| (c[i] >= 'a' && c[i] <= 'z')
+			|| (c[i] >= 'A' && c[i] <= 'Z')
+			|| c[i] == '=')
+			i++;
+		else
+			return (1);
+	}
+	return (0);
+}
+
+int	ft_isalpha(char c)
+{
+	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
+		return (0);
+	return (1);
+}

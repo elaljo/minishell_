@@ -2,17 +2,22 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
+
+#CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
 
 RM = rm -rf
 
 C_FILES = builtins/echo.c\
 					builtins/cd.c\
-					builtins/env.c\
 					builtins/pwd.c\
+					builtins/env.c\
+					builtins/export.c\
+					builtins/unset.c\
 					builtins/exit.c\
-					ft_split.c\
-					libft_needeed.c\
+					libft/ft_split.c\
+					libft/libft.c\
+					libft/libft_2.c\
 					main.c\
 
 OBJ = ${C_FILES:.c=.o}

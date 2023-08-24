@@ -10,7 +10,8 @@
 typedef struct s_data
 {
 	char **c_env;
-
+	int	len_env;
+	char **key_env;
 }t_data;
 
 void	init_data(t_data *data);
@@ -18,17 +19,21 @@ void	init_data(t_data *data);
 void	copy_env(t_data *data, char **env);
 void	execute_builtin(char **line, t_data *data);
 int		is_builtin(char **line);
-int	valid_num(char *str);
-
-//handle_builtins
-void	handle_my_echo(char **line);
-void	my_cd(char **line);
-void	my_exit(char **line);
+int		valid_num(char *str);
+void	if_there_var(char **line, t_data *data);
+void	print_not_identifier(char *line);
+void	get_key(t_data *data, int n_arg);
+//char **my_realloc(char **c_env, int n_arg, char **line);
+int	same_key(t_data *data, char *line);
 
 //	builtins
 void	my_echo(char **args, int i);
+void	handle_my_echo(char **line);
+void	my_cd(char **line);
 void	my_pwd(void);
 void	my_env(t_data *data);
+void	my_export(char **line, t_data *data);
+void	my_exit(char **line);
 
 //			split
 int is_delimiter(char c);
@@ -42,5 +47,15 @@ int	ft_atoi(const char *str);
 int	ft_strcmp(const char *s1, const char *s2);
 size_t ft_strlen(char *s);
 void	ft_putstr_fd(char *s, int fd);
+int	ft_search(char *line, char space);
+int	ft_isalpha(char c);
+int	ft_isalnum(char *c);
+char	*ft_strchr(const char *s, char c);
+void	ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+//my_libft_helper
+char *strback(char *line);
+void	ft_free(char **arr);
+int		len_arr(char **arr);
 
 #endif
