@@ -92,8 +92,20 @@ int	len_arr(char **arr)
 	int	i;
 
 	i = 0;
-	while(arr[i])
+	while(arr && arr[i])
 		i++;
-	i--;
 	return (i);
+}
+
+void ft_str_free(char **s)
+{
+	int	i;
+
+	i = 0;
+	while(s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
 }

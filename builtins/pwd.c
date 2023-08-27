@@ -19,5 +19,5 @@ void	my_pwd(void)
 	if (getcwd(c_dir, sizeof(c_dir)) != NULL)
 		printf("%s\n", c_dir);
 	else
-		perror("getcwd err");
+		perror("minishell: pwd: ");
 }

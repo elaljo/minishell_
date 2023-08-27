@@ -19,24 +19,6 @@ void	print_not_identifier(char *line)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-//char **my_realloc(char **c_env, int n_arg, char **line)
-//{
-//	(void)line;
-//	char **new_env;
-//	int	i;
-
-//	new_env = calloc(len_arr(c_env) + n_arg + 1, sizeof(char *));
-//	if (!new_env)
-//		return (NULL);
-//	i = 0;
-//	while(c_env[i] != NULL)
-//	{
-//		new_env[i] = c_env[i];
-//		i++;
-//	}
-//	return (new_env);
-//}
-
 int	same_key(t_data *data, char *line)
 {
 	int	i;
@@ -53,7 +35,6 @@ int	same_key(t_data *data, char *line)
 	}
 	return(0);
 }
-
 
 void	get_key(t_data *data, int n_arg)
 {
@@ -73,9 +54,11 @@ void	if_there_var(char **line, t_data *data)
 {
 	int	n_arg;
 	int	i;
+	int	len_env;
 
+	len_env = len_arr(data->c_env);
 	i = 1;
-	n_arg = 1;
+	n_arg = 0;
 	while (line[i] != NULL)
 	{
 		if(ft_isalnum(strback(line[i])) || ft_isalpha(strback(line[i])[0]))
@@ -87,10 +70,7 @@ void	if_there_var(char **line, t_data *data)
 		}		
 	}
 	i--;
-	n_arg--;
-	get_key(data, n_arg);
-	data->c_env = realloc(data->c_env, sizeof(char *) * (len_arr(data->c_env) + n_arg + 1));
-	//data->c_env = my_realloc(data->c_env, n_arg, line);
+	data->c_env = realloc(data->c_env, sizeof(char *) * (len_env + n_arg + 1));
 	while (i != 0)
 	{
 		if (ft_isalpha(strback(line[i])[0]) || ft_isalnum(strback(line[i])))
@@ -98,14 +78,15 @@ void	if_there_var(char **line, t_data *data)
 			print_not_identifier(line[i]);
 			i--;
 		}
-		
 		else
 		{
-			data->c_env[len_arr(data->c_env) + 1] = line[i];
-			data->c_env[len_arr(data->c_env) + 2] = NULL;
+			data->c_env[len_env] = ft_strdup(line[i]);
+			data->c_env[len_env + 1] = NULL;
 			i--;	
+			len_env = len_arr(data->c_env);
 		}
 	}
+	get_key(data, n_arg);
 }
 
 void	my_export(char **line, t_data *data)

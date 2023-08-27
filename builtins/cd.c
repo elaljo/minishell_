@@ -15,22 +15,19 @@
 void	my_cd(char **line)
 {
 	char *home_dir;
+	int	check;
 
+	check = 0;
 	home_dir = getenv("HOME");
-	if (ft_strcmp(line[0], "cd") == 0 && (!line[1] || ft_strcmp(line[1], "~") == 0))
-	{
-		if (chdir((const char *)home_dir) == 0)
-			chdir((const char *)home_dir);
-	}
-	else if (line[1] && ft_strcmp(line[0], "cd") == 0)
-	{
-		if(chdir(line[1]) == 0)
-			chdir(line[1]);
-		else
+	if (!line[1])
+		check = chdir((const char *)home_dir);
+	else
+		check = chdir(line[1]);
+	if (check != 0)
 		{
 			ft_putstr_fd("minishell: cd: ", 2);
 			ft_putstr_fd(line[1], 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
+			ft_putstr_fd(": ", 2);
+			perror(line[2]);
 		}
-	}
 }

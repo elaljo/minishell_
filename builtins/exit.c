@@ -14,10 +14,10 @@
 
 void	my_exit(char **line)
 {
-	if (ft_strcmp(line[0], "exit") == 0 && !line[1])
+	if (!line[1])
 	{
 		ft_putstr_fd("exit\n", 1);
-		exit (0);
+		exit (1);
 	}
 	else if (line[1])
 	{
@@ -29,13 +29,13 @@ void	my_exit(char **line)
 			ft_putstr_fd(": numeric argument required\n", 2);
 			exit (255);
 		}
-		else if (line[2] && line[1])
+		else if (line[2])
 		{
 			ft_putstr_fd("exit\n", 1);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 			return ;
 		}
-		else if(line[0] && line[1])
+		else
 		{
 			ft_putstr_fd("exit\n", 1);
 			exit(ft_atoi(line[1]));

@@ -2,9 +2,9 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+#CFLAGS = -Wall -Werror -Wextra
 
-#CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
 
 RM = rm -rf
 
@@ -13,7 +13,6 @@ C_FILES = builtins/echo.c\
 					builtins/pwd.c\
 					builtins/env.c\
 					builtins/export.c\
-					builtins/unset.c\
 					builtins/exit.c\
 					libft/ft_split.c\
 					libft/libft.c\

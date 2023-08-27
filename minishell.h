@@ -55,7 +55,7 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 //my_libft_helper
 char *strback(char *line);
-void	ft_free(char **arr);
+void	ft_str_free(char **arr);
 int		len_arr(char **arr);
 
 #endif

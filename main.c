@@ -37,8 +37,6 @@ void	execute_builtin(char **line, t_data *data)
 		my_pwd();
 	else if (ft_strcmp(line[0], "export") == 0)
 		my_export(line, data);
-	else if (ft_strcmp(line[0], "unset") == 0)
-		my_unset(line, data);
 	else if (ft_strcmp(line[0], "env") == 0)
 		my_env(data);
 	else if (ft_strcmp(line[0], "exit") == 0)
@@ -81,13 +79,14 @@ int main(int ac, char *av[], char **env)
 	while (1)
 	{
 		line = readline("minishell: ");
-		if (line == NULL)
-			return (0);
+		if (ft_strcmp(line, "") == 0)
+			continue ;
 		sline = ft_split(line);
 		add_history(line);
 		if (is_builtin(sline) == 1)
 			execute_builtin(sline, &data);
 		free(line);
+		ft_str_free(sline);
 	}
 	return (0);
 }

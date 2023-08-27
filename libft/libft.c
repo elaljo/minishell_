@@ -104,7 +104,7 @@ int	ft_isalnum(char *c)
 		if ((c[i] >= '0' && c[i] <= '9')
 			|| (c[i] >= 'a' && c[i] <= 'z')
 			|| (c[i] >= 'A' && c[i] <= 'Z')
-			|| c[i] == '=')
+			|| c[i] == '=' || c[i] == '_')
 			i++;
 		else
 			return (1);
