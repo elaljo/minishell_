@@ -28,7 +28,7 @@ void	handle_my_echo(char **line)
 	int	i;
 
 	i = 1;
-	if(line[i] && line[i][0] == '-' && line[i][1] == 'n')
+	if (line[i] && line[i][0] == '-' && line[i][1] == 'n')
 		my_echo(line, i + 1);
 	else if (line[i])
 	{
@@ -38,4 +38,3 @@ void	handle_my_echo(char **line)
 	else
 		printf("\n");
 }
-

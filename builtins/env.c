@@ -12,10 +12,10 @@
 
 #include "../minishell.h"
 
-void copy_env(t_data *data, char **env)
+void	copy_env(t_data *data, char **env)
 {
 	int	i;
-	
+
 	while (env[data->len_env] != NULL)
 		data->len_env++;
 	data->c_env = ft_calloc(data->len_env + 1, sizeof(char *));
@@ -29,12 +29,12 @@ void copy_env(t_data *data, char **env)
 
 void	my_env(t_data *data)
 {
-	int	i; 
-	
+	int	i;
+
 	i = 0;
 	while (data->c_env[i] != NULL)
 	{
-		if(ft_search(data->c_env[i], '=') == 1)
+		if (ft_search(data->c_env[i], '=') == 1)
 			printf("%s\n", data->c_env[i]);
 		i++;
 	}

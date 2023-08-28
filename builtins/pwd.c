@@ -14,7 +14,7 @@
 
 void	my_pwd(void)
 {
-	char c_dir[256];
+	char	c_dir[256];
 
 	if (getcwd(c_dir, sizeof(c_dir)) != NULL)
 		printf("%s\n", c_dir);

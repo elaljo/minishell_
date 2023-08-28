@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-size_t ft_strlen(char *s)
+size_t	ft_strlen(char *s)
 {
 	int	i;
 
@@ -82,7 +82,7 @@ char	*ft_strdup(char *str)
 	if (!str)
 		return (NULL);
 	l = ft_strlen(str);
-	ptr = (char *)ft_calloc(l + 1 , sizeof(char));
+	ptr = (char *)ft_calloc(l + 1, sizeof(char));
 	if (!ptr)
 		return (NULL);
 	i = 0;
@@ -92,29 +92,4 @@ char	*ft_strdup(char *str)
 		i++;
 	}
 	return (ptr);
-}
-
-int	ft_isalnum(char *c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i])
-	{
-		if ((c[i] >= '0' && c[i] <= '9')
-			|| (c[i] >= 'a' && c[i] <= 'z')
-			|| (c[i] >= 'A' && c[i] <= 'Z')
-			|| c[i] == '=' || c[i] == '_')
-			i++;
-		else
-			return (1);
-	}
-	return (0);
-}
-
-int	ft_isalpha(char c)
-{
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
-		return (0);
-	return (1);
 }

@@ -14,8 +14,8 @@
 
 void	my_cd(char **line)
 {
-	char *home_dir;
-	int	check;
+	char	*home_dir;
+	int		check;
 
 	check = 0;
 	home_dir = getenv("HOME");
@@ -24,10 +24,10 @@ void	my_cd(char **line)
 	else
 		check = chdir(line[1]);
 	if (check != 0)
-		{
-			ft_putstr_fd("minishell: cd: ", 2);
-			ft_putstr_fd(line[1], 2);
-			ft_putstr_fd(": ", 2);
-			perror(line[2]);
-		}
+	{
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(line[1], 2);
+		ft_putstr_fd(": ", 2);
+		perror(line[2]);
+	}
 }

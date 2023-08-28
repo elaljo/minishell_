@@ -12,13 +12,13 @@
 
 #include "../minishell.h"
 
-char *strback(char *line)
+char	*strback(char *line)
 {
-	int	i;
-	char *dest;
+	int		i;
+	char	*dest;
 
 	i = 0;
-	while(line[i] != '=' && line[i])
+	while (line[i] != '=' && line[i])
 		i++;
 	dest = (char *)calloc(i + 1, sizeof(char));
 	if (!dest)
@@ -85,27 +85,4 @@ int	ft_search(char *line, char space)
 		i++;
 	}
 	return (0);
-}
-
-int	len_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while(arr && arr[i])
-		i++;
-	return (i);
-}
-
-void ft_str_free(char **s)
-{
-	int	i;
-
-	i = 0;
-	while(s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
 }

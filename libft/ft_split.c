@@ -12,12 +12,12 @@
 
 #include "../minishell.h"
 
-int is_delimiter(char c)
+int	is_delimiter(char c)
 {
 	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-int words_len(char *s)
+int	words_len(char *s)
 {
 	int	i;
 	int	len;

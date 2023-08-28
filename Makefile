@@ -11,12 +11,14 @@ RM = rm -rf
 C_FILES = builtins/echo.c\
 					builtins/cd.c\
 					builtins/pwd.c\
-					builtins/env.c\
 					builtins/export.c\
+					builtins/unset.c\
+					builtins/env.c\
 					builtins/exit.c\
 					libft/ft_split.c\
 					libft/libft.c\
 					libft/libft_2.c\
+					libft/libft_3.c\
 					main.c\
 
 OBJ = ${C_FILES:.c=.o}
