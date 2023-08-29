@@ -20,7 +20,7 @@ char	*strback(char *line)
 	i = 0;
 	while (line[i] != '=' && line[i])
 		i++;
-	dest = (char *)calloc(i + 1, sizeof(char));
+	dest = (char *)ft_calloc(i + 1, sizeof(char));
 	if (!dest)
 		return (NULL);
 	i = 0;

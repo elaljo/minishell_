@@ -23,7 +23,7 @@ void	get_key(t_data *data, int n_arg)
 {
 	int	i;
 
-	data->key_env = realloc(data->key_env, sizeof(char *)
+	data->key_env = realloc(data->key_env, sizeof(char *) ////
 			* (len_arr(data->c_env) + n_arg + 1));
 	i = 0;
 	while (data->c_env[i] != NULL)
@@ -31,7 +31,7 @@ void	get_key(t_data *data, int n_arg)
 		data->key_env[i] = ft_strdup(strback(data->c_env[i]));
 		i++;
 	}
-	data->key_env[i] = 0;
+	data->key_env[i] = NULL;
 }
 
 int	same_key(t_data *data, char *line)

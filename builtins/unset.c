@@ -26,6 +26,7 @@ void	remove_key(t_data *data, char *line)
 	i = 0;
 	while (data->key_env[i] != NULL)
 	{
+		get_key(data, 0);
 		if (ft_strcmp(line, data->key_env[i]) == 0)
 		{
 			while (data->c_env[i] != NULL)
@@ -53,20 +54,16 @@ int	count_arg_un(char **line)
 void	my_unset(char **line, t_data *data)
 {
 	int	arg;
-	int	p;
 
 	get_key(data, 0);
 	arg = count_arg_un(line);
-	p = arg;
-	arg = 1;
-	while (p != 0)
+	while (arg != 0)
 	{
 		if (ft_isalpha(strback(line[arg])[0]) || ft_isalnum(strback(line[arg]))
 			|| ft_search(line[arg], '='))
 			print_not_identifier_un(line[arg]);
 		else
 			remove_key(data, line[arg]);
-		p--;
-		arg++;
+		arg--;
 	}
 }
