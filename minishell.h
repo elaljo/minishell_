@@ -18,6 +18,8 @@
 # include <stdlib.h> //get_env()
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h> //wait()
+# include	<dirent.h> //opendir()
 
 typedef struct s_data
 {
@@ -26,8 +28,15 @@ typedef struct s_data
 	char	**key_env;
 }t_data;
 
-void	init_data(t_data *data);
+typedef struct s_cmd
+{
+	char *cmd;
+	char **cmd_args;
+	char *path;
+	char **split_cmd;
+}t_cmd;
 
+void	init_data_structs(t_data *data, t_cmd *cmd);
 void	copy_env(t_data *data, char **env);
 void	execute_builtin(char **line, t_data *data);
 int		is_builtin(char **line);
@@ -39,6 +48,15 @@ void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char **line);
+
+//execute_cmd
+void	found_cmd(char **line, t_cmd *cmd, char **env);
+void	get_path(char **env, t_cmd *cmd);
+void	split_path (char **line, t_cmd *cmd);
+char	*check_if_valid_cmd(t_cmd *cmd);
+void	execute_cmd(char **line, t_cmd *cmd);
+void	open_dir_err(char **line);
+void	already_valid_path_exec(char **line);
 
 //	builtins
 void	my_echo(char **args, int i);
@@ -60,6 +78,8 @@ char	**ft_split(char *str);
 char	*ft_strdup(char *str);
 int		ft_atoi(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(char *s);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_search(char *line, char space);

@@ -14,7 +14,7 @@
 
 int	is_delimiter(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n');
+	return (c == ' ' || c == '\t' || c == '\n' || c == ':');
 }
 
 int	words_len(char *s)

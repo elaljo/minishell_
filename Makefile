@@ -19,6 +19,9 @@ C_FILES = builtins/echo.c\
 					libft/libft.c\
 					libft/libft_2.c\
 					libft/libft_3.c\
+					builtin_work.c\
+					execute_cmd.c\
+					execute_cmd_helper.c\
 					main.c\
 
 OBJ = ${C_FILES:.c=.o}

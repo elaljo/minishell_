@@ -30,7 +30,7 @@ void	my_exit(char **line)
 	}
 	else if (line[1])
 	{
-		if (valid_num(line[1]) == 0)
+		if (valid_num(line[1]) == 0 || (ft_strlen(line[1]) == 19))
 			print_if_exit_valid(line);
 		else if (line[2])
 		{
