@@ -45,8 +45,10 @@ int	main(int ac, char *av[], char **env)
 		add_history(line);
 		if (is_builtin(sline) == 1)
 			execute_builtin(sline, &data);
+		else if (is_pipe(sline) == 1)
+			execute_pipe(sline, &cmd, env);
 		else
-			found_cmd(sline, &cmd, env);
+			found_cmd(sline, &cmd, env, 0);
 		free(line);
 		ft_str_free(sline);
 	}

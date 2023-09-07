@@ -30,10 +30,11 @@ typedef struct s_data
 
 typedef struct s_cmd
 {
-	char *cmd;
-	char **cmd_args;
-	char *path;
-	char **split_cmd;
+	char	*cmd;
+	char	**cmd_args;
+	char	*path;
+	char	**split_cmd;
+	int		op_pipe;
 }t_cmd;
 
 void	init_data_structs(t_data *data, t_cmd *cmd);
@@ -50,13 +51,18 @@ void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char **line);
 
 //execute_cmd
-void	found_cmd(char **line, t_cmd *cmd, char **env);
+void	found_cmd(char **line, t_cmd *cmd, char **env, int op);
 void	get_path(char **env, t_cmd *cmd);
-void	split_path (char **line, t_cmd *cmd);
+void	split_path (char **line, t_cmd *cmd, int op);
 char	*check_if_valid_cmd(t_cmd *cmd);
-void	execute_cmd(char **line, t_cmd *cmd);
-void	open_dir_err(char **line);
-void	already_valid_path_exec(char **line);
+void	execute_cmd(char **line, t_cmd *cmd, int op);
+void	open_dir_err(char **line, int op);
+void	already_valid_path_exec(char **line, int op);
+
+//execute_pipe
+int		is_pipe(char **line);
+void	execute_pipe(char **line, t_cmd *cmd, char **env);
+int		how_many_pipes(char **line);
 
 //	builtins
 void	my_echo(char **args, int i);
