@@ -6,11 +6,11 @@
 /*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:04:54 by moelalj           #+#    #+#             */
-/*   Updated: 2023/09/04 18:04:54 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/09/09 17:09:56 by moelalj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	valid_num(char *str)
 {
