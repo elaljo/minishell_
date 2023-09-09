@@ -22,9 +22,7 @@ C_FILES = builtins/echo.c\
 					builtin_work.c\
 					execute_cmd.c\
 					execute_cmd_helper.c\
-					pipe_work.c\
 					main.c\
-					#pipe_work_helper.c\
 
 OBJ = ${C_FILES:.c=.o}
 

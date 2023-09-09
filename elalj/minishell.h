@@ -59,11 +59,6 @@ void	execute_cmd(char **line, t_cmd *cmd, int op);
 void	open_dir_err(char **line, int op);
 void	already_valid_path_exec(char **line, int op);
 
-//execute_pipe
-int		is_pipe(char **line);
-void	execute_pipe(char **line, t_cmd *cmd, char **env);
-int		how_many_pipes(char **line);
-
 //	builtins
 void	my_echo(char **args, int i);
 void	handle_my_echo(char **line);
