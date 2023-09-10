@@ -51,20 +51,14 @@ t_cmd	*expandables(t_cmd *cmds)
 	char *tmp;
 	
 	i = 0;
-	printf ("----------------------> %d \n", cmds->nbr);
+	//printf ("----------------------> %d \n", cmds->nbr);
 	while (i < cmds->nbr)
 	{
 		if (check_quoted(cmds[i].cmd) == 1)
 		{
-<<<<<<< HEAD:minishell/houmam/6_expand_p1.c
 			//printf("99999\n\n\n\n");
 			handle_quoted(cmds[i].cmd);
 			//printf("handle_quoted ******* %s\n", cmds[i].cmd);
-=======
-			// printf("99999\n\n\n\n");
-			handle_quoted(cmds[i].cmd);
-			// printf("handle_quoted ******* %s\n", cmds[i].cmd);
->>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/6_expand_p1.c
 		}
 		tmp = ft_strdup(cmds[i].cmd);
 		free(cmds[i].cmd);

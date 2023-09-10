@@ -155,11 +155,8 @@ char	**split(char *str)
 			ndx.i++;
 	}
 	tab[ndx.j] = NULL;
-<<<<<<< HEAD:minishell/houmam/4_split_cmd.c
 	//printf("split done\n");
-=======
 	// printf("split done\n");
->>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/4_split_cmd.c
 	return (tab);
 }
 

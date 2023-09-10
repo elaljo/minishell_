@@ -52,18 +52,18 @@ int	same_key(t_data *data, char *line)
 	return (0);
 }
 
-void	if_there_var(char **line, t_data *data)
+void	if_there_var(t_cmd *cmd, t_data *data)
 {
 	int	n_arg;
 	int	i;
 	int	len_env;
 
 	len_env = len_arr(data->c_env);
-	i = 1;
+	i = 0;
 	n_arg = 0;
-	while (line[i] != NULL)
+	while (cmd[0].args[i] != NULL)
 	{
-		if (ft_isalnum(strback(line[i])) || ft_isalpha(strback(line[i])[0]))
+		if (ft_isalnum(strback(cmd[0].args[i])) || ft_isalpha(strback(cmd[0].args[i])[0]))
 			i++;
 		else
 		{
@@ -71,26 +71,25 @@ void	if_there_var(char **line, t_data *data)
 			i++;
 		}
 	}
-	i--;
 	data->c_env = realloc(data->c_env, sizeof(char *) * (len_env + n_arg + 1));
 	int	p = i;
-	i = 1;
+	i = 0;
 	while (p != 0)
 	{
-		if (ft_isalpha(strback(line[i])[0]) || ft_isalnum(strback(line[i])))
+		if (ft_isalpha(strback(cmd[0].args[i])[0]) || ft_isalnum(strback(cmd[0].args[i])))
 		{
-			print_not_identifier_ex(line[i]);
+			print_not_identifier_ex(cmd[0].args[i]);
 			i++;
 			p--;
 		}
-		else if (same_key(data, line[i]) == 1)
+		else if (same_key(data, cmd[0].args[i]) == 1)
 		{
 			i++;
 			p--;
 		}
 		else
 		{
-			data->c_env[len_env] = ft_strdup(line[i]);
+			data->c_env[len_env] = ft_strdup(cmd[0].args[i]);
 			data->c_env[len_env + 1] = NULL;
 			i++;
 			p--;
@@ -100,7 +99,7 @@ void	if_there_var(char **line, t_data *data)
 	}
 }
 
-void	my_export(char **line, t_data *data)
+void	my_export(t_cmd *cmd, t_data *data)
 {
 	int	i;
 	int	j;
@@ -108,7 +107,7 @@ void	my_export(char **line, t_data *data)
 
 	check = 0;
 	i = 0;
-	if (line[0] && !line[1])
+	if (cmd[0].cmd && !cmd[0].args[0])
 	{
 		while (data->c_env[i] != NULL)
 		{
@@ -133,5 +132,5 @@ void	my_export(char **line, t_data *data)
 		get_key(data, 0);
 	}
 	else
-		if_there_var(line, data);
+		if_there_var(cmd, data);
 }

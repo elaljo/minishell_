@@ -40,30 +40,29 @@ void	remove_key(t_data *data, char *line)
 	}
 }
 
-int	count_arg_un(char **line)
+int	count_arg_un(t_cmd *cmd)
 {
 	int	arg;
 
-	arg = 1;
-	while (line[arg] != NULL)
+	arg = 0;
+	while (cmd[0].args[arg] != NULL)
 		arg++;
-	arg--;
 	return (arg);
 }
 
-void	my_unset(char **line, t_data *data)
+void	my_unset(t_cmd *cmd, t_data *data)
 {
 	int	arg;
 
 	get_key(data, 0);
-	arg = count_arg_un(line);
+	arg = count_arg_un(cmd);
 	while (arg != 0)
 	{
-		if (ft_isalpha(strback(line[arg])[0]) || ft_isalnum(strback(line[arg]))
-			|| ft_search(line[arg], '='))
-			print_not_identifier_un(line[arg]);
+		if (ft_isalpha(strback(cmd[0].args[arg - 1])[0]) || ft_isalnum(strback(cmd[0].args[arg - 1]))
+			|| ft_search(cmd[0].args[arg - 1], '='))
+			print_not_identifier_un(cmd[0].args[arg - 1]);
 		else
-			remove_key(data, line[arg]);
+			remove_key(data, cmd[0].args[arg - 1]);
 		arg--;
 	}
 }

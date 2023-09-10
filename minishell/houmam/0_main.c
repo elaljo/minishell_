@@ -12,7 +12,6 @@
 
 #include "../minishell.h"
 
-<<<<<<< HEAD:minishell/houmam/0_main.c
 int main(int ac, char *av[], char **env)
 {
 	t_cmd	*cmds;
@@ -37,35 +36,33 @@ int main(int ac, char *av[], char **env)
 		splitted_cmds = split(input_string);
 		cmds = get_cmds(splitted_cmds);
 		cmds_expanded = expandables(cmds);
-		int i = 0;
-		while (i < cmds_expanded->nbr)
-		{
-			printf("command (%d)= %s\n",i,  cmds_expanded[i].cmd);
-			i++;
-		}
-		//printf("command= %s\n", cmds_expanded->cmd);
-		i = 0;
-		while (i < cmds_expanded->nbr)
-		{
-			int j = 0;
-			while (cmds_expanded[i].args[j] != NULL)
-			{
-				printf("commande(%d)arguments(%d)-> %s\n", i, j,cmds_expanded[i].args[j]);
-				j++;
-			}
-			i++;
-		}
-		//if (is_builtin(cmds_expanded) == 1) //etiha struct dyal cmds li mexpandiyin
-			//execute_builtin(cmds_expanded, &data);
+		//printf("---------- %s\n", cmds_expanded[0].args[0]);
+		//int i = 0;
+		//while (i < cmds_expanded->nbr)
+		//{
+		//	printf("command (%d)= %s\n",i,  cmds_expanded[i].cmd);
+		//	i++;
+		//}
+		//i = 0;
+		//while (i < cmds_expanded->nbr)
+		//{
+		//	int j = 0;
+		//	while (cmds_expanded[i].args[j] != NULL)
+		//	{
+		//		printf("commande(%d)arguments(%d)-> %s\n", i, j,cmds_expanded[i].args[j]);
+		//		j++;
+		//	}
+		//	i++;
+		//}
+		if (is_builtin(cmds_expanded) == 1)
+			execute_builtin(cmds_expanded, &data);
 		//else
 		//	found_cmd(splitted_cmds, cmds_expanded, env, 0);
-		free(input_string);
-		ft_str_free(splitted_cmds);
-
 	}
+	free(input_string);
+	ft_str_free(splitted_cmds);
 	return (EXIT_SUCCESS);
 }
-=======
 // int main()
 // {
 // 	char	*input_string;
@@ -92,4 +89,3 @@ int main(int ac, char *av[], char **env)
 // 		cmds_expanded = expandables(cmds);
 // 	}
 // }
->>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/0_main.c

@@ -101,10 +101,10 @@ typedef struct s_data
 
 void	init_data_structs(t_data *data);
 void	copy_env(t_data *data, char **env);
-void	execute_builtin(char **line, t_data *data);
-int		is_builtin(char **line);
+void	execute_builtin(t_cmd *cmd, t_data *data);
+int		is_builtin(t_cmd *cmd);
 int		valid_num(char *str);
-void	if_there_var(char **line, t_data *data);
+void	if_there_var(t_cmd *cmd, t_data *data);
 void	print_not_identifier_ex(char *line);
 void	print_not_identifier_un(char *line);
 void	get_key(t_data *data, int n_arg);
@@ -122,12 +122,12 @@ void	open_dir_err(char **line, int op);
 void	already_valid_path_exec(char **line, int op);
 
 //	builtins
-void	my_echo(char **args, int i);
-void	handle_my_echo(char **line);
-void	my_cd(char **line);
+void	my_echo(t_cmd *cmd, int i);
+void	handle_my_echo(t_cmd *cmd);
+void	my_cd(t_cmd	*cmd);
 void	my_pwd(void);
-void	my_export(char **line, t_data *data);
-void	my_unset(char **line, t_data *data);
+void	my_export(t_cmd *cmd, t_data *data);
+void	my_unset(t_cmd *cmd, t_data *data);
 void	my_env(t_data *data);
 void	my_exit(char **line);
 
