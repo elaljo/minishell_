@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/09 15:55:46 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:34:15 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int count_cmds(char **tab)
 			cnt++;
 		i++;
 	}
+<<<<<<< HEAD:minishell/houmam/5_get_cmds.c
 	//printf ("(((((((((%d)))))))))\n", cnt);
+=======
+	// printf ("(((((((((%d)))))))))\n", cnt);
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/5_get_cmds.c
 	return (cnt);
 }
 /**
@@ -56,7 +60,11 @@ t_cmd	*get_cmds(char **tab)
 	int		nbr;
 
 	nbr = count_cmds(tab);
+<<<<<<< HEAD:minishell/houmam/5_get_cmds.c
 	//printf("*=**=* %d\n", nbr);
+=======
+	// printf("*=**=* %d\n", nbr);
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/5_get_cmds.c
 	cmds = malloc((nbr) * sizeof(t_cmd));
 	i = 0;
 	j = 0;
@@ -72,7 +80,11 @@ t_cmd	*get_cmds(char **tab)
 		{
 			cmds[j].nbr = nbr;
 			cmds[j].cmd = ft_strdup(tab[i]);
+<<<<<<< HEAD:minishell/houmam/5_get_cmds.c
 			//printf("get cmd --< cmd >>>> %s *\n", cmds[j].cmd);
+=======
+			// printf("get cmd --< cmd >>>> %s *\n", cmds[j].cmd);
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/5_get_cmds.c
 			cmds[j].args = malloc(sizeof(char *));
 			cmds[j].args[0] = NULL;
 			j++;
@@ -82,14 +94,22 @@ t_cmd	*get_cmds(char **tab)
 		{
 			cmds[j].nbr = nbr;
 			cmds[j].cmd = ft_strdup(tab[i]);
+<<<<<<< HEAD:minishell/houmam/5_get_cmds.c
 			//printf("get cmd (%d) --< cmd >>>> %s *\n",j, cmds[j].cmd);
+=======
+			// printf("get cmd (%d) --< cmd >>>> %s *\n",j, cmds[j].cmd);
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/5_get_cmds.c
 			i++;
 			cmds[j].args = malloc((commande_len) * sizeof(char *));
 			k = 0;
 			while (k < commande_len - 1)
 			{
 				cmds[j].args[k] = ft_strdup(tab[i]);
+<<<<<<< HEAD:minishell/houmam/5_get_cmds.c
 				//printf("get cmd(%d) --< args(%d) >>>> %s *\n",j, k, cmds[j].args[k]);
+=======
+				// printf("get cmd(%d) --< args(%d) >>>> %s *\n",j, k, cmds[j].args[k]);
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/5_get_cmds.c
 				k++;
 				i++;
 			}

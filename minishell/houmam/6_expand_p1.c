@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:46 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/09 16:27:04 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:36:07 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,15 @@ t_cmd	*expandables(t_cmd *cmds)
 	{
 		if (check_quoted(cmds[i].cmd) == 1)
 		{
+<<<<<<< HEAD:minishell/houmam/6_expand_p1.c
 			//printf("99999\n\n\n\n");
 			handle_quoted(cmds[i].cmd);
 			//printf("handle_quoted ******* %s\n", cmds[i].cmd);
+=======
+			// printf("99999\n\n\n\n");
+			handle_quoted(cmds[i].cmd);
+			// printf("handle_quoted ******* %s\n", cmds[i].cmd);
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/6_expand_p1.c
 		}
 		tmp = ft_strdup(cmds[i].cmd);
 		free(cmds[i].cmd);

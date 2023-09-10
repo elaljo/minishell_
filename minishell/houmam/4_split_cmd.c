@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:07:17 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/09 16:10:29 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:32:57 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,11 @@ char	**split(char *str)
 			ndx.i++;
 	}
 	tab[ndx.j] = NULL;
+<<<<<<< HEAD:minishell/houmam/4_split_cmd.c
 	//printf("split done\n");
+=======
+	// printf("split done\n");
+>>>>>>> f42cee2e55e76f4b3ab905f32f9c285d8852cfb4:houmam/4_split_cmd.c
 	return (tab);
 }
 
