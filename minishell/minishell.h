@@ -12,7 +12,7 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+//ellajjj
 # include <stdio.h>
 #	include <string.h>
 # include <unistd.h> //fork() getcwd() chdir()
