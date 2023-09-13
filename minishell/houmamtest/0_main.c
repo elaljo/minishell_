@@ -28,8 +28,8 @@ int main()
 			continue ;
 		if (only_spaces(input_string) == 0)
 			continue ;
-		if (ft_strcmp(input_string, "exit") == 0)
-			exit(0); 
+		// if (ft_strcmp(input_string, "exit") == 0)
+		// 	exit(0); 
 		// printf("%s\n", input_string);
 		splitted_cmds = split(input_string);
 		// printf("**************\n");
@@ -37,4 +37,17 @@ int main()
 		// printf("***********=====\n");
 		cmds_expanded = expandables(cmds);
 	}
+	free(input_string);
+	int i = 0;
+	while (splitted_cmds[i])
+	{
+		free(splitted_cmds[i]);
+		i++;
+	}
+	// i = 0;
+	// while (i )
+	// {
+	// 	free(cmds[i]);
+	// 	i++;
+	// }
 }
