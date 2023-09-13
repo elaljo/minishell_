@@ -110,7 +110,7 @@ void	print_not_identifier_un(char *line);
 void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
-void	print_if_exit_valid(char **line);
+void	print_if_exit_valid(char *line);
 
 //execute_cmd
 void	found_cmd(char **line, t_cmd *cmd, char **env, int op);
@@ -129,7 +129,7 @@ void	my_pwd(void);
 void	my_export(t_cmd *cmd, t_data *data);
 void	my_unset(t_cmd *cmd, t_data *data);
 void	my_env(t_data *data);
-void	my_exit(char **line);
+void	my_exit(t_cmd *cmd);
 
 //			split
 int		is_delimiter(char c);

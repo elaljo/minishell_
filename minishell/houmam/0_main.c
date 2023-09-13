@@ -37,23 +37,23 @@ int main(int ac, char *av[], char **env)
 		cmds = get_cmds(splitted_cmds);
 		cmds_expanded = expandables(cmds);
 		//printf("---------- %s\n", cmds_expanded[0].args[0]);
-		//int i = 0;
-		//while (i < cmds_expanded->nbr)
-		//{
-		//	printf("command (%d)= %s\n",i,  cmds_expanded[i].cmd);
-		//	i++;
-		//}
-		//i = 0;
-		//while (i < cmds_expanded->nbr)
-		//{
-		//	int j = 0;
-		//	while (cmds_expanded[i].args[j] != NULL)
-		//	{
-		//		printf("commande(%d)arguments(%d)-> %s\n", i, j,cmds_expanded[i].args[j]);
-		//		j++;
-		//	}
-		//	i++;
-		//}
+		int i = 0;
+		while (i < cmds_expanded->nbr)
+		{
+			printf("command (%d)= %s\n",i,  cmds_expanded[i].cmd);
+			i++;
+		}
+		i = 0;
+		while (i < cmds_expanded->nbr)
+		{
+			int j = 0;
+			while (cmds_expanded[i].args[j] != NULL)
+			{
+				printf("commande(%d)arguments(%d)-> %s\n", i, j,cmds_expanded[i].args[j]);
+				j++;
+			}
+			i++;
+		}
 		if (is_builtin(cmds_expanded) == 1)
 			execute_builtin(cmds_expanded, &data);
 		//else

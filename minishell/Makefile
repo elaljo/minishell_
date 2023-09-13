@@ -35,7 +35,7 @@ OBJ = ${C_FILES:.c=.o}
 all: ${NAME}
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) -lreadline $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lreadline
 
 clean:
 	${RM} ${OBJ}
