@@ -22,10 +22,10 @@ void	init_data_structs(t_data *data)
 	//cmd->path = NULL;
 	//cmd->split_cmd = NULL;
 }
-void	open_dir_err(char **line, int op)
+void	open_dir_err(t_cmd *cmd, int i)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(line[op], 2);
+	ft_putstr_fd(cmd[i].cmd, 2);
 	ft_putstr_fd(": is a directory\n", 2);
 }
 

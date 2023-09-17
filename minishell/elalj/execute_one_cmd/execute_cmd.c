@@ -28,7 +28,7 @@ void	get_path(char **env, t_cmd *cmd)
 	}
 }
 
-void	split_path(char **line, t_cmd *cmd, int op)
+void	split_path(t_cmd *cmd)
 {
 	int		i;
 
@@ -37,7 +37,7 @@ void	split_path(char **line, t_cmd *cmd, int op)
 	while (cmd->split_cmd[i] != NULL)
 	{
 		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], "/");
-		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], line[op]);
+		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], cmd[0].cmd);
 		i++;
 	}
 }
@@ -56,7 +56,7 @@ char	*check_if_valid_cmd(t_cmd *cmd)
 	return (NULL);
 }
 
-void	execute_cmd(char **line, t_cmd *cmd, int op)
+void	execute_cmd(char **line, t_cmd *cmd)
 {
 	int		pid_f;
 	char	*path;
@@ -65,7 +65,7 @@ void	execute_cmd(char **line, t_cmd *cmd, int op)
 	if (path == NULL)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(line[op], 2);
+		ft_putstr_fd(cmd[0].cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	else
@@ -80,22 +80,22 @@ void	execute_cmd(char **line, t_cmd *cmd, int op)
 	}
 }
 
-void	found_cmd(char **line, t_cmd *cmd, char **env, int op)
+void	found_cmd(char **line, t_cmd *cmd, char **env, int i)
 {
-	if (opendir(line[op]) != NULL)
-		open_dir_err(line, op);
-	else if (access(line[op], X_OK) == -1 && ft_search(line[op], '/'))
+	if (opendir(cmd[i].cmd) != NULL)
+		open_dir_err(cmd, i);
+	else if (access(cmd[i].cmd, X_OK) == -1 && ft_search(cmd[i].cmd, '/'))
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(line[op], 2);
+		ft_putstr_fd(cmd[i].cmd, 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
 	}
-	else if (access(line[op], X_OK) == 0 && ft_search(line[op], '/'))
-		already_valid_path_exec(line, op);
+	else if (access(cmd[i].cmd, X_OK) == 0 && ft_search(cmd[i].cmd, '/'))
+		already_valid_path_exec(line, i);
 	else
 	{
 		get_path(env, cmd);
-		split_path(line, cmd, op);
-		execute_cmd(line, cmd, op);
+		split_path(cmd);
+		execute_cmd(line, cmd);
 	}
 }

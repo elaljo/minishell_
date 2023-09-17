@@ -32,7 +32,7 @@ void	my_exit(t_cmd *cmd)
 	{
 		if (valid_num(cmd[0].args[0]) == 0 || (ft_strlen(cmd[0].args[0]) == 19))
 			print_if_exit_valid(cmd[0].args[0]);
-		else if (cmd)
+		else if (cmd[0].args[1])
 		{
 			ft_putstr_fd("exit\n", 1);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
