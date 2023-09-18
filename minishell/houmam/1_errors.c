@@ -10,15 +10,4 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-void	init_data_structs(t_data *data)
-{
-	data->c_env = NULL;
-	data->len_env = 0;
-	data->key_env = NULL;
-	//cmd->cmd = NULL;
-	//cmd->cmd_args = NULL;
-	//cmd->path = NULL;
-	//cmd->split_cmd = NULL;
-}
+#include "minishell.h"

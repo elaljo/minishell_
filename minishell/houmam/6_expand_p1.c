@@ -6,20 +6,22 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:46 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/09 18:36:07 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:14:22 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int check_quoted(char *str)
 {
 	int len = ft_strlen(str) - 1;
-	if (str[0] == '"' && str[len] == '"')
+	if (str[0] == '\'' && str[len] == '\'')
 		return (1);
+	if (str[0] == '"' && str[len] == '"')
+		return (2);
 	return (0);
 }
-void	handle_quoted(char *str)
+char	*handle_quoted(char *str)
 {
 	int i;
 	int j;
@@ -42,48 +44,5 @@ void	handle_quoted(char *str)
 		}
 		str[j] = '\0';
 	}
-}
-
-t_cmd	*expandables(t_cmd *cmds)
-{
-	int i;
-	int j;
-	char *tmp;
-	
-	i = 0;
-	//printf ("----------------------> %d \n", cmds->nbr);
-	while (i < cmds->nbr)
-	{
-		if (check_quoted(cmds[i].cmd) == 1)
-		{
-			//printf("99999\n\n\n\n");
-			handle_quoted(cmds[i].cmd);
-			//printf("handle_quoted ******* %s\n", cmds[i].cmd);
-		}
-		tmp = ft_strdup(cmds[i].cmd);
-		free(cmds[i].cmd);
-		cmds[i].cmd = ft_strdup(expand_variables(tmp));
-		free(tmp);
-		//printf("-> %s *\n", cmds[i].cmd);
-		i++;
-	}
-	i = 0;
-	while (i < cmds->nbr)
-	{
-		j = 0;
-		while (cmds[i].args[j] != NULL)
-		{
-			if (check_quoted(cmds[i].args[j]) == 1)
-				handle_quoted(cmds[i].args[j]);
-			tmp = ft_strdup(cmds[i].args[j]);
-			free(cmds[i].args[j]);
-			cmds[i].args[j] = ft_strdup(expand_variables(tmp));
-			free(tmp);
-			expand_variables(cmds[i].args[j]);
-			//printf("----> %s **\n", cmds[i].args[j]);
-			j++;
-		}
-		i++;
-	}
-	return (cmds);
+	return (str);
 }

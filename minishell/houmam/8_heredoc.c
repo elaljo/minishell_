@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 19:52:44 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/09 21:09:24 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/10 16:00:44 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,13 @@ void	ft_putstr_fd(int fd, char *str)
 		i++;
 	}
 }
-void	heredoc(char *eof)
+int	heredoc(char *eof)
 {
 	int fd[2];
 	char *input;
 	char *heredoc;
 
 	pipe(fd);
-	// int fd = open("heredoc.txt", O_RDWR | O_CREAT);
-	char *tmp1;
-	char *tmp2;
 	while (1)
 	{
 		input = readline("heredoc> ");
@@ -40,10 +37,15 @@ void	heredoc(char *eof)
 			break ;
 		ft_putstr_fd(fd[1], input);
 	}
-	dup2(fd[0], 0);
+	close(fd[1]);
+	return (fd[0]);
 }
 
-int main()
-{
-	heredoc("test");
-}
+// int main()
+// {
+// 	int fd = heredoc("test");
+// 	char str[100];
+// 	int r = read(fd, str, 20);
+// 	str[r] = 0;
+// 	printf("str: %s\n", str);
+// }

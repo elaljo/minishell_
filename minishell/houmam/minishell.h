@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/10 16:00:09 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/17 17:39:28 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,21 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+typedef struct s_redi
+{
+	char	*redi;//redirection and type will be defined later
+	char	*eof;//eof
+} t_redi;
+
 typedef struct s_cmd
 {
-	int		nbr;
-	char	*cmd;
-	char	**args;
-	// char	**redir;
-	// int		heredoc;
-	// struct s_cmd *next;
+	int		args_nbr;//che7al mn commande machi arg
+	char	**args;//command + args
+	t_redi	*redir;//redirections type + eof
+	int		redir_nbr;//redirection number
+	int		cmd_len;
+	// char	*path;
+	// char 	**split_cmd;
 } t_cmd;
 
 typedef	struct s_quote
@@ -78,10 +85,19 @@ char	*expand_variables(char* input);
 void	expand_variable(const char* var_name, char* expanded, size_t* j);
 int		is_alnum(char c);
 t_cmd	*expandables(t_cmd *cmds);
-void	handle_quoted(char *str);
-int check_quoted(char *str);
-int count_cmds(char **tab);
-int cmd_len(char **tab);
+char	*handle_quoted(char *str);
+int		check_quoted(char *str);
+int		count_cmds(char **tab);
+int		cmd_len(char **tab);
 t_cmd	*get_cmds(char **tab);
+int		cnt_redir(char **tab);
+int		cnt_exp(char *str);
+char    **quotes_split(char *str);
+int		cnt_dollars(char *str);
+int is_var(char c);
+char    **dollar_split(char *str);
+char    *expand_var(char *str);
+void    expander(t_cmd *cmd, int len);
+void    expand_all(t_cmd *cmds);
 
 #endif

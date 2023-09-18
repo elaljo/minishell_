@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int	count(char *str)
 {
@@ -99,7 +99,7 @@ char	**split(char *str)
 			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '|')
 			{
-				//printf("ana f pipe f %d\n", ndx.i);
+				printf("ana f pipe f %d\n", ndx.i);
 				handle_pipe(tab, &ndx);
 			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '>' && str[ndx.i + 1] && str[ndx.i + 1] != '>')
@@ -116,12 +116,12 @@ char	**split(char *str)
 			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '>' && str[ndx.i + 1] && str[ndx.i + 1] == '>')
 			{
-				//printf("ana f  >> f %d\n", ndx.i);
+				printf("ana f  >> f %d\n", ndx.i);
 				handle_redir(str, tab, &ndx, quote);
 			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '<' && str[ndx.i + 1] && str[ndx.i + 1] == '<')
 			{
-				//printf("ana f <redir >< f %d\n", ndx.i);
+				printf("ana f <redir >< f %d\n", ndx.i);
 				handle_redir(str, tab, &ndx, quote);
 			}
 			// else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && !str[ndx.i + 1] && str[ndx.i - 1] != '|' && str[ndx.i - 1] != ' ' && str[ndx.i - 1] != '\t' && str[ndx.i - 1] != '>' && str[ndx.i - 1] != '<')
@@ -148,14 +148,13 @@ char	**split(char *str)
 			ndx.i--;//hadi dernaha 7itach f had if kan incrementer ta kanl9a chi haja mn ghir space o mn mora makykhrej mn had condition kayna hadi if (str[ndx.i]) katzid t incrementer mara akhra o kan9adro nskipiw chi space o ndekhlo f word akhor
 			ndx.check_space = 0;
 		}
-		//printf("(%s)\n", tab[ndx.j]);
+		printf("(%s)\n", tab[ndx.j]);
 		ndx.j++;
 		// printf("the last start :-> %d\n", ndx.start);
 		if (str[ndx.i])
 			ndx.i++;
 	}
 	tab[ndx.j] = NULL;
-	//printf("split done\n");
 	// printf("split done\n");
 	return (tab);
 }

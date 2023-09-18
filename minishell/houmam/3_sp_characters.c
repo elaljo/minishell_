@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 {
@@ -20,7 +20,7 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = str[ndx->i + 1];
 		tab[ndx->j][2] = 0;
-		//printf("(%s)\n", tab[ndx->j]);
+		printf("(%s)\n", tab[ndx->j]);
 		ndx->j++;
 		ndx->i++;
 		ndx->start = ndx->i + 2;
@@ -31,7 +31,7 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j] = malloc(2 * sizeof(char));
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = 0;
-		//printf("(%s)\n", tab[ndx->j]);
+		printf("(%s)\n", tab[ndx->j]);
 		ndx->j++;
 		ndx->start = ndx->i + 2;
 		return (1);
@@ -44,7 +44,7 @@ int	handle_pipe(char **tab, t_ndx *ndx)
 	tab[ndx->j] = malloc(2 * sizeof(char));
 	tab[ndx->j][0] = '|';
 	tab[ndx->j][1] = '\0';
-	//printf("(%s)\n", tab[ndx->j]);
+	printf("(%s)\n", tab[ndx->j]);
 	(ndx->j)++;
 	ndx->i++;
 	ndx->start = ndx->i + 1;
