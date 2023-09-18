@@ -14,13 +14,14 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <dirent.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <dirent.h>
+# include <sys/wait.h>
 
 typedef struct s_redi
 {
@@ -120,13 +121,13 @@ void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char *line);
 
 //execute_cmd
-void	found_cmd(char **line, t_cmd *cmd, char **env, int op);
+void	found_cmd(t_cmd *cmd, char **env, int op);
 void	get_path(char **env, t_cmd *cmd);
 void	split_path (t_cmd *cmd);
 char	*check_if_valid_cmd(t_cmd *cmd);
 void	execute_cmd(t_cmd *cmd);
 void	open_dir_err(t_cmd *cmd, int op);
-void	already_valid_path_exec(char **line, int op);
+void	already_valid_path_exec(t_cmd *cmd, int op);
 
 //	builtins
 void	my_echo(t_cmd *cmd, int i);
@@ -137,6 +138,9 @@ void	my_export(t_cmd *cmd, t_data *data);
 void	my_unset(t_cmd *cmd, t_data *data);
 void	my_env(t_data *data);
 void	my_exit(t_cmd *cmd);
+
+//	signals
+void    signal_handler(int signum);
 
 //			split
 int		is_delimiter(char c);

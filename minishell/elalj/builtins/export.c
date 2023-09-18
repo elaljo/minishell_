@@ -56,35 +56,43 @@ void	if_there_var(t_cmd *cmd, t_data *data)
 {
 	int	n_arg;
 	int	i;
+	int	j;
 	int	len_env;
 
 	len_env = len_arr(data->c_env);
-	i = 0;
+	i = 1;
+	j = 0;
 	n_arg = 0;
 	while (cmd[0].args[i] != NULL)
 	{
 		if (ft_isalnum(strback(cmd[0].args[i])) || ft_isalpha(strback(cmd[0].args[i])[0]))
+		{
+			j++;
 			i++;
+		}
 		else
 		{
+			j++;
 			n_arg++;
 			i++;
 		}
 	}
 	data->c_env = realloc(data->c_env, sizeof(char *) * (len_env + n_arg + 1));
-	int	p = i;
-	i = 0;
+	int	p = j;
+	i = 1;
 	while (p != 0)
 	{
 		if (ft_isalpha(strback(cmd[0].args[i])[0]) || ft_isalnum(strback(cmd[0].args[i])))
 		{
 			print_not_identifier_ex(cmd[0].args[i]);
+			j++;
 			i++;
 			p--;
 		}
 		else if (same_key(data, cmd[0].args[i]) == 1)
 		{
 			i++;
+			j++;
 			p--;
 		}
 		else
@@ -92,6 +100,7 @@ void	if_there_var(t_cmd *cmd, t_data *data)
 			data->c_env[len_env] = ft_strdup(cmd[0].args[i]);
 			data->c_env[len_env + 1] = NULL;
 			i++;
+			j++;
 			p--;
 			len_env = len_arr(data->c_env);
 		}

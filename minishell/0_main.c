@@ -15,7 +15,6 @@
 int main(int ac, char *av[], char **env)
 {
 	t_cmd	*cmds;
-	// t_cmd	*cmds_expanded;
 	t_data data;
 	char	*input_string;
 	char	**splitted_cmds;
@@ -28,16 +27,16 @@ int main(int ac, char *av[], char **env)
 	data.key_env = ft_calloc(data.len_env + 1, sizeof(char *));
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		perror("signal");
-	// if (signal(SIGINT, signal_handler) == SIG_ERR)
-	// 	perror("signal");
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
+		perror("signal");
 	while (1)
 	{
 		input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
 		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		perror("signal");
-		// if (signal(SIGINT, signal_handler) == SIG_ERR)
-		// perror("signal");
+		if (signal(SIGINT, signal_handler) == SIG_ERR)
+		perror("signal");
 		if (!input_string)
 		{
 			printf("exit\n");
@@ -70,7 +69,7 @@ int main(int ac, char *av[], char **env)
 		if (is_builtin(cmds) == 1)
 			execute_builtin(cmds, &data);
 		else
-			found_cmd(splitted_cmds, cmds, env, 0);
+			found_cmd(cmds, env, 0);
 	}
 	free(input_string);
 	ft_str_free(splitted_cmds);

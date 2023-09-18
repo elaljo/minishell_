@@ -80,7 +80,7 @@ void	execute_cmd(t_cmd *cmd)
 	}
 }
 
-void	found_cmd(char **line, t_cmd *cmd, char **env, int i)
+void	found_cmd(t_cmd *cmd, char **env, int i)
 {
 	if (opendir(cmd[i].args[0]) != NULL)
 		open_dir_err(cmd, i);
@@ -91,7 +91,7 @@ void	found_cmd(char **line, t_cmd *cmd, char **env, int i)
 		ft_putstr_fd(": no such file or directory\n", 2);
 	}
 	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
-		already_valid_path_exec(line, i);
+		already_valid_path_exec(cmd, i);
 	else
 	{
 		get_path(env, cmd);

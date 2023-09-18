@@ -23,16 +23,16 @@ void	print_if_exit_valid(char *line)
 
 void	my_exit(t_cmd *cmd)
 {
-	if (!cmd[0].args[0])
+	if (cmd[0].args[0] && !cmd[0].args[1])
 	{
 		ft_putstr_fd("exit\n", 1);
-		exit (1);
+		exit (0);
 	}
-	else if (cmd[0].args[0])
+	else if (cmd[0].args[1])
 	{
-		if (valid_num(cmd[0].args[0]) == 0 || (ft_strlen(cmd[0].args[0]) == 19))
-			print_if_exit_valid(cmd[0].args[0]);
-		else if (cmd[0].args[1])
+		if (valid_num(cmd[0].args[1]) == 0 || (ft_strlen(cmd[0].args[1]) == 19))
+			print_if_exit_valid(cmd[0].args[1]);
+		else if (cmd[0].args[2])
 		{
 			ft_putstr_fd("exit\n", 1);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
@@ -41,7 +41,7 @@ void	my_exit(t_cmd *cmd)
 		else
 		{
 			ft_putstr_fd("exit\n", 1);
-			exit(ft_atoi(cmd[0].args[0]));
+			exit(ft_atoi(cmd[0].args[1]));
 		}
 	}
 }

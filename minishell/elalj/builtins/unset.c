@@ -44,7 +44,7 @@ int	count_arg_un(t_cmd *cmd)
 {
 	int	arg;
 
-	arg = 0;
+	arg = 1;
 	while (cmd[0].args[arg] != NULL)
 		arg++;
 	return (arg);

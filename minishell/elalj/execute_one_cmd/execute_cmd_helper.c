@@ -29,7 +29,7 @@ void	open_dir_err(t_cmd *cmd, int i)
 	ft_putstr_fd(": is a directory\n", 2);
 }
 
-void	already_valid_path_exec(char **line, int op)
+void	already_valid_path_exec(t_cmd *cmd, int op)
 {
 	int	pid_f;
 
@@ -38,7 +38,7 @@ void	already_valid_path_exec(char **line, int op)
 		perror("fork");
 	else if (pid_f == 0)
 	{
-		if (execve(line[op], line, NULL) == -1)
+		if (execve(cmd[op].args[0], cmd[op].args, NULL) == -1)
 			perror("execve");
 	}
 	else

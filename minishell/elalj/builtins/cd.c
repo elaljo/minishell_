@@ -19,20 +19,13 @@ void	my_cd(t_cmd *cmd)
 
 	check = 0;
 	home_dir = getenv("HOME");
-	if (!cmd[0].args[0])
+	if (!cmd[0].args[1])
 		check = chdir((const char *)home_dir);
 	else
-		check = chdir(cmd[0].args[0]);
-	if (cmd[0].args[1])
-	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-		return ;
-	}
+		check = chdir(cmd[0].args[1]);
 	if (check != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(cmd[0].args[0], 2);
-		ft_putstr_fd(": ", 2);
 		perror(cmd[0].args[1]);
 	}
 }

@@ -62,7 +62,7 @@ char	**split(char *str)
 	t_ndx	ndx;
 	ndx.i = 0;
 	ndx.j = 0;
-	ndx.cnt = count(str);
+	ndx.cnt = count(str) + 1;
 	// printf("---------------> cnt : %d\n", ndx.cnt);
 	char **tab = malloc((ndx.cnt + 1) * sizeof(char *));
 	t_quote quote;
