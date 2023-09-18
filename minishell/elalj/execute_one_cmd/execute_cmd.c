@@ -37,7 +37,7 @@ void	split_path(t_cmd *cmd)
 	while (cmd->split_cmd[i] != NULL)
 	{
 		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], "/");
-		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], cmd[0].cmd);
+		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], cmd[0].args[0]);
 		i++;
 	}
 }
@@ -56,7 +56,7 @@ char	*check_if_valid_cmd(t_cmd *cmd)
 	return (NULL);
 }
 
-void	execute_cmd(char **line, t_cmd *cmd)
+void	execute_cmd(t_cmd *cmd)
 {
 	int		pid_f;
 	char	*path;
@@ -65,7 +65,7 @@ void	execute_cmd(char **line, t_cmd *cmd)
 	if (path == NULL)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[0].cmd, 2);
+		ft_putstr_fd(cmd[0].args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
 	else
@@ -74,7 +74,7 @@ void	execute_cmd(char **line, t_cmd *cmd)
 		if (pid_f == -1)
 			perror("fork");
 		else if (pid_f == 0)
-			execve(path, line, NULL);
+			execve(path, cmd->args, NULL);
 		else
 			wait(NULL);
 	}
@@ -82,20 +82,20 @@ void	execute_cmd(char **line, t_cmd *cmd)
 
 void	found_cmd(char **line, t_cmd *cmd, char **env, int i)
 {
-	if (opendir(cmd[i].cmd) != NULL)
+	if (opendir(cmd[i].args[0]) != NULL)
 		open_dir_err(cmd, i);
-	else if (access(cmd[i].cmd, X_OK) == -1 && ft_search(cmd[i].cmd, '/'))
+	else if (access(cmd[i].args[0], X_OK) == -1 && ft_search(cmd[i].args[0], '/'))
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[i].cmd, 2);
+		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
 	}
-	else if (access(cmd[i].cmd, X_OK) == 0 && ft_search(cmd[i].cmd, '/'))
+	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
 		already_valid_path_exec(line, i);
 	else
 	{
 		get_path(env, cmd);
 		split_path(cmd);
-		execute_cmd(line, cmd);
+		execute_cmd(cmd);
 	}
 }

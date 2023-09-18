@@ -10,42 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-char	*ft_strdup(char *str)
-{
-	int len = ft_strlen(str);
-
-	char *dup = malloc((len + 1) * sizeof(char));
-	int i = 0;
-	while (str[i])
-	{
-		dup[i] = str[i];
-		i++;
-	}
-	dup[i] = 0;
-	return (dup);
-}
-
-int ft_strcmp(char *s1, char *s2)
-{
-	int i = 0;
-	while (s1[i] || s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
-}
-
-int ft_strlen(char *str)
-{
-	int i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "../minishell.h"
 
 int ft_tablen(char **tab)
 {
@@ -152,44 +117,21 @@ char    **split_str(char *str, char c)
     return (tab);
 }
 
-char *ft_strjoin(char *s1, char *s2)
-{
-	int len1 = ft_strlen(s1);
-	int len2 = ft_strlen(s2);
+// char	*ft_substr(char const *s, unsigned int start, size_t len)
+// {
+// 	int i = 0;
+// 	// int len = start;
+// 	char *str = malloc((len + 1) * sizeof(char));
 
-	char *str = malloc((len1 + len2 + 1) * sizeof(char));
-	int i = 0;
-	int j = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = 0;
-	return (str);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	int i = 0;
-	// int len = start;
-	char *str = malloc((len + 1) * sizeof(char));
-
-	while (s[i] && i < len)
-	{
-		str[i] = s[start];
-		i++;
-		start++;
-	}
-	str[5] = '\0';
-	return (str);
-}
+// 	while (s[i] && i < len)
+// 	{
+// 		str[i] = s[start];
+// 		i++;
+// 		start++;
+// 	}
+// 	str[5] = '\0';
+// 	return (str);
+// }
 
 int	only_spaces(char *str)
 {

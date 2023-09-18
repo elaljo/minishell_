@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 // char    *tab_join(char *s1, char s2*)
 // {
@@ -45,8 +45,8 @@ void    expander(t_cmd *cmd, int len)
     int k;
     int quoted;//if quoted = 1 then 
     char *tmp;
-    int sq_nbr;
-    int dq_nbr;
+    // int sq_nbr;
+    // int dq_nbr;
     char *joigned_0;
     char *joigned_1;
     // char *joigned_2;
@@ -65,10 +65,10 @@ void    expander(t_cmd *cmd, int len)
             while (quoted != 0)
             {
                 quoted = check_quoted(quote_splitted[j]);
-                if (quoted == 1)
-                    sq++;
-                else if (quoted == 2)
-                    dq += 2;
+                // if (quoted == 1)
+                //     sq++;
+                // else if (quoted == 2)
+                //     dq += 2;
                 printf("   quoted --> %d\n", quoted);
 
             }

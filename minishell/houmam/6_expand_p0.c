@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int cnt_exp(char *str)
 {
@@ -43,7 +43,7 @@ int cnt_exp(char *str)
 char    **quotes_split(char *str)
 {
     printf("************* start quotes ********************\n");
-    printf("ana f quote split args_len (%d)\n", ft_strlen(str));    
+    printf("ana f quote split args_len (%zu)\n", ft_strlen(str));    
     int start = 0;
     int end = 0;
     int i = 0;

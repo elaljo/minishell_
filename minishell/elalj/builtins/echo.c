@@ -27,10 +27,10 @@ void	handle_my_echo(t_cmd *cmd)
 {
 	int	i;
 
-	i = 0;
-	if (cmd[0].args[0] == NULL)
+	i = 1;
+	if (!cmd[0].args[1])
 		printf("\n");
-	else if (cmd[0].cmd && cmd[0].args[0][0] == '-' && cmd[0].args[0][1] == 'n')
+	else if (cmd[0].args[0] && cmd[0].args[1][0] == '-' && cmd[0].args[1][1] == 'n')
 		my_echo(cmd, i + 1);
 	else if (cmd[0].args[i])
 	{

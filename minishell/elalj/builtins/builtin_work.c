@@ -30,19 +30,19 @@ int	valid_num(char *str)
 void	execute_builtin(t_cmd *cmd, t_data *data)
 {
 	(void)data;
-	if (ft_strcmp(cmd[0].cmd, "echo") == 0)
+	if (ft_strcmp(cmd[0].args[0], "echo") == 0)
 		handle_my_echo(cmd);
-	else if (ft_strcmp(cmd[0].cmd, "cd") == 0)
+	else if (ft_strcmp(cmd[0].args[0], "cd") == 0)
 		my_cd(cmd);
-	else if (ft_strcmp(cmd[0].cmd, "pwd") == 0)
+	else if (ft_strcmp(cmd[0].args[0], "pwd") == 0)
 		my_pwd();
-	else if (ft_strcmp(cmd[0].cmd, "export") == 0)
+	else if (ft_strcmp(cmd[0].args[0], "export") == 0)
 		my_export(cmd, data);
-	else if (ft_strcmp(cmd[0].cmd, "unset") == 0)
+	else if (ft_strcmp(cmd[0].args[0], "unset") == 0)
 		my_unset(cmd, data);
-	else if (ft_strcmp(cmd[0].cmd, "env") == 0)
+	else if (ft_strcmp(cmd[0].args[0], "env") == 0)
 		my_env(data);
-	else if (ft_strcmp(cmd[0].cmd, "exit") == 0)
+	else if (ft_strcmp(cmd[0].args[0], "exit") == 0)
 		my_exit(cmd);
 }
 
@@ -54,7 +54,7 @@ int	is_builtin(t_cmd *cmd)
 	i = -1;
 	while (arr[++i])
 	{
-		if (ft_strcmp(cmd[0].cmd, arr[i]) == 0)
+		if (ft_strcmp(cmd[0].args[0], arr[i]) == 0)
 			return (1);
 	}
 	return (0);

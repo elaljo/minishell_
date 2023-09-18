@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 {

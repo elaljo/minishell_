@@ -25,7 +25,7 @@ void	init_data_structs(t_data *data)
 void	open_dir_err(t_cmd *cmd, int i)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd[i].cmd, 2);
+	ft_putstr_fd(cmd[i].args[0], 2);
 	ft_putstr_fd(": is a directory\n", 2);
 }
 

@@ -22,13 +22,19 @@ C_FILES = elalj/builtins/echo.c\
 					elalj/libft/libft_3.c\
 					elalj/execute_one_cmd/execute_cmd.c\
 					elalj/execute_one_cmd/execute_cmd_helper.c\
-					houmam/0_main.c\
+					elalj/signal_handler.c\
+					0_main.c\
 					houmam/2_libft.c\
 					houmam/3_sp_characters.c\
 					houmam/4_split_cmd.c\
 					houmam/5_get_cmds.c\
 					houmam/6_expand_p1.c\
-					houmam/7_expand_p2.c\
+					houmam/6_expand_p0.c\
+					houmam/6_expand_p00.c\
+					houmam/6_expand_p000.c\
+					houmam/8_heredoc.c\
+					houmam/9_redirections.c\
+					
 					
 OBJ = ${C_FILES:.c=.o}
 

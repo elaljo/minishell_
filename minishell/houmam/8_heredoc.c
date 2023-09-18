@@ -10,24 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 #include <fcntl.h>
 
-void	ft_putstr_fd(int fd, char *str)
-{
-	int i = 0;
+// void	ft_putstr_fd(int fd, char *str)
+// {
+// 	int i = 0;
 
-	while (str[i])
-	{
-		write(fd, &str[i], 1);
-		i++;
-	}
-}
+// 	while (str[i])
+// 	{
+// 		write(fd, &str[i], 1);
+// 		i++;
+// 	}
+// }
 int	heredoc(char *eof)
 {
 	int fd[2];
 	char *input;
-	char *heredoc;
+	// char *heredoc;
 
 	pipe(fd);
 	while (1)
@@ -35,7 +35,7 @@ int	heredoc(char *eof)
 		input = readline("heredoc> ");
 		if (ft_strcmp(eof, input) == 0)
 			break ;
-		ft_putstr_fd(fd[1], input);
+		ft_putstr_fd(input, fd[1]);
 	}
 	close(fd[1]);
 	return (fd[0]);

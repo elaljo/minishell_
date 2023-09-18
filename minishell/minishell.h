@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/27 20:21:34 by moelalj           #+#    #+#             */
-/*   Updated: 2023/08/27 20:21:35 by moelalj          ###   ########.fr       */
+/*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
+/*   Updated: 2023/09/17 17:39:28 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
-//ellajjj
-# include <stdio.h>
-#	include <string.h>
-# include <unistd.h> //fork() getcwd() chdir()
-# include <stdlib.h> //get_env()
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/wait.h> //wait()
-# include	<dirent.h> //opendir()
 
-// homam--------------------------- 1111111111111----------------------------------
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <dirent.h>
+
+typedef struct s_redi
+{
+	char	*redi;//redirection and type will be defined later
+	char	*eof;//eof
+} t_redi;
+
 typedef struct s_cmd
 {
-	int		nbr;
-	char	*cmd;
-	char	**args;
+	int		args_nbr;//che7al mn commande machi arg
+	char	**args;//command + args
+	t_redi	*redir;//redirections type + eof
+	int		redir_nbr;//redirection number
+	int		cmd_len;
 	char	*path;
-	char **split_cmd;
+	char 	**split_cmd;
 } t_cmd;
 
 typedef	struct s_quote
@@ -63,11 +70,10 @@ int count_cmds(char **tab);
  * @param str the string to be duplicated
  * @return the duplicated string.
  */
-char	*ft_strdup(char *str);
 int		ft_tablen(char **tab);
 char    **split_str(char *str, char c);
 int		cnt_wrds(char *str, char c);
-int	only_spaces(char *str);
+int		only_spaces(char *str);
 // char	*tab_join(char **tab);
 
 
@@ -76,28 +82,29 @@ char	*expand_variables(char* input);
 void	expand_variable(const char* var_name, char* expanded, size_t* j);
 int		is_alnum(char c);
 t_cmd	*expandables(t_cmd *cmds);
-void	handle_quoted(char *str);
-int check_quoted(char *str);
-int count_cmds(char **tab);
-int cmd_len(char **tab);
+char	*handle_quoted(char *str);
+int		check_quoted(char *str);
+int		count_cmds(char **tab);
+int		cmd_len(char **tab);
 t_cmd	*get_cmds(char **tab);
+int		cnt_redir(char **tab);
+int		cnt_exp(char *str);
+char    **quotes_split(char *str);
+int		cnt_dollars(char *str);
+int is_var(char c);
+char    **dollar_split(char *str);
+char    *expand_var(char *str);
+void    expander(t_cmd *cmd, int len);
+void    expand_all(t_cmd *cmds);
 
-// elalj -----------------22222222---------------------------
+// moahmed
+
 typedef struct s_data
 {
 	char	**c_env;
 	int		len_env;
 	char	**key_env;
 }t_data;
-
-//typedef struct s_cmd
-//{
-//	char	*cmd;
-//	char	**cmd_args;
-//	char	*path;
-//	char	**split_cmd;
-//	int		op_pipe;
-//}t_cmd;
 
 void	init_data_structs(t_data *data);
 void	copy_env(t_data *data, char **env);
@@ -115,10 +122,10 @@ void	print_if_exit_valid(char *line);
 //execute_cmd
 void	found_cmd(char **line, t_cmd *cmd, char **env, int op);
 void	get_path(char **env, t_cmd *cmd);
-void	split_path (char **line, t_cmd *cmd, int op);
+void	split_path (t_cmd *cmd);
 char	*check_if_valid_cmd(t_cmd *cmd);
-void	execute_cmd(char **line, t_cmd *cmd, int op);
-void	open_dir_err(char **line, int op);
+void	execute_cmd(t_cmd *cmd);
+void	open_dir_err(t_cmd *cmd, int op);
 void	already_valid_path_exec(char **line, int op);
 
 //	builtins
@@ -155,7 +162,5 @@ void	*ft_calloc(size_t count, size_t size);
 char	*strback(char *line);
 void	ft_str_free(char **arr);
 int		len_arr(char **arr);
-
-
 
 #endif
