@@ -2,11 +2,13 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
 
 # CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
 
 RM = rm -rf
+
+RL = ${shell brew --prefix readline}
 
 C_FILES = elalj/builtins/echo.c\
 					elalj/builtins/cd.c\
@@ -35,19 +37,24 @@ C_FILES = elalj/builtins/echo.c\
 					houmam/8_heredoc.c\
 					houmam/9_redirections.c\
 					
-					
 OBJ = ${C_FILES:.c=.o}
+
+%.o:%.c
+	@echo "creating obj_files"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: ${NAME}
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ -lreadline
+	$(CC) -L $(RL)/lib $(CFLAGS) $^ -o $@ -lreadline
 
 clean:
-	${RM} ${OBJ}
+	@echo "deleting obj files"
+	@${RM} ${OBJ}
 
 fclean: clean
-	${RM} ${NAME} ${OBJ}
+	@echo "delete obj_files && ./minishell"
+	@${RM} ${NAME} ${OBJ}
 
 re: fclean all
 
