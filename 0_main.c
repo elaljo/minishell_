@@ -15,7 +15,7 @@
 int main(int ac, char *av[], char **env)
 {
 	t_cmd	*cmds;
-	t_data data;
+	t_data	data;
 	char	*input_string;
 	char	**splitted_cmds;
 	
@@ -34,14 +34,9 @@ int main(int ac, char *av[], char **env)
 		input_string = readline("🌙❓➜ ");
 		// input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
-		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		perror("signal");
-		if (signal(SIGINT, signal_handler) == SIG_ERR)
-		perror("signal");
 		if (!input_string)
 		{
 			printf("exit\n");
-			//need to free all things..
 			exit(0);
 		}
 		if (only_spaces(input_string) == 0)
