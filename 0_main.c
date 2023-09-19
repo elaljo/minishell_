@@ -31,7 +31,8 @@ int main(int ac, char *av[], char **env)
 		perror("signal");
 	while (1)
 	{
-		input_string = readline("minishell-0.5$ ");
+		input_string = readline("🌙❓➜ ");
+		// input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
 		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		perror("signal");
