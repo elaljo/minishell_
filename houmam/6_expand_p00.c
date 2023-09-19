@@ -19,6 +19,8 @@ int is_var(char c)
 
 int cnt_dollars(char *str)
 {
+    if (!str)
+        return (0);
     int i = 0;
     int cnt = 0;
     while (str[i])
@@ -47,15 +49,22 @@ int cnt_dollars(char *str)
 char    **dollar_split(char *str)
 {
     printf("************* start dollar ********************\n");
-    printf("str ----> %s\n", str);
+    // char **tab;
+    // if (!str)
+    // {
+    //     tab = malloc(sizeof(char *));
+    //     tab[0] = NULL;
+    //     return tab;
+    // }
     int i = 0;
     int j = 0;
     int k;
     int start = 0;
     int len = cnt_dollars(str) + 1;
-    printf("cnt_dollars ----> %d\n", len);
+    printf("📌📌cnt_dollars ----> %d\n", len);
     char **tab = malloc(len * sizeof(char *));
-    while (str[i])
+    printf("str ----> %s\n", str);
+    while (len > 1 && str[i])
     {
         start = i;
         while (str[i])

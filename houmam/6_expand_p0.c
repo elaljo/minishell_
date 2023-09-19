@@ -70,14 +70,14 @@ char    **quotes_split(char *str)
                     dq++;
             else if (i != 0 && str[i] == '"' && str[i - 1] != '\\')
                     dq++;
-            if (sq % 2 == 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
+            if (sq % 2 == 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\' && str[i - 1] != '"' && dq % 2 == 0)
                     break ;
-            else if (dq % 2 == 0 && i != 0 && str[i] == '"' && str[i - 1] != '\\')
+            else if (dq % 2 == 0 && i != 0 && str[i] == '"' && str[i - 1] != '\\' && str[i - 1] != '\'' && sq % 2 == 0)
                     break ;
-            else if (sq % 2 != 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
-                    break ;
-            else if (dq % 2 != 0 && i != 0 && str[i] == '"' && str[i - 1] != '\\')
-                    break ;
+        //     else if (sq % 2 != 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
+        //             break ;
+        //     else if (dq % 2 != 0 && i != 0 && str[i] == '"' && str[i - 1] != '\\')
+        //             break ;
             i++;
         }
         printf("********************* index i --> %d \n", i);
