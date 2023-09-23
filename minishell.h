@@ -139,6 +139,16 @@ void	my_unset(t_cmd *cmd, t_data *data);
 void	my_env(t_data *data);
 void	my_exit(t_cmd *cmd);
 
+//	pipes
+void    execute_pipe(t_cmd *cmd, char **env);
+void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd);
+void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i);
+void	first_cmd(int fd1[2], int fd2[2]);
+void	pair(int fd1[2], int fd2[2]);
+void	unpair(int fd1[2], int fd2[2]);
+void	last_unpair(int fd1[2], int fd2[2]);
+void	last_pair(int fd1[2], int fd2[2]);
+
 //	signals
 void    signal_handler(int signum);
 
