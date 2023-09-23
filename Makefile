@@ -1,21 +1,19 @@
-# Define color variables using `tput`
-# RED := $(shell tput setaf 1)
-# RESET := $(shell tput sgr0)
-
-GREEN = \033[1;95m
-END =  \033[0m
-PURPLE = \033[1;35m
-BOLD = \033[1;95m
-
 NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
 
 # CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
 
 RM = rm -rf
+
+RL = ${shell brew --prefix readline}
+
+RESET = \033[0m
+RED = \033[31m
+GREEN = \033[32m
+YELLOW = \033[33m
 
 C_FILES = elalj/builtins/echo.c\
 		  elalj/builtins/cd.c\
@@ -32,6 +30,8 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/execute_one_cmd/execute_cmd.c\
 		  elalj/execute_one_cmd/execute_cmd_helper.c\
 		  elalj/signal_handler.c\
+		  elalj/pipes/pipes_handler.c\
+		  elalj/pipes/setup_pipes.c\
 		  0_main.c\
 		  houmam/2_libft.c\
 		  houmam/3_sp_characters.c\
@@ -43,24 +43,27 @@ C_FILES = elalj/builtins/echo.c\
 		  houmam/6_expand_p000.c\
 		  houmam/8_heredoc.c\
 		  houmam/9_redirections.c\
-					
-					
+										
 OBJ = ${C_FILES:.c=.o}
+
+%.o: %.c
+	@echo "$(YELLOW)                                  Linking ...⏳$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: ${NAME}
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $^ -o $@ -lreadline
-	@echo "$(PURPLE) $$MINI_SHELL $(END)"
-
-%.o: %.c
-	@echo "$(PURPLE)                                  Linking ... ⏳ $(END)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(GREEN)COMPILING...$(RESET)"
+	@$(CC) -L $(RL)/lib $(CFLAGS) $^ -o $@ -lreadline
+	@echo "$$MINI_SHELL"
+	@echo "$(GREEN)COMPILATION COMPLETED$(RESET)"
 
 clean:
+	@echo "$(RED)Deliting Obj_files$(RESET)"
 	@${RM} ${OBJ}
 
 fclean: clean
+	@echo "$(RED)Deliting Obj_files + Program$(RESET)"
 	@${RM} ${NAME} ${OBJ}
 
 re: fclean all
@@ -77,7 +80,7 @@ define MINI_SHELL
     ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗
     ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝
 
-	*********************  $(NAME) not ready ❌  *********************
+	*********************  $(NAME) in progress ⏳  *********************
 
 endef
 export MINI_SHELL
