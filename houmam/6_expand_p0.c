@@ -41,6 +41,7 @@ int cnt_exp(char *str)
                 cnt++;
         i++;
     }
+    printf("count_quotes --> %d\n", cnt);
     return (cnt);
 }
 
@@ -60,6 +61,8 @@ char    **quotes_split(char *str)
     while (str[i])
     {
         start = i;
+        if (i != 0 && ((str[i - 1] == '"' && dq % 2 != 0) || (str[i - 1] == '\'' && sq % 2 != 0)))
+            start--;
         while (str[i])
         {
                 if (str[i] == '\'' && i == 0)
@@ -85,6 +88,7 @@ char    **quotes_split(char *str)
         tab[j] = malloc((i - start + 1) * sizeof(char));
         k = 0;
         end = i;
+        printf("quotes -> index : %d\n", i);
         if ((str[i] == '\"' && dq % 2 == 0) || (str[i] == '\'' && sq % 2 == 0) || str[i + 1] == '\0')
             end++;
         while (start < end)
@@ -94,6 +98,7 @@ char    **quotes_split(char *str)
             start++;
         }
         tab[j][k] = '\0';
+        printf("split[%d] --> %s\n", j, tab[j]);
         j++;
         if (str[i])
             i++;
