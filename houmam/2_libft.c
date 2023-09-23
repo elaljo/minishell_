@@ -146,9 +146,3 @@ int	only_spaces(char *str)
 	}
 	return (0);
 }
-
-// int main()
-// {
-// 	// printf("%s\n", ft_substr("Hello world", 0, 5));
-// 	printf("%d\n", ft_strlen("hello\"world"));
-// }

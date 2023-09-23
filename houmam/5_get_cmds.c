@@ -23,7 +23,6 @@ int count_cmds(char **tab)
 			cnt++;
 		i++;
 	}
-	//printf ("(((((((((%d)))))))))\n", cnt);
 	return (cnt);
 }
 /**
@@ -42,7 +41,6 @@ int cmd_len(char **tab)
 			break ;
 		i++;
 	}
-	//printf("cmd_len ----> %d\n\n", i);
 	return (i);
 }
 
@@ -56,7 +54,6 @@ t_cmd	*get_cmds(char **tab)
 	int		nbr;
 
 	nbr = count_cmds(tab);
-	// printf("*=**=* %d\n", nbr);
 	cmds = malloc((nbr) * sizeof(t_cmd));
 	i = 0;
 	j = 0;
@@ -71,11 +68,9 @@ t_cmd	*get_cmds(char **tab)
 		if (commande_len == 1)
 		{
 			cmds[j].cmd_len = commande_len;
-			printf("\n\n\n --- %d --- \n\n\n", cmds[j].cmd_len);
 			cmds[j].args_nbr = nbr;
 			cmds[j].args = malloc(2 * sizeof(char *));
 			cmds[j].args[0] = ft_strdup(tab[i]);
-			printf("get cmd --< cmd >>>> %s *\n", cmds[j].args[0]);
 			cmds[j].args[1] = NULL;
 			j++;
 			i++;
@@ -84,7 +79,6 @@ t_cmd	*get_cmds(char **tab)
 		{
 			cmds[j].cmd_len = commande_len;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
-			printf("+++++ redir nbr +++++>> %d\n", cmds[j].redir_nbr);
 			cmds[j].args_nbr = nbr;
 			cmds[j].args = malloc((commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
 			cmds[j].redir = malloc(cmds[j].redir_nbr * sizeof(t_redi));
@@ -100,8 +94,6 @@ t_cmd	*get_cmds(char **tab)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].redi);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
@@ -109,8 +101,6 @@ t_cmd	*get_cmds(char **tab)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].redi);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
@@ -118,8 +108,6 @@ t_cmd	*get_cmds(char **tab)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].redi);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
@@ -127,42 +115,17 @@ t_cmd	*get_cmds(char **tab)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].redi);
-						printf("++++redir++++> %s\n", cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
 				}
 				cmds[j].args[k] = ft_strdup(tab[i]);
-				printf("get cmd(%d) ttt --< args(%d) >>>> %s *\n",j, k, cmds[j].args[k]);
 				k++;
 				i++;
 			}
-			// printf
 			cmds[j].args[k] = NULL;
 			j++;
 		}
 	}
 	return (cmds);
 }
-
-// int main()
-// {
-// 	char str[] = "ls -l | echo \"     \"\"hel>> lo >>   bye> $USER  tses>\"test | ls >>   > txt txt >> hello Hi How | good  luck   test  && hello";  //9
-
-// 	// char str[] = "echo hello";
-// 	t_cmd	*cmds_expanded;
-// 	printf("*cnt -> (%d)\n", count(str));
-// 	char **tab = split(str);
-// 	// printf("tablen -> (%d)\n", ft_tablen(tab));
-// 	int nbr = count_cmds(tab);
-// 	printf("cmds : %d\n", nbr);
-// 	t_cmd *cmds = get_cmds(tab);
-// 	printf("==== %d ====\n", cmds[0].nbr);
-// 	cmds_expanded = expandables(cmds);
-// 	int i = 0;
-// 	// while (i < cmds[i])
-
-// 	// printf("%s\n", getenv("$USER"));
-// 	// while(1) ;
-// }

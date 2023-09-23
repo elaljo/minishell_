@@ -1,3 +1,12 @@
+# Define color variables using `tput`
+# RED := $(shell tput setaf 1)
+# RESET := $(shell tput sgr0)
+
+GREEN = \033[1;95m
+END =  \033[0m
+PURPLE = \033[1;35m
+BOLD = \033[1;95m
+
 NAME = minishell
 
 CC = cc
@@ -42,10 +51,10 @@ all: ${NAME}
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $^ -o $@ -lreadline
-	@echo "$(NAME) is ready ✅"
+	@echo "$(PURPLE) $$MINI_SHELL $(END)"
 
 %.o: %.c
-	@echo "Linking $(NAME) ⏳"
+	@echo "$(PURPLE)                                  Linking ... ⏳ $(END)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
@@ -57,3 +66,19 @@ fclean: clean
 re: fclean all
 
 .PHONY: all re clean fclean
+
+# Define custom text with red color
+define MINI_SHELL
+
+    ███╗   ███╗ ██╗ ███╗   ██╗ ██╗ ███████╗ ██╗  ██╗ ███████╗ ██╗      ██╗     
+    ████╗ ████║ ██║ ████╗  ██║ ██║ ██╔════╝ ██║  ██║ ██╔════╝ ██║      ██║     
+    ██╔████╔██║ ██║ ██╔██╗ ██║ ██║ ███████╗ ███████║ █████╗   ██║      ██║     
+    ██║╚██╔╝██║ ██║ ██║╚██╗██║ ██║ ╚════██║ ██╔══██║ ██╔══╝   ██║      ██║     
+    ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗
+    ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝
+
+	*********************  $(NAME) not ready ❌  *********************
+
+endef
+export MINI_SHELL
+# $(NAME) is ready ✅

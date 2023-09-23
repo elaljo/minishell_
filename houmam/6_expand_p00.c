@@ -48,22 +48,12 @@ int cnt_dollars(char *str)
 
 char    **dollar_split(char *str)
 {
-    printf("************* start dollar ********************\n");
-    // char **tab;
-    // if (!str)
-    // {
-    //     tab = malloc(sizeof(char *));
-    //     tab[0] = NULL;
-    //     return tab;
-    // }
     int i = 0;
     int j = 0;
     int k;
     int start = 0;
     int len = cnt_dollars(str) + 1;
-    printf("📌📌cnt_dollars ----> %d\n", len);
     char **tab = malloc(len * sizeof(char *));
-    printf("str ----> %s\n", str);
     while (len > 1 && str[i])
     {
         start = i;
@@ -87,7 +77,6 @@ char    **dollar_split(char *str)
                 break ;
             }
         }
-        printf("Indexxxxxxxxxx ==> %d\n", i);
         tab[j] = malloc(i - start + 1);
         k = 0;
         while (start < i)
@@ -97,22 +86,17 @@ char    **dollar_split(char *str)
             start++;
         }
         tab[j][k] = '\0';
-        printf("Dollar splitted =====> %s\n", tab[j]);
         j++;
     }
     tab[j] = NULL;
-    printf("************* end dollar ********************\n");
     return (tab);
-}//echo $USER hello $
+}
 
 char    *expand_var(char *str)
 {
-    printf("************* start expand_var ********************\n");
     char *tmp = ft_strdup(str);
-    // printf("--> %s\n", getenv(tmp + 1));
     free(str);
     str = ft_strdup(getenv(tmp + 1));
     free(tmp);
-    printf("************* end expand_var ********************\n");
     return (str);
 }
