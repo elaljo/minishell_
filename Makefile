@@ -32,6 +32,7 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/signal_handler.c\
 		  elalj/pipes/pipes_handler.c\
 		  elalj/pipes/setup_pipes.c\
+		  elalj/perror.c\
 		  0_main.c\
 		  houmam/2_libft.c\
 		  houmam/3_sp_characters.c\
@@ -53,17 +54,17 @@ OBJ = ${C_FILES:.c=.o}
 all: ${NAME}
 
 $(NAME): $(OBJ)
-	@echo "$(GREEN)COMPILING...$(RESET)"
+	@echo "$(GREEN)COMPILING... ⏳$(RESET)"
 	@$(CC) -L $(RL)/lib $(CFLAGS) $^ -o $@ -lreadline
 	@echo "$$MINI_SHELL"
-	@echo "$(GREEN)COMPILATION COMPLETED$(RESET)"
+	@echo "$(GREEN)COMPILATION COMPLETED ✅$(RESET)"
 
 clean:
-	@echo "$(RED)Deliting Obj_files$(RESET)"
+	@echo "$(RED)Deliting Obj_files ❌$(RESET)"
 	@${RM} ${OBJ}
 
 fclean: clean
-	@echo "$(RED)Deliting Obj_files + Program$(RESET)"
+	@echo "$(RED)Deliting Obj_files + Program ❌$(RESET)"
 	@${RM} ${NAME} ${OBJ}
 
 re: fclean all
