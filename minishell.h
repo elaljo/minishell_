@@ -37,7 +37,6 @@ typedef struct s_cmd
 	int		redir_nbr;//redirection number
 	int		cmd_len;
 	char	*path;
-	char 	**split_cmd;
 } t_cmd;
 
 typedef	struct s_quote
@@ -60,7 +59,7 @@ typedef	struct s_ndx
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
 int		count(char *str);
 int		handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote);
-int		handle_pipe(char **tab, t_ndx *ndx);
+int		handle_pipe(char **tab, t_ndx *ndx, char *str);
 char	**split(char *str);
 int count_cmds(char **tab);
 
@@ -109,10 +108,10 @@ typedef struct s_data
 
 void	init_data_structs(t_data *data);
 void	copy_env(t_data *data, char **env);
-void	execute_builtin(t_cmd *cmd, t_data *data);
-int		is_builtin(t_cmd *cmd);
+void	execute_builtin(t_cmd *cmd, t_data *data, int i);
+int		is_builtin(char *cmd);
 int		valid_num(char *str);
-void	if_there_var(t_cmd *cmd, t_data *data);
+void	if_there_var(t_cmd *cmd, t_data *data, int I);
 void	print_not_identifier_ex(char *line);
 void	print_not_identifier_un(char *line);
 void	get_key(t_data *data, int n_arg);
@@ -121,26 +120,25 @@ void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char *line);
 
 //execute_cmd
-void	found_cmd(t_cmd *cmd, char **env, int op);
-void	get_path(char **env, t_cmd *cmd);
-void	split_path (t_cmd *cmd);
-char	*check_if_valid_cmd(t_cmd *cmd);
-void	execute_cmd(t_cmd *cmd);
+void	executing_one_cmd(t_cmd *cmd, char **env, int i, t_data *data);
+void	found_cmd(t_cmd *cmd, char **env, int op, t_data *data);
+char	*get_cmd_path(char **env, char *cmd);
+void	execute_cmd(t_cmd *cmd, int i);
 void	open_dir_err(t_cmd *cmd, int op);
-void	already_valid_path_exec(t_cmd *cmd, int op);
 
 //	builtins
-void	my_echo(t_cmd *cmd, int i);
-void	handle_my_echo(t_cmd *cmd);
-void	my_cd(t_cmd	*cmd);
+void	my_echo(t_cmd *cmd, int i, int a);
+void	handle_my_echo(t_cmd *cmd, int i);
+void	my_cd(t_cmd	*cmd, int i);
 void	my_pwd(void);
-void	my_export(t_cmd *cmd, t_data *data);
-void	my_unset(t_cmd *cmd, t_data *data);
+void	my_export(t_cmd *cmd, t_data *data, int I);
+void	my_unset(t_cmd *cmd, t_data *data, int i);
 void	my_env(t_data *data);
-void	my_exit(t_cmd *cmd);
+void	my_exit(t_cmd *cmd, int i);
 
 //	pipes
-void    execute_pipe(t_cmd *cmd, char **env);
+void    execute_pipe(t_cmd *cmd, char **env, t_data *data);
+void    start_executing_pipe(t_cmd *cmd, t_data *data, char **env, int fd1[2], int fd2[2]);
 void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd);
 void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i);
 void	first_cmd(int fd1[2], int fd2[2]);
@@ -148,9 +146,11 @@ void	pair(int fd1[2], int fd2[2]);
 void	unpair(int fd1[2], int fd2[2]);
 void	last_unpair(int fd1[2], int fd2[2]);
 void	last_pair(int fd1[2], int fd2[2]);
+void    close_pipes(int fd1[2], int fd2[2]);
 
 //	signals
 void    signal_handler(int signum);
+void    signal_part();
 
 //			split
 int		is_delimiter(char c);
@@ -176,5 +176,9 @@ void	*ft_calloc(size_t count, size_t size);
 char	*strback(char *line);
 void	ft_str_free(char **arr);
 int		len_arr(char **arr);
+
+//	perror
+void    perror_pipe(void);
+void    perror_fork(void);
 
 #endif
