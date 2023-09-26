@@ -25,10 +25,7 @@ int main(int ac, char *av[], char **env)
 	init_data_structs(&data);
 	copy_env(&data, env);
 	data.key_env = ft_calloc(data.len_env + 1, sizeof(char *));
-	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		perror("signal");
-	if (signal(SIGINT, signal_handler) == SIG_ERR)
-		perror("signal");
+	signal_part();
 	while (1)
 	{
 		input_string = readline("🌙❓➜ ");
@@ -44,28 +41,16 @@ int main(int ac, char *av[], char **env)
 		splitted_cmds = split(input_string);
 		cmds = get_cmds(splitted_cmds);
 		expand_all(cmds);
-		//printf("---------- %s\n", cmds_expanded[0].args[0]);
-		// int i = 0;
-		// while (i < cmds_expanded->nbr)
-		// {
-		// 	printf("command (%d)= %s\n",i,  cmds_expanded[i].cmd);
-		// 	i++;
-		// }
-		// i = 0;
-		// while (i < cmds_expanded->nbr)
-		// {
-		// 	int j = 0;
-		// 	while (cmds_expanded[i].args[j] != NULL)
-		// 	{
-		// 		printf("commande(%d)arguments(%d)-> %s\n", i, j,cmds_expanded[i].args[j]);
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
-		if (is_builtin(cmds) == 1)
-			execute_builtin(cmds, &data);
+		printf("\n");
+		if (cmds->args_nbr == 1)
+		{
+			if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
+				execute_builtin(cmds, &data, 0);
+			else
+				executing_one_cmd(cmds, env, 0, &data);
+		}
 		else
-			found_cmd(cmds, env, 0);
+			execute_pipe(cmds, env, &data);
 	}
 	free(input_string);
 	ft_str_free(splitted_cmds);
