@@ -12,76 +12,72 @@
 
 #include "../../minishell.h"
 
-void	get_path(char **env, t_cmd *cmd)
+void	executing_one_cmd(t_cmd *cmd, char **env, int i, t_data *data)
 {
-	int	i;
+	int	pid_f;
+
+	pid_f = fork();
+	if (pid_f == -1)
+	{
+		perror("fork");
+		exit (1);
+	}
+	if (pid_f == 0)
+		found_cmd(cmd, env,	i, data);
+	else
+		wait(NULL);
+}
+char *get_cmd_path(char **env, char *cmd)
+{
+	int		i;
+	char	*full_path;
+	char	**path;
+	char	*cmd_path;
 
 	i = 0;
+	full_path = NULL;
+	// cmd = ft_strtrim();
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH", 4) == 0)
 		{
-			cmd->path = ft_strdup(ft_strchr(env[i], '='));
+			full_path = ft_strdup(ft_strchr(env[i], '='));
 			break ;
 		}
 		i++;
 	}
-}
-
-void	split_path(t_cmd *cmd)
-{
-	int		i;
-
-	cmd->split_cmd = ft_split(cmd->path);
+	path = ft_split(full_path);
 	i = 0;
-	while (cmd->split_cmd[i] != NULL)
+	while (path[i] != NULL)
 	{
-		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], "/");
-		cmd->split_cmd[i] = ft_strjoin(cmd->split_cmd[i], cmd[0].args[0]);
+		cmd_path = ft_strjoin("/", cmd);
+		cmd_path = ft_strjoin(path[i], cmd_path);
+		if (access(cmd_path, F_OK) == 0)
+			return (cmd_path);
 		i++;
 	}
+	return NULL;
 }
 
-char	*check_if_valid_cmd(t_cmd *cmd)
+void	execute_cmd(t_cmd *cmd, int i)
 {
-	int	i;
-
-	i = 0;
-	while (cmd->split_cmd[i])
-	{
-		if (access(cmd->split_cmd[i], X_OK) == 0)
-			return (cmd->split_cmd[i]);
-		i++;
-	}
-	return (NULL);
-}
-
-void	execute_cmd(t_cmd *cmd)
-{
-	int		pid_f;
-	char	*path;
-
-	path = check_if_valid_cmd(cmd);
-	if (path == NULL)
+	if (cmd[i].path == NULL)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[0].args[0], 2);
+		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		exit (127);
 	}
-	else
-	{
-		pid_f = fork();
-		if (pid_f == -1)
-			perror("fork");
-		else if (pid_f == 0)
-			execve(path, cmd->args, NULL);
-		else
-			wait(NULL);
-	}
+	execve(cmd[i].path, cmd[i].args, NULL);
 }
 
-void	found_cmd(t_cmd *cmd, char **env, int i)
+void	found_cmd(t_cmd *cmd, char **env, int i, t_data *data)
 {
+	if (is_builtin(cmd[i].args[0]) == 1)
+	{
+		execute_builtin(cmd, data, i);
+		exit (0);
+	}
 	if (opendir(cmd[i].args[0]) != NULL)
 		open_dir_err(cmd, i);
 	else if (access(cmd[i].args[0], X_OK) == -1 && ft_search(cmd[i].args[0], '/'))
@@ -91,11 +87,13 @@ void	found_cmd(t_cmd *cmd, char **env, int i)
 		ft_putstr_fd(": no such file or directory\n", 2);
 	}
 	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
-		already_valid_path_exec(cmd, i);
+	{
+		if (execve(cmd[i].args[0], cmd[i].args, NULL) == -1)
+			perror("execve");
+	}
 	else
 	{
-		get_path(env, cmd);
-		split_path(cmd);
-		execute_cmd(cmd);
+		cmd[i].path = get_cmd_path(env, cmd[i].args[0]);
+		execute_cmd(cmd, i);
 	}
 }

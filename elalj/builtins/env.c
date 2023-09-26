@@ -35,7 +35,10 @@ void	my_env(t_data *data)
 	while (data->c_env[i] != NULL)
 	{
 		if (ft_search(data->c_env[i], '=') == 1)
-			printf("%s\n", data->c_env[i]);
+		{
+			ft_putstr_fd(data->c_env[i], 1);
+			ft_putstr_fd("\n", 1);
+		}
 		i++;
 	}
 }

@@ -12,29 +12,29 @@
 
 #include "../../minishell.h"
 
-void	my_echo(t_cmd *cmd, int i)
+void	my_echo(t_cmd *cmd, int i, int a)
 {
-	while (cmd[0].args[i])
+	while (cmd[i].args[a])
 	{
-		printf("%s", cmd[0].args[i]);
-		if (cmd[0].args[i + 1] != 0)
+		printf("%s", cmd[i].args[a]);
+		if (cmd[i].args[a + 1] != 0)
 			printf(" ");
-		i++;
+		a++;
 	}
 }
 
-void	handle_my_echo(t_cmd *cmd)
+void	handle_my_echo(t_cmd *cmd, int i)
 {
-	int	i;
+	int	a;
 
-	i = 1;
-	if (!cmd[0].args[1])
+	a = 1;
+	if (!cmd[i].args[1])
 		printf("\n");
-	else if (cmd[0].args[0] && cmd[0].args[1][0] == '-' && cmd[0].args[1][1] == 'n')
-		my_echo(cmd, i + 1);
-	else if (cmd[0].args[i])
+	else if (cmd[i].args[0] && cmd[i].args[1][0] == '-' && cmd[i].args[1][1] == 'n')
+		my_echo(cmd, i, a + 1);
+	else if (cmd[i].args[a])
 	{
-		my_echo(cmd, i);
+		my_echo(cmd, i, a);
 		printf("\n");
 	}
 }

@@ -52,7 +52,7 @@ int	same_key(t_data *data, char *line)
 	return (0);
 }
 
-void	if_there_var(t_cmd *cmd, t_data *data)
+void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
 	int	n_arg;
 	int	i;
@@ -63,9 +63,9 @@ void	if_there_var(t_cmd *cmd, t_data *data)
 	i = 1;
 	j = 0;
 	n_arg = 0;
-	while (cmd[0].args[i] != NULL)
+	while (cmd[I].args[i] != NULL)
 	{
-		if (ft_isalnum(strback(cmd[0].args[i])) || ft_isalpha(strback(cmd[0].args[i])[0]))
+		if (ft_isalnum(strback(cmd[I].args[i])) || ft_isalpha(strback(cmd[I].args[i])[0]))
 		{
 			j++;
 			i++;
@@ -82,14 +82,14 @@ void	if_there_var(t_cmd *cmd, t_data *data)
 	i = 1;
 	while (p != 0)
 	{
-		if (ft_isalpha(strback(cmd[0].args[i])[0]) || ft_isalnum(strback(cmd[0].args[i])))
+		if (ft_isalpha(strback(cmd[I].args[i])[0]) || ft_isalnum(strback(cmd[I].args[i])))
 		{
-			print_not_identifier_ex(cmd[0].args[i]);
+			print_not_identifier_ex(cmd[I].args[i]);
 			j++;
 			i++;
 			p--;
 		}
-		else if (same_key(data, cmd[0].args[i]) == 1)
+		else if (same_key(data, cmd[I].args[i]) == 1)
 		{
 			i++;
 			j++;
@@ -97,7 +97,7 @@ void	if_there_var(t_cmd *cmd, t_data *data)
 		}
 		else
 		{
-			data->c_env[len_env] = ft_strdup(cmd[0].args[i]);
+			data->c_env[len_env] = ft_strdup(cmd[I].args[i]);
 			data->c_env[len_env + 1] = NULL;
 			i++;
 			j++;
@@ -108,7 +108,7 @@ void	if_there_var(t_cmd *cmd, t_data *data)
 	}
 }
 
-void	my_export(t_cmd *cmd, t_data *data)
+void	my_export(t_cmd *cmd, t_data *data, int I)
 {
 	int	i;
 	int	j;
@@ -116,7 +116,7 @@ void	my_export(t_cmd *cmd, t_data *data)
 
 	check = 0;
 	i = 0;
-	if (cmd[0].args[0] && !cmd[0].args[1])
+	if (cmd[I].args[0] && !cmd[I].args[1])
 	{
 		while (data->c_env[i] != NULL)
 		{
@@ -141,5 +141,5 @@ void	my_export(t_cmd *cmd, t_data *data)
 		get_key(data, 0);
 	}
 	else
-		if_there_var(cmd, data);
+		if_there_var(cmd, data, I);
 }

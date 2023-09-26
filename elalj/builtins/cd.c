@@ -12,20 +12,20 @@
 
 #include "../../minishell.h"
 
-void	my_cd(t_cmd *cmd)
+void	my_cd(t_cmd *cmd, int i)
 {
 	char	*home_dir;
 	int		check;
 
 	check = 0;
 	home_dir = getenv("HOME");
-	if (!cmd[0].args[1])
+	if (!cmd[i].args[1])
 		check = chdir((const char *)home_dir);
 	else
-		check = chdir(cmd[0].args[1]);
+		check = chdir(cmd[i].args[1]);
 	if (check != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
-		perror(cmd[0].args[1]);
+		perror(cmd[i].args[1]);
 	}
 }

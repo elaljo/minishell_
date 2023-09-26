@@ -17,30 +17,11 @@ void	init_data_structs(t_data *data)
 	data->c_env = NULL;
 	data->len_env = 0;
 	data->key_env = NULL;
-	//cmd->cmd = NULL;
-	//cmd->cmd_args = NULL;
-	//cmd->path = NULL;
-	//cmd->split_cmd = NULL;
 }
+
 void	open_dir_err(t_cmd *cmd, int i)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd[i].args[0], 2);
 	ft_putstr_fd(": is a directory\n", 2);
-}
-
-void	already_valid_path_exec(t_cmd *cmd, int op)
-{
-	int	pid_f;
-
-	pid_f = fork();
-	if (pid_f == -1)
-		perror("fork");
-	else if (pid_f == 0)
-	{
-		if (execve(cmd[op].args[0], cmd[op].args, NULL) == -1)
-			perror("execve");
-	}
-	else
-		wait(NULL);
 }

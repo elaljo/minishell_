@@ -27,26 +27,25 @@ int	valid_num(char *str)
 	return (1);
 }
 
-void	execute_builtin(t_cmd *cmd, t_data *data)
+void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 {
-	(void)data;
-	if (ft_strcmp(cmd[0].args[0], "echo") == 0)
-		handle_my_echo(cmd);
-	else if (ft_strcmp(cmd[0].args[0], "cd") == 0)
-		my_cd(cmd);
-	else if (ft_strcmp(cmd[0].args[0], "pwd") == 0)
+	if (ft_strcmp(cmd[i].args[0], "echo") == 0)
+		handle_my_echo(cmd, i);
+	else if (ft_strcmp(cmd[i].args[0], "cd") == 0)
+		my_cd(cmd, i);
+	else if (ft_strcmp(cmd[i].args[0], "pwd") == 0)
 		my_pwd();
-	else if (ft_strcmp(cmd[0].args[0], "export") == 0)
-		my_export(cmd, data);
-	else if (ft_strcmp(cmd[0].args[0], "unset") == 0)
-		my_unset(cmd, data);
-	else if (ft_strcmp(cmd[0].args[0], "env") == 0)
+	else if (ft_strcmp(cmd[i].args[0], "export") == 0)
+		my_export(cmd, data, i);
+	else if (ft_strcmp(cmd[i].args[0], "unset") == 0)
+		my_unset(cmd, data, i);
+	else if (ft_strcmp(cmd[i].args[0], "env") == 0)
 		my_env(data);
-	else if (ft_strcmp(cmd[0].args[0], "exit") == 0)
-		my_exit(cmd);
+	else if (ft_strcmp(cmd[i].args[0], "exit") == 0)
+		my_exit(cmd, i);
 }
 
-int	is_builtin(t_cmd *cmd)
+int	is_builtin(char *cmd)
 {
 	char	*arr[] = {"echo", "cd", "pwd", "exit", "env", "export", "unset", NULL};
 	int		i;
@@ -54,7 +53,7 @@ int	is_builtin(t_cmd *cmd)
 	i = -1;
 	while (arr[++i])
 	{
-		if (ft_strcmp(cmd[0].args[0], arr[i]) == 0)
+		if (ft_strcmp(cmd, arr[i]) == 0)
 			return (1);
 	}
 	return (0);

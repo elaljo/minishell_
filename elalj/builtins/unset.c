@@ -50,7 +50,7 @@ int	count_arg_un(t_cmd *cmd)
 	return (arg);
 }
 
-void	my_unset(t_cmd *cmd, t_data *data)
+void	my_unset(t_cmd *cmd, t_data *data, int i)
 {
 	int	arg;
 
@@ -58,11 +58,11 @@ void	my_unset(t_cmd *cmd, t_data *data)
 	arg = count_arg_un(cmd);
 	while (arg != 0)
 	{
-		if (ft_isalpha(strback(cmd[0].args[arg - 1])[0]) || ft_isalnum(strback(cmd[0].args[arg - 1]))
-			|| ft_search(cmd[0].args[arg - 1], '='))
-			print_not_identifier_un(cmd[0].args[arg - 1]);
+		if (ft_isalpha(strback(cmd[i].args[arg - 1])[0]) || ft_isalnum(strback(cmd[i].args[arg - 1]))
+			|| ft_search(cmd[i].args[arg - 1], '='))
+			print_not_identifier_un(cmd[i].args[arg - 1]);
 		else
-			remove_key(data, cmd[0].args[arg - 1]);
+			remove_key(data, cmd[i].args[arg - 1]);
 		arg--;
 	}
 }

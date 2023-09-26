@@ -1,18 +1,41 @@
 #include "../../minishell.h"
 
-void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i)
+void    execute_pipe(t_cmd *cmd, char **env, t_data *data)
 {
-    if (i % 2 == 0)
+    int fd1[2];
+    int fd2[2];
+    int i;
+    
+    if (pipe(fd1) == -1 || pipe(fd2) == -1)
+        perror_pipe();
+    start_executing_pipe(cmd, data, env, fd1, fd2);
+    close_pipes(fd1, fd2);
+    i = 0;
+    while (i < cmd->args_nbr)
     {
-        close(fd1[0]);
-        close(fd1[0]);
-        pipe(fd1);
+        wait(NULL);
+        i++;
     }
-    else
+}
+
+void    start_executing_pipe(t_cmd *cmd, t_data *data, char **env, int fd1[2], int fd2[2])
+{
+    int i;
+    int pid_f;
+
+    i = 0;
+    while (i < cmd->args_nbr)
     {
-        close(fd2[0]);
-        close(fd2[1]);
-        pipe(fd2);
+        pid_f = fork();
+        if (pid_f == -1)
+            perror_fork();
+        if (pid_f == 0)
+        {
+            setup_pipes(fd1, fd2, i, cmd);
+            found_cmd(cmd, env , i, data);
+        }
+        gives_pipe_to_the_next_child(fd1, fd2, i);
+        i++;
     }
 }
 
@@ -30,45 +53,27 @@ void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd)
 		pair(fd1, fd2);
 }
 
-void    execute_pipe(t_cmd *cmd, char **env)
-{
-    int fd1[2];
-    int fd2[2];
-    int pid;
-    int i;
 
-    if (pipe(fd1) == -1 || pipe(fd2) == -1)
+void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i)
+{
+    if (i % 2)
     {
-        perror("pipe");
-        exit(1);
+        close(fd1[0]);
+        close(fd1[1]);
+        pipe(fd1);
     }
-    i = 0;
-    while (i < cmd->args_nbr)
+    else
     {
-        pid = fork();
-        if (pid == -1)
-         perror("fork");
-        else if (pid == 0)
-        {
-            setup_pipes(fd1, fd2, i, cmd);
-            if (execve(cmd[i].args[0], cmd[i].args, env) == -1)
-            {
-                perror("execve");
-                exit(1);
-            }
-            // found_cmd(cmd, env , i);
-        }
-        gives_pipe_to_the_next_child(fd1, fd2, i);
-        i++;
+        close(fd2[0]);
+        close(fd2[1]);
+        pipe(fd2);
     }
+}
+
+void    close_pipes(int fd1[2], int fd2[2])
+{
     close(fd1[0]);
     close(fd1[1]);
     close(fd2[0]);
     close(fd2[1]);
-    i = 0;
-    while (i < cmd->args_nbr)
-    {
-        waitpid(pid, NULL, 0);
-        i++;
-    }
 }
