@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void    execute_pipe(t_cmd *cmd, char **env, t_data *data)
+void    execute_pipe(t_cmd *cmd, t_data *data)
 {
     int fd1[2];
     int fd2[2];
@@ -8,7 +8,7 @@ void    execute_pipe(t_cmd *cmd, char **env, t_data *data)
     
     if (pipe(fd1) == -1 || pipe(fd2) == -1)
         perror_pipe();
-    start_executing_pipe(cmd, data, env, fd1, fd2);
+    start_executing_pipe(cmd, data, fd1, fd2);
     close_pipes(fd1, fd2);
     i = 0;
     while (i < cmd->args_nbr)
@@ -18,7 +18,7 @@ void    execute_pipe(t_cmd *cmd, char **env, t_data *data)
     }
 }
 
-void    start_executing_pipe(t_cmd *cmd, t_data *data, char **env, int fd1[2], int fd2[2])
+void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2])
 {
     int i;
     int pid_f;
@@ -32,7 +32,7 @@ void    start_executing_pipe(t_cmd *cmd, t_data *data, char **env, int fd1[2], i
         if (pid_f == 0)
         {
             setup_pipes(fd1, fd2, i, cmd);
-            found_cmd(cmd, env , i, data);
+            found_cmd(cmd, i, data);
         }
         gives_pipe_to_the_next_child(fd1, fd2, i);
         i++;

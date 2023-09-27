@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-void	executing_one_cmd(t_cmd *cmd, char **env, int i, t_data *data)
+void	executing_one_cmd(t_cmd *cmd, int i, t_data *data)
 {
 	int	pid_f;
 
@@ -23,11 +23,11 @@ void	executing_one_cmd(t_cmd *cmd, char **env, int i, t_data *data)
 		exit (1);
 	}
 	if (pid_f == 0)
-		found_cmd(cmd, env,	i, data);
+		found_cmd(cmd, i, data);
 	else
 		wait(NULL);
 }
-char *get_cmd_path(char **env, char *cmd)
+char *get_cmd_path(t_data *data, char *cmd)
 {
 	int		i;
 	char	*full_path;
@@ -37,11 +37,11 @@ char *get_cmd_path(char **env, char *cmd)
 	i = 0;
 	full_path = NULL;
 	// cmd = ft_strtrim();
-	while (env[i])
+	while (data->c_env[i])
 	{
-		if (ft_strncmp(env[i], "PATH", 4) == 0)
+		if (ft_strncmp(data->c_env[i], "PATH", 4) == 0)
 		{
-			full_path = ft_strdup(ft_strchr(env[i], '='));
+			full_path = ft_strdup(ft_strchr(data->c_env[i], '='));
 			break ;
 		}
 		i++;
@@ -59,7 +59,7 @@ char *get_cmd_path(char **env, char *cmd)
 	return NULL;
 }
 
-void	execute_cmd(t_cmd *cmd, int i)
+void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 {
 	if (cmd[i].path == NULL)
 	{
@@ -68,10 +68,10 @@ void	execute_cmd(t_cmd *cmd, int i)
 		ft_putstr_fd(": command not found\n", 2);
 		exit (127);
 	}
-	execve(cmd[i].path, cmd[i].args, NULL);
+	execve(cmd[i].path, cmd[i].args, data->c_env);
 }
 
-void	found_cmd(t_cmd *cmd, char **env, int i, t_data *data)
+void	found_cmd(t_cmd *cmd, int i, t_data *data)
 {
 	if (is_builtin(cmd[i].args[0]) == 1)
 	{
@@ -88,12 +88,12 @@ void	found_cmd(t_cmd *cmd, char **env, int i, t_data *data)
 	}
 	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
 	{
-		if (execve(cmd[i].args[0], cmd[i].args, NULL) == -1)
+		if (execve(cmd[i].args[0], cmd[i].args, data->c_env) == -1)
 			perror("execve");
 	}
 	else
 	{
-		cmd[i].path = get_cmd_path(env, cmd[i].args[0]);
-		execute_cmd(cmd, i);
+		cmd[i].path = get_cmd_path(data, cmd[i].args[0]);
+		execute_cmd(cmd, i, data);
 	}
 }

@@ -122,18 +122,7 @@ void	my_export(t_cmd *cmd, t_data *data, int I)
 		{
 			printf("declare -x ");
 			j = 0;
-			while (data->c_env[i][j] != '\0')
-			{
-				printf("%c", data->c_env[i][j]);
-				if (data->c_env[i][j] == '=' && check == 0)
-				{
-					check = 1;
-					printf("\"");
-				}
-				if (data->c_env[i][j + 1] == '\0' && check == 1)
-					printf("\"");
-				j++;
-			}
+			print_export(data, i, j, check);
 			check = 0;
 			printf("\n");
 			i++;
@@ -142,4 +131,20 @@ void	my_export(t_cmd *cmd, t_data *data, int I)
 	}
 	else
 		if_there_var(cmd, data, I);
+}
+
+void print_export(t_data *data ,int i, int j, int check)
+{
+	while (data->c_env[i][j] != '\0')
+		{
+			printf("%c", data->c_env[i][j]);
+			if (data->c_env[i][j] == '=' && check == 0)
+			{
+				check = 1;
+				printf("\"");
+			}
+			if (data->c_env[i][j + 1] == '\0' && check == 1)
+				printf("\"");
+			j++;
+		}
 }

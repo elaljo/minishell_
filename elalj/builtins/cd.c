@@ -18,7 +18,9 @@ void	my_cd(t_cmd *cmd, int i)
 	int		check;
 
 	check = 0;
-	home_dir = getenv("HOME");
+	home_dir = getenv("HOME"); // getenv dyalk
+	// OLD_PWD = getcwd
+	// PWD = wd = relative path
 	if (!cmd[i].args[1])
 		check = chdir((const char *)home_dir);
 	else

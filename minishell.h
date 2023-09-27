@@ -119,11 +119,11 @@ int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char *line);
 
-//execute_cmd
-void	executing_one_cmd(t_cmd *cmd, char **env, int i, t_data *data);
-void	found_cmd(t_cmd *cmd, char **env, int op, t_data *data);
-char	*get_cmd_path(char **env, char *cmd);
-void	execute_cmd(t_cmd *cmd, int i);
+//	execute_cmd
+void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
+void	found_cmd(t_cmd *cmd, int op, t_data *data);
+char	*get_cmd_path(t_data *data, char *cmd);
+void	execute_cmd(t_cmd *cmd, int i, t_data *data);
 void	open_dir_err(t_cmd *cmd, int op);
 
 //	builtins
@@ -132,13 +132,14 @@ void	handle_my_echo(t_cmd *cmd, int i);
 void	my_cd(t_cmd	*cmd, int i);
 void	my_pwd(void);
 void	my_export(t_cmd *cmd, t_data *data, int I);
+void	print_export(t_data *data ,int i, int j, int check);
 void	my_unset(t_cmd *cmd, t_data *data, int i);
 void	my_env(t_data *data);
 void	my_exit(t_cmd *cmd, int i);
 
 //	pipes
-void    execute_pipe(t_cmd *cmd, char **env, t_data *data);
-void    start_executing_pipe(t_cmd *cmd, t_data *data, char **env, int fd1[2], int fd2[2]);
+void    execute_pipe(t_cmd *cmd, t_data *data);
+void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2]);
 void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd);
 void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i);
 void	first_cmd(int fd1[2], int fd2[2]);
@@ -180,5 +181,7 @@ int		len_arr(char **arr);
 //	perror
 void    perror_pipe(void);
 void    perror_fork(void);
+
+char	*ft_strtrim(char  *s1, char  *set);
 
 #endif
