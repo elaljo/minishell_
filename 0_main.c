@@ -19,7 +19,8 @@ int main(int ac, char *av[], char **env)
 	char	*input_string;
 	char	**splitted_cmds;
 	
-	if (ac != 1 && !av)
+	(void)av;
+	if (ac != 1)
 		return (0);
 	rl_initialize();
 	init_data_structs(&data);
@@ -34,7 +35,7 @@ int main(int ac, char *av[], char **env)
 		if (!input_string)
 		{
 			printf("exit\n");
-			exit(0);
+			exit (0);
 		}
 		if (only_spaces(input_string) == 0)
 			continue ;
@@ -47,10 +48,10 @@ int main(int ac, char *av[], char **env)
 			if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
 				execute_builtin(cmds, &data, 0);
 			else
-				executing_one_cmd(cmds, env, 0, &data);
+				executing_one_cmd(cmds, 0, &data);
 		}
 		else
-			execute_pipe(cmds, env, &data);
+			execute_pipe(cmds, &data);
 	}
 	free(input_string);
 	ft_str_free(splitted_cmds);
