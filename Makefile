@@ -48,13 +48,13 @@ C_FILES = elalj/builtins/echo.c\
 OBJ = ${C_FILES:.c=.o}
 
 %.o: %.c
-	@echo "$(YELLOW)                                  Linking ...⏳$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: ${NAME}
 
 $(NAME): $(OBJ)
 	@echo "$(GREEN)COMPILING... ⏳$(RESET)"
+	@echo "$(YELLOW)                                  Linking ...⏳$(RESET)"
 	@$(CC) -L $(RL)/lib $(CFLAGS) $^ -o $@ -lreadline
 	@echo "$$MINI_SHELL"
 	@echo "$(GREEN)COMPILATION COMPLETED ✅$(RESET)"
