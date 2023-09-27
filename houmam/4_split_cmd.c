@@ -115,8 +115,10 @@ char	**split(char *str)
 			ndx.k++;
 		}
 		tab[ndx.j][ndx.k] = '\0';
+		// printf("first split --> (%s)\n", tab[ndx.j]);
 		if (ndx.check_space == 1)
 		{
+			// printf("2nnnnnnnnnnnnnnnnnnnn\n");
 			while ((str[ndx.i] == ' ' || str[ndx.i] == '\t') && quote.sq % 2 == 0 && quote.dq % 2 == 0)
 				ndx.i++;
 			ndx.i--;//hadi dernaha 7itach f had if kan incrementer ta kanl9a chi haja mn ghir space o mn mora makykhrej mn had condition kayna hadi if (str[ndx.i]) katzid t incrementer mara akhra o kan9adro nskipiw chi space o ndekhlo f word akhor

@@ -16,21 +16,25 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 {
 	if (str[ndx->i + 1] != 0 && ((str[ndx->i] == '>' && str[ndx->i + 1] == '>') || (str[ndx->i] == '<' && str[ndx->i + 1] == '<')) && quote.sq % 2 == 0 && quote.dq % 2 == 0)
 	{
+		// printf("1nnnnnnnnnnnnnnnnnnnn\n");
 		tab[ndx->j] = malloc(3 * sizeof(char));
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = str[ndx->i + 1];
 		tab[ndx->j][2] = 0;
-		ndx->j++;
-		ndx->i++;
+		// printf("1redir << %s >>\n", tab[ndx->j]);
+		(ndx->j)++;
+		(ndx->i)++;
 		ndx->start = ndx->i + 2;
 		return (1);
 	}
 	else if ((str[ndx->i] == '>' || str[ndx->i] == '<') && quote.sq % 2 == 0 && quote.dq % 2 == 0)
 	{
+		// printf("2nnnnnnnnnnnnnnnnnnnn\n");
 		tab[ndx->j] = malloc(2 * sizeof(char));
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = 0;
-		ndx->j++;
+		// printf("2redir < %s >\n", tab[ndx->j]);
+		(ndx->j)++;
 		ndx->start = ndx->i + 2;
 		return (1);
 	}

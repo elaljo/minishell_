@@ -18,6 +18,7 @@ int cnt_exp(char *str)
     int sq = 0;
     int dq = 0;
     int i = 0;
+//     printf("✅✅--- str : %s ---✅✅\n", str);
 
     while (str[i])
     {
@@ -29,26 +30,52 @@ int cnt_exp(char *str)
                 sq++;
         else if (str[i] == '"' && i != 0 && str[i - 1] != '\\')
                 dq++;
-        if (sq % 2 == 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
+        
+        if(str[i] == '\'' && i != 0 && str[i - 1] != '\\' && sq % 2 != 0 && dq % 2 != 0)
+        {
+                // printf("01-Index --------> %d\n", i);
+                sq++;
+        }
+        else if (str[i] == '"' && i != 0 && str[i - 1] != '\\' && dq % 2 != 0 && sq % 2 != 0)
+        {
+                // printf("02-Index --------> %d\n", i);
+                dq++;
+        }
+        else if (sq % 2 == 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
+        {
+                // printf("1-Index --------> %d\n", i);
                 cnt++;
-        else if (dq % 2 == 0 && i != 0 && str[i] == '\"' && str[i - 1] != '\\')
+        }
+        else if (dq % 2 == 0 && i != 0 && str[i] == '"' && str[i - 1] != '\\')
+        {
+                // printf("2-Index --------> %d\n", i);
                 cnt++;
+        }
         else if (sq % 2 != 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\' && str[i - 1] != '\'' && str[i - 1] != '"')
+        {
+                // printf("3-Index --------> %d\n", i);
                 cnt++;
-        else if (dq % 2 != 0 && i != 0 && str[i] == '\"' && str[i - 1] != '\\' && str[i - 1] != '\'' && str[i - 1] != '"')
+        }
+        else if (dq % 2 != 0 && i != 0 && str[i] == '"' && str[i - 1] != '\\' && str[i - 1] != '\'' && str[i - 1] != '"')
+        {
+                // printf("4-Index --------> %d\n", i);
                 cnt++;
+        }
         else if (!str[i + 1])
+        {
+                // printf("5-Index --------> %d\n", i);
                 cnt++;
+        }
         i++;
     }
-    printf("count_quotes --> %d\n", cnt);
+//     printf("❤️❤️count_quotes --> %d\n", cnt);
     return (cnt);
 }
 
 // '''$USER'''
 // 012345678910
 char    **quotes_split(char *str)
-{ 
+{
     int start = 0;
     int end = 0;
     int i = 0;
@@ -73,7 +100,11 @@ char    **quotes_split(char *str)
                         sq++;
                 else if (str[i] == '"' && i != 0 && str[i - 1] != '\\')
                         dq++;
-                if (sq % 2 == 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
+                if(str[i] == '\'' && i != 0 && str[i - 1] != '\\' && sq % 2 != 0 && dq % 2 != 0)
+                        sq++;
+                else if (str[i] == '"' && i != 0 && str[i - 1] != '\\' && dq % 2 != 0 && sq % 2 != 0)
+                        dq++;
+                else if (sq % 2 == 0 && i != 0 && str[i] == '\'' && str[i - 1] != '\\')
                         break ;
                 else if (dq % 2 == 0 && i != 0 && str[i] == '\"' && str[i - 1] != '\\')
                         break ;
@@ -88,7 +119,7 @@ char    **quotes_split(char *str)
         tab[j] = malloc((i - start + 1) * sizeof(char));
         k = 0;
         end = i;
-        printf("quotes -> index : %d\n", i);
+        // printf("quotes -> index : %d\n", i);
         if ((str[i] == '\"' && dq % 2 == 0) || (str[i] == '\'' && sq % 2 == 0) || str[i + 1] == '\0')
             end++;
         while (start < end)
@@ -98,7 +129,7 @@ char    **quotes_split(char *str)
             start++;
         }
         tab[j][k] = '\0';
-        printf("split[%d] --> %s\n", j, tab[j]);
+        // printf("❤️split[%d] --> %s❤️\n", j, tab[j]);
         j++;
         if (str[i])
             i++;

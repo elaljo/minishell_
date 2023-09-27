@@ -15,7 +15,7 @@
 int check_quoted(char *str)
 {
 	int len = ft_strlen(str) - 1;
-	if (str[0] == '\'' && str[len] == '\'')
+	if (str[0] == '\'' && str[len] == '\'' && ft_strlen(str) != 1)
 		return (1);
 	if (str[0] == '"' && str[len] == '"')
 		return (2);
@@ -28,12 +28,14 @@ char	*handle_quoted(char *str)
 	int len;
 	char *tmp;
 
+	// printf("🔴 handle_quoted_fct --> %s 🔴\n", str);
 	while (check_quoted(str) != 0)
 	{
 		tmp = ft_strdup(str);
 		free(str);
 		len = ft_strlen(tmp);
 		str = malloc((len - 1) * sizeof(char));
+		// printf("len - 1 --> %d\n", len - 1);
 		i = 1;
 		j = 0;
 		while (i < len - 1)
@@ -43,6 +45,8 @@ char	*handle_quoted(char *str)
 			j++;
 		}
 		str[j] = '\0';
+		// printf("*🔴 handle_quoted_fct --> %s 🔴\n", str);
 	}
+	// printf("🔴 handle_quoted_fct --> %s 🔴\n", str);
 	return (str);
 }
