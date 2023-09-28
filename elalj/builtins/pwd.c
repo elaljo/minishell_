@@ -19,5 +19,27 @@ void	my_pwd(void)
 	if (getcwd(c_dir, sizeof(c_dir)) != NULL)
 		printf("%s\n", c_dir);
 	else
-		perror("pwd");
+		perror("getcwd");
+}
+
+void	export_pwd(t_data *data)
+{
+	int		i;
+	char	c_dir[256];
+	char	*c_path;
+
+	c_path = "PWD=";
+	c_path = ft_strjoin(c_path, getcwd(c_dir, 256));
+	if (!c_path)
+		perror("getcwd");
+	i = 0;
+	while (data->c_env[i] != NULL)
+	{
+		if (ft_strncmp(data->c_env[i], "PWD", 3) == 0)
+		{
+			data->c_env[i] = c_path;
+			break ;
+		}
+		i++;
+	}
 }

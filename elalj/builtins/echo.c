@@ -31,7 +31,11 @@ void	handle_my_echo(t_cmd *cmd, int i)
 	if (!cmd[i].args[1])
 		printf("\n");
 	else if (cmd[i].args[0] && cmd[i].args[1][0] == '-' && cmd[i].args[1][1] == 'n')
-		my_echo(cmd, i, a + 1);
+	{
+		while (cmd[i].args[a][0] == '-' && cmd[i].args[a][1] == 'n')
+			a++;
+		my_echo(cmd, i, a);
+	}
 	else if (cmd[i].args[a])
 	{
 		my_echo(cmd, i, a);

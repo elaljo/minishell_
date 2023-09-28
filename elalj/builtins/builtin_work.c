@@ -32,7 +32,7 @@ void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 	if (ft_strcmp(cmd[i].args[0], "echo") == 0)
 		handle_my_echo(cmd, i);
 	else if (ft_strcmp(cmd[i].args[0], "cd") == 0)
-		my_cd(cmd, i);
+		my_cd(cmd, i, data);
 	else if (ft_strcmp(cmd[i].args[0], "pwd") == 0)
 		my_pwd();
 	else if (ft_strcmp(cmd[i].args[0], "export") == 0)
