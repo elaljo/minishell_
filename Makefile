@@ -11,10 +11,10 @@ RM = rm -rf
 # RL = ${shell brew --prefix readline}
 
 RESET = \033[0m
-RED = \033[31m
-GREEN = \033[32m
-YELLOW = \033[33m
-END =  \033[0m
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+END =  \033[1;0m
 PURPLE = \033[1;35m
 
 C_FILES = elalj/builtins/echo.c\
@@ -55,18 +55,18 @@ OBJ = ${C_FILES:.c=.o}
 all: ${NAME}
 
 $(NAME): $(OBJ)
-	@echo "$(GREEN)COMPILING... ⏳$(RESET)"
-	@echo "$(YELLOW)                                  Linking ...⏳$(RESET)"
+	@echo "$(GREEN)                                    COMPILING... ⏳$(RESET)"
+	@echo "$(YELLOW)                                     Linking... ⏳$(RESET)"
 	@$(CC) -L $(RL)/lib $(CFLAGS) $^ -o $@ -lreadline
-	@echo "$(GREEN)COMPILATION COMPLETED ✅$(RESET)"
+	@echo "$(GREEN)                                COMPILATION COMPLETED💲 ✔️$(RESET)"
 	@echo "$(PURPLE) $$MINI_SHELL $(END)"
 
 clean:
-	@echo "$(RED)Deliting Obj_files ❌$(RESET)"
+	@echo "$(RED)                                 Removing Obj_files ✔️$(RESET)"
 	@${RM} ${OBJ}
 
 fclean: clean
-	@echo "$(RED)Deliting Obj_files + Program ❌$(RESET)"
+	@echo "$(RED)                              Removing Obj && minishell ✔️$(RESET)"
 	@${RM} ${NAME} ${OBJ}
 
 re: fclean all
@@ -87,4 +87,15 @@ define MINI_SHELL
 
 endef
 export MINI_SHELL
+
+define SCHOOL
+
+ 		  mmm            mmmm          mmmm         mmmmmm
+ 		    #           "   "#        "   "#            #"
+ 		    #             mmm"          mmm"           m"
+ 		    #               "#            "#          m"
+ 		  mm#mm         "mmm#"        "mmm#"         m"
+
+endef
+export SCHOOL
 # $(NAME) is ready ✅

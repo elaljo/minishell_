@@ -87,7 +87,7 @@ char	**split(char *str)
 				quote.sq++;
 			else if (ndx.i == 0 && str[ndx.i] == 34)
 				quote.dq++;
-			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i + 1] != '\0' && str[ndx.i + 1] == '|')
+			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i + 1] != '\0' && (str[ndx.i + 1] == '|' || str[ndx.i + 1] == '<' || str[ndx.i + 1] == '>'))
 			{
 				// printf("❤️❤️❤️❤️ana dkhelt \n");
 				ndx.pipe = 1;
@@ -149,14 +149,28 @@ char	**split(char *str)
 char	*rm_spaces(char *str)
 {
 	int i = 0;
-	char *tmp;
+	char *start;
+	// char *end;
+	int len;
 
 	while (str[i] == ' ')
 		i++;
-	tmp = ft_strdup(&str[i]);
-	// printf("tmp✅(%s)✅\n", tmp);
-	// printf("after✅(%s)✅\n", str);
-	return (tmp);
+	start = ft_strdup(&str[i]);
+	len = ft_strlen(start);
+	len--;
+	if (start[len] == ' ')
+	{
+		i = 0;
+		while (start[i] != ' ')
+		{
+			str[i] = start[i];
+			i++;
+		}
+		str[i] = '\0';
+		free(start);
+		return (str);
+	}
+	return (start);
 }
 
 void	removing_spaces(char **str)
