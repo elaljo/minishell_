@@ -46,6 +46,12 @@ char *get_cmd_path(t_data *data, char *cmd)
 		}
 		i++;
 	}
+	if (full_path == NULL)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
 	path = ft_split(full_path);
 	i = 0;
 	while (path[i] != NULL)
