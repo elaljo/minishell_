@@ -92,6 +92,7 @@ t_cmd	*get_cmds(char **tab)
 				{
 					if (ft_strcmp("<<", tab[i]) == 0)
 					{
+						// printf("🟥🟥 ana f red-1🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
@@ -99,6 +100,7 @@ t_cmd	*get_cmds(char **tab)
 					}
 					else if (ft_strcmp("<", tab[i]) == 0)
 					{
+						// printf("🟥🟥 ana f red-2🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
@@ -106,6 +108,7 @@ t_cmd	*get_cmds(char **tab)
 					}
 					else if (ft_strcmp(">>", tab[i]) == 0)
 					{
+						// printf("🟥🟥 ana f red-3🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
@@ -113,6 +116,7 @@ t_cmd	*get_cmds(char **tab)
 					}
 					else if (ft_strcmp(">", tab[i]) == 0)
 					{
+						// printf("🟥🟥 ana f red-4🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
@@ -124,6 +128,8 @@ t_cmd	*get_cmds(char **tab)
 				i++;
 			}
 			cmds[j].args[k] = NULL;
+			cmds[j].cmd_len = cmd_len(cmds[j].args);
+			// printf("🔴🌕🔴cmds[j].cmd_len --> %d🔴🌕🔴\n", cmds[j].cmd_len);
 			j++;
 		}
 	}

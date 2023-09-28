@@ -67,6 +67,7 @@ char	**split(char *str)
 	quote.sq = 0;
 	quote.dq = 0;
 	ndx.check_space = 0;
+	ndx.pipe = 0;
 	
 	while (str[ndx.i])
 	{
@@ -86,6 +87,12 @@ char	**split(char *str)
 				quote.sq++;
 			else if (ndx.i == 0 && str[ndx.i] == 34)
 				quote.dq++;
+			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i + 1] != '\0' && str[ndx.i + 1] == '|')
+			{
+				// printf("❤️❤️❤️❤️ana dkhelt \n");
+				ndx.pipe = 1;
+				break;
+			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && (str[ndx.i] == ' ' ||  str[ndx.i] == '\t') \
 					 && ndx.i != 0 && str[ndx.i - 1] != '|' && str[ndx.i - 1] != ' ' && str[ndx.i - 1] != '\t' && \
 					str[ndx.i - 1] != '>' && str[ndx.i - 1] != '<' )
@@ -94,7 +101,7 @@ char	**split(char *str)
 				break ;                //in case l9ina space mora chi redir or space or pipe or chi character special that's why I check i - 1
 			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '|')
-				handle_pipe(tab, &ndx);
+				handle_pipe(tab, &ndx, str);
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '>' && str[ndx.i + 1] && str[ndx.i + 1] != '>')
 				handle_redir(str, tab, &ndx, quote);
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '<' && str[ndx.i + 1] && str[ndx.i + 1] != '<')
@@ -107,6 +114,8 @@ char	**split(char *str)
 				ndx.i++;
 		}
 		tab[ndx.j] = malloc((ndx.i - ndx.start + 1) * sizeof(char));
+		if (ndx.pipe == 1)
+			ndx.i++;
 		ndx.k = 0;
 		while (ndx.start < ndx.i)
 		{
@@ -115,7 +124,12 @@ char	**split(char *str)
 			ndx.k++;
 		}
 		tab[ndx.j][ndx.k] = '\0';
-		// printf("first split --> (%s)\n", tab[ndx.j]);
+		if (ndx.pipe == 1)
+		{
+			ndx.i--;
+			ndx.pipe = 0;
+		}
+		// printf("➡️split --> (%s)⬅️\n", tab[ndx.j]);
 		if (ndx.check_space == 1)
 		{
 			// printf("2nnnnnnnnnnnnnnnnnnnn\n");
@@ -132,3 +146,31 @@ char	**split(char *str)
 	return (tab);
 }
 
+char	*rm_spaces(char *str)
+{
+	int i = 0;
+	char *tmp;
+
+	while (str[i] == ' ')
+		i++;
+	tmp = ft_strdup(&str[i]);
+	// printf("tmp✅(%s)✅\n", tmp);
+	// printf("after✅(%s)✅\n", str);
+	return (tmp);
+}
+
+void	removing_spaces(char **str)
+{
+	int i = 0;
+	char *tmp;
+
+	while (str[i] != NULL)
+	{
+		tmp = ft_strdup(rm_spaces(str[i]));
+		free(str[i]);
+		str[i] = ft_strdup(tmp);
+		free(tmp);
+		// printf("✅✅(%s)✅✅, %d\n", str[i], i);
+		i++;
+	}
+}

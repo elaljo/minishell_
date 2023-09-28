@@ -22,15 +22,27 @@ int cnt_redir(char **tab)
 		if (tab[i][0] == '|' || tab[i] == NULL)
 			break ;
         else if (ft_strcmp("<<", tab[i]) == 0)
+        {
+            // printf("❌❌1-rediiii ----> %d❌❌\n", i);
             cnt++;
+        }
         else if (ft_strcmp("<", tab[i]) == 0)
+        {
+            // printf("❌❌2-rediiii ----> %d❌❌\n", i);
             cnt++;
+        }
         else if (ft_strcmp(">>", tab[i]) == 0)
+        {
+            // printf("❌❌3-rediiii ----> %d❌❌\n", i);
             cnt++;
+        }
         else if (ft_strcmp(">", tab[i]) == 0)
+        {
+            // printf("❌❌4-rediiii ----> %d❌❌\n", i);
             cnt++;
+        }
 		i++;
 	}
-	//printf("cmd_len ----> %d\n\n", i);
+	// printf("❌***cmd_len ----> %d❌\n", cnt);
 	return (cnt);
 }

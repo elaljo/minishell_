@@ -8,12 +8,14 @@ CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
 
 RM = rm -rf
 
-RL = ${shell brew --prefix readline}
+# RL = ${shell brew --prefix readline}
 
 RESET = \033[0m
 RED = \033[31m
 GREEN = \033[32m
 YELLOW = \033[33m
+END =  \033[0m
+PURPLE = \033[1;35m
 
 C_FILES = elalj/builtins/echo.c\
 		  elalj/builtins/cd.c\
@@ -56,8 +58,8 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)COMPILING... ⏳$(RESET)"
 	@echo "$(YELLOW)                                  Linking ...⏳$(RESET)"
 	@$(CC) -L $(RL)/lib $(CFLAGS) $^ -o $@ -lreadline
-	@echo "$$MINI_SHELL"
 	@echo "$(GREEN)COMPILATION COMPLETED ✅$(RESET)"
+	@echo "$(PURPLE) $$MINI_SHELL $(END)"
 
 clean:
 	@echo "$(RED)Deliting Obj_files ❌$(RESET)"

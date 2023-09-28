@@ -52,6 +52,7 @@ typedef	struct s_ndx
 	int k;
 	int check;
 	int check_space;
+	int pipe;
 	int start;
 	int cnt;
 } t_ndx;
@@ -61,7 +62,9 @@ int		count(char *str);
 int		handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote);
 int		handle_pipe(char **tab, t_ndx *ndx, char *str);
 char	**split(char *str);
-int count_cmds(char **tab);
+int		count_cmds(char **tab);
+char	*rm_spaces(char *str);
+void	removing_spaces(char **str);
 
 /* - - - - - - - - - - - - - - libft - - - - - - - - - - - - - - */
 

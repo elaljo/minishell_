@@ -15,7 +15,7 @@
 void    expand_all(t_cmd *cmds)
 {
     int i = 0;
-    while (i < cmds->args_nbr)
+    while (i < cmds->args_nbr && cmds->args[i] != NULL)
     {
         expander(&cmds[i], cmds[i].cmd_len);
         i++;
@@ -35,10 +35,11 @@ void    expander(t_cmd *cmd, int len)
     char *joigned_1;
     char **quote_splitted;
     char **dollar_splitted;
+    // printf("🌕🌕(len -> %d)🌕🌕 \n", len);
     while (i < len)
     {
         quote_splitted = quotes_split(args[i]);
-        // printf("➡️ str ---> %s\n➡️", );
+        // printf("🌕🌕🌕🌕 \n");
         j = 0;
         while (quote_splitted[j] != NULL)
         {
@@ -115,5 +116,6 @@ void    expander(t_cmd *cmd, int len)
         args[i] = ft_strdup(joigned_1);
         free(joigned_1);
         i++;
+    // printf("🌕🌕🌕🌕 \n");
     }
 }

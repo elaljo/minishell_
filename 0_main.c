@@ -40,9 +40,29 @@ int main(int ac, char *av[], char **env)
 		if (only_spaces(input_string) == 0)
 			continue ;
 		splitted_cmds = split(input_string);
+		// printf("✅splitting✅\n");
+		removing_spaces(splitted_cmds);
+		// printf("✅removing spaces✅\n");
 		cmds = get_cmds(splitted_cmds);
+		// printf("✅Getting cmds✅\n");
 		expand_all(cmds);
-		printf("\n");
+		// printf("✅expanding✅\n");
+		// printf("\n");
+		// if (cmds->args_nbr == 1 && cmds[0].redir[0].redi != NULL)
+		// {
+		// 	if (cmds[0].args[0] != NULL && is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
+		// 		executing_one_cmd(cmds, 0, &data);
+		// 	{
+		// 		printf("🌕🌕 \n");
+		// 		execute_builtin(cmds, &data, 0);
+		// 	}
+		// 	else
+		// 	{
+		// 		printf("🌕🌕🌕🌕 \n");
+		// 	}
+		// }
+		// else
+		// 	execute_pipe(cmds, &data);
 		if (cmds->args_nbr == 1)
 		{
 			if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)

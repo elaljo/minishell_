@@ -21,7 +21,7 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = str[ndx->i + 1];
 		tab[ndx->j][2] = 0;
-		// printf("1redir << %s >>\n", tab[ndx->j]);
+		// printf("➡️1-redir < (%s) >⬅️\n", tab[ndx->j]);
 		(ndx->j)++;
 		(ndx->i)++;
 		ndx->start = ndx->i + 2;
@@ -33,7 +33,7 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j] = malloc(2 * sizeof(char));
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = 0;
-		// printf("2redir < %s >\n", tab[ndx->j]);
+		// printf("➡️2-redir < (%s) >⬅️\n", tab[ndx->j]);
 		(ndx->j)++;
 		ndx->start = ndx->i + 2;
 		return (1);
@@ -41,13 +41,15 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 	return (0);
 }
 
-int	handle_pipe(char **tab, t_ndx *ndx)
+int	handle_pipe(char **tab, t_ndx *ndx, char *str)
 {
 	tab[ndx->j] = malloc(2 * sizeof(char));
 	tab[ndx->j][0] = '|';
 	tab[ndx->j][1] = '\0';
+	// printf("➡️pipe < (%s) >⬅️\n", tab[ndx->j]);
 	(ndx->j)++;
-	ndx->i++;
+	while (str[ndx->i] == ' ')
+		ndx->i++;
 	ndx->start = ndx->i + 1;
 	return (1);
 }

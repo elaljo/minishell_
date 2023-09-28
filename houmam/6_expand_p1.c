@@ -29,8 +29,8 @@ char	*handle_quoted(char *str)
 	char *tmp;
 
 	// printf("🔴 handle_quoted_fct --> %s 🔴\n", str);
-	while (check_quoted(str) != 0)
-	{
+	// while (check_quoted(str) != 0)
+	// {
 		tmp = ft_strdup(str);
 		free(str);
 		len = ft_strlen(tmp);
@@ -46,7 +46,7 @@ char	*handle_quoted(char *str)
 		}
 		str[j] = '\0';
 		// printf("*🔴 handle_quoted_fct --> %s 🔴\n", str);
-	}
+	// }
 	// printf("🔴 handle_quoted_fct --> %s 🔴\n", str);
 	return (str);
 }
