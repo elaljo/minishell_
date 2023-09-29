@@ -133,9 +133,7 @@ void	open_dir_err(t_cmd *cmd, int op);
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
 void	handle_my_echo(t_cmd *cmd, int i);
-void	my_cd(t_cmd	*cmd, int i, t_data *data);
-void	export_old_pwd(char *old_pwd, t_data *data);
-void	export_pwd(t_data *data);
+void	my_cd(t_cmd	*cmd, int i);
 void	my_pwd(void);
 void	my_export(t_cmd *cmd, t_data *data, int I);
 void	print_export(t_data *data ,int i, int j, int check);
