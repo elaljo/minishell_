@@ -19,6 +19,11 @@ int main(int ac, char *av[], char **env)
 	char	*input_string;
 	char	**splitted_cmds;
 	
+	if (!env || !*env)
+	{
+		printf("Aaaaaaa mexiiiiiiiii ltabon dyemak\n");
+		return (1);
+	}
 	(void)av;
 	if (ac != 1)
 		return (0);
@@ -48,23 +53,9 @@ int main(int ac, char *av[], char **env)
 		// printf("✅Getting cmds✅\n");
 		expand_all(cmds, data);
 		// printf("✅expanding✅\n");
-		// printf("\n");
-		// if (cmds->args_nbr == 1 && cmds[0].redir[0].redi != NULL)
-		// {
-		// 	if (cmds[0].args[0] != NULL && is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
-		// 		executing_one_cmd(cmds, 0, &data);
-		// 	{
-		// 		printf("🌕🌕 \n");
-		// 		execute_builtin(cmds, &data, 0);
-		// 	}
-		// 	else
-		// 	{
-		// 		printf("🌕🌕🌕🌕 \n");
-		// 	}
-		// }
-		// else
-		// 	execute_pipe(cmds, &data);
-		if (cmds->args_nbr == 1)
+		if (cmds->redir_nbr != 0)
+			execute_redir(cmds, &data);
+		else if (cmds->args_nbr == 1)
 		{
 			if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
 				execute_builtin(cmds, &data, 0);

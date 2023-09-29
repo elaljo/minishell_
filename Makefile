@@ -8,7 +8,7 @@ CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
 
 RM = rm -rf
 
-# RL = ${shell brew --prefix readline}
+RL = ${shell brew --prefix readline}
 
 RESET = \033[0m
 RED = \033[1;31m
@@ -35,6 +35,7 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/pipes/pipes_handler.c\
 		  elalj/pipes/setup_pipes.c\
 		  elalj/perror.c\
+		  elalj/redir/execute_redir.c\
 		  0_main.c\
 		  houmam/1_errors.c\
 		  houmam/2_libft.c\
