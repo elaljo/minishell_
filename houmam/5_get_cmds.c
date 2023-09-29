@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/17 17:45:50 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:18:36 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ t_cmd	*get_cmds(char **tab)
 						// printf("🟥🟥 ana f red-1🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						// printf("🟥🟥 redi : %s 🟥🟥\n",cmds[j].redir[red].redi);
+						// printf("🟥🟥 eof : %s 🟥🟥\n",cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
@@ -103,6 +105,8 @@ t_cmd	*get_cmds(char **tab)
 						// printf("🟥🟥 ana f red-2🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						// printf("🟥🟥 redi : %s 🟥🟥\n",cmds[j].redir[red].redi);
+						// printf("🟥🟥 eof : %s 🟥🟥\n",cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
@@ -111,6 +115,8 @@ t_cmd	*get_cmds(char **tab)
 						// printf("🟥🟥 ana f red-3🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						// printf("🟥🟥 redi : %s 🟥🟥\n",cmds[j].redir[red].redi);
+						// printf("🟥🟥 eof : %s 🟥🟥\n",cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}
@@ -119,6 +125,8 @@ t_cmd	*get_cmds(char **tab)
 						// printf("🟥🟥 ana f red-4🟥🟥\n");
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
 						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						// printf("🟥🟥 redi : %s 🟥🟥\n",cmds[j].redir[red].redi);
+						// printf("🟥🟥 eof : %s 🟥🟥\n",cmds[j].redir[red].eof);
 						red++;
 						continue ;
 					}

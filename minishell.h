@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/17 17:39:28 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/29 21:37:58 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ int		only_spaces(char *str);
 
 // houmam
 
-char	*expand_variables(char* input);
-void	expand_variable(const char* var_name, char* expanded, size_t* j);
-int		is_alnum(char c);
-t_cmd	*expandables(t_cmd *cmds);
+// char	*expand_variables(char* input);
+// void	expand_variable(const char* var_name, char* expanded, size_t* j);
+// int		is_alnum(char c);
+// t_cmd	*expandables(t_cmd *cmds);
 char	*handle_quoted(char *str);
 int		check_quoted(char *str);
 int		count_cmds(char **tab);
@@ -107,8 +107,10 @@ char    *expand_var(char *str, t_data data);
 void    expander(t_cmd *cmd, int len, t_data data);
 void    expand_all(t_cmd *cmds, t_data data);
 int		check_in_env(t_data data, char *var);
+t_quote unclosed_quotes(char *str);
+void    parsing_errors(char *str);
 
-// moahmed
+// mohamed
 
 void	init_data_structs(t_data *data);
 void	copy_env(t_data *data, char **env);
@@ -133,7 +135,9 @@ void	open_dir_err(t_cmd *cmd, int op);
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
 void	handle_my_echo(t_cmd *cmd, int i);
-void	my_cd(t_cmd	*cmd, int i);
+void	my_cd(t_cmd	*cmd, int i, t_data *data);
+void	export_old_pwd(char *old_pwd, t_data *data);
+void	export_pwd(t_data *data);
 void	my_pwd(void);
 void	my_export(t_cmd *cmd, t_data *data, int I);
 void	print_export(t_data *data ,int i, int j, int check);

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/17 17:27:37 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/29 21:49:51 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int main(int ac, char *av[], char **env)
 			printf("exit\n");
 			exit (0);
 		}
+		parsing_errors(input_string);
 		if (only_spaces(input_string) == 0)
 			continue ;
 		splitted_cmds = split(input_string);

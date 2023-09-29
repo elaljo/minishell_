@@ -45,12 +45,9 @@ int cnt_exp(char *str)
                 cnt++;
         i++;
     }
-//     printf("❤️❤️count_quotes --> %d\n", cnt);
+//     printf("❤️❤️sq --> %d\n❤️❤️dq --> %d\n", sq % 2, dq % 2);
     return (cnt);
 }
-
-// '''$USER'''
-// 012345678910
 char    **quotes_split(char *str)
 {
     int start = 0;

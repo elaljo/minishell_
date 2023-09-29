@@ -36,6 +36,7 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/pipes/setup_pipes.c\
 		  elalj/perror.c\
 		  0_main.c\
+		  houmam/1_errors.c\
 		  houmam/2_libft.c\
 		  houmam/3_sp_characters.c\
 		  houmam/4_split_cmd.c\

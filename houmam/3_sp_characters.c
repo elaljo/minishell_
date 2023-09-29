@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 10:16:19 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/09 16:05:17 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/29 22:18:11 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j][1] = 0;
 		// printf("➡️2-redir < (%s) >⬅️\n", tab[ndx->j]);
 		(ndx->j)++;
-		ndx->start = ndx->i + 2;
+		ndx->start = ndx->i + 1;
 		return (1);
 	}
 	return (0);
