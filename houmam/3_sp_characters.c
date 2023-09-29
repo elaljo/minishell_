@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 10:16:19 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/29 22:18:11 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/29 23:19:38 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = str[ndx->i + 1];
 		tab[ndx->j][2] = 0;
-		// printf("➡️1-redir < (%s) >⬅️\n", tab[ndx->j]);
+		printf("➡️1-redir < (%s) >⬅️\n", tab[ndx->j]);
 		(ndx->j)++;
 		(ndx->i)++;
-		ndx->start = ndx->i + 2;
+		ndx->start = ndx->i + 1;
 		return (1);
 	}
 	else if ((str[ndx->i] == '>' || str[ndx->i] == '<') && quote.sq % 2 == 0 && quote.dq % 2 == 0)
@@ -33,7 +33,7 @@ int	handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote)
 		tab[ndx->j] = malloc(2 * sizeof(char));
 		tab[ndx->j][0] = str[ndx->i];
 		tab[ndx->j][1] = 0;
-		// printf("➡️2-redir < (%s) >⬅️\n", tab[ndx->j]);
+		printf("➡️2-redir < (%s) >⬅️\n", tab[ndx->j]);
 		(ndx->j)++;
 		ndx->start = ndx->i + 1;
 		return (1);
@@ -46,7 +46,7 @@ int	handle_pipe(char **tab, t_ndx *ndx, char *str)
 	tab[ndx->j] = malloc(2 * sizeof(char));
 	tab[ndx->j][0] = '|';
 	tab[ndx->j][1] = '\0';
-	// printf("➡️pipe < (%s) >⬅️\n", tab[ndx->j]);
+	printf("➡️pipe < (%s) >⬅️\n", tab[ndx->j]);
 	(ndx->j)++;
 	while (str[ndx->i] == ' ')
 		ndx->i++;
