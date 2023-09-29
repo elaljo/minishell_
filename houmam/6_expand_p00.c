@@ -92,11 +92,28 @@ char    **dollar_split(char *str)
     return (tab);
 }
 
-char    *expand_var(char *str)
+char    *expand_var(char *str, t_data data)
 {
     char *tmp = ft_strdup(str);
     free(str);
-    str = ft_strdup(getenv(tmp + 1));
+    if (check_in_env(data, tmp + 1) == 1)
+        str = ft_strdup(getenv(tmp + 1));
+    else
+        str = ft_strdup("");
     free(tmp);
     return (str);
+}
+
+int check_in_env(t_data data, char *var)
+{
+    int i = 0;
+    int len = ft_strlen(var);
+
+    while (data.c_env[i] != NULL)
+    {
+        if (ft_strncmp(data.c_env[i], var, len) == 0)
+            return (1);
+        i++;
+    }
+    return (0);
 }

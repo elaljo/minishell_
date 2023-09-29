@@ -45,7 +45,7 @@ int main(int ac, char *av[], char **env)
 		// printf("✅removing spaces✅\n");
 		cmds = get_cmds(splitted_cmds);
 		// printf("✅Getting cmds✅\n");
-		expand_all(cmds);
+		expand_all(cmds, data);
 		// printf("✅expanding✅\n");
 		// printf("\n");
 		// if (cmds->args_nbr == 1 && cmds[0].redir[0].redi != NULL)

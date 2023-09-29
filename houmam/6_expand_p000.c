@@ -12,17 +12,17 @@
 
 #include "../minishell.h"
 
-void    expand_all(t_cmd *cmds)
+void    expand_all(t_cmd *cmds, t_data data)
 {
     int i = 0;
     while (i < cmds->args_nbr && cmds->args[i] != NULL)
     {
-        expander(&cmds[i], cmds[i].cmd_len);
+        expander(&cmds[i], cmds[i].cmd_len, data);
         i++;
     }
 }
 
-void    expander(t_cmd *cmd, int len)
+void    expander(t_cmd *cmd, int len, t_data data)
 {
     char **args = cmd->args;
     int i = 0;
@@ -77,7 +77,7 @@ void    expander(t_cmd *cmd, int len)
                 {
                     tmp = ft_strdup(dollar_splitted[k]);
                     free(dollar_splitted[k]);
-                    dollar_splitted[k] = ft_strdup(expand_var(tmp));
+                    dollar_splitted[k] = ft_strdup(expand_var(tmp, data));
                     free(tmp);
                 }
                 if (k == 0)

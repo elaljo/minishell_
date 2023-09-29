@@ -57,6 +57,13 @@ typedef	struct s_ndx
 	int cnt;
 } t_ndx;
 
+typedef struct s_data
+{
+	char	**c_env;
+	int		len_env;
+	char	**key_env;
+}t_data;
+
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
 int		count(char *str);
 int		handle_redir(char *str, char **tab, t_ndx *ndx, t_quote quote);
@@ -79,7 +86,7 @@ int		cnt_wrds(char *str, char c);
 int		only_spaces(char *str);
 // char	*tab_join(char **tab);
 
-
+// houmam
 
 char	*expand_variables(char* input);
 void	expand_variable(const char* var_name, char* expanded, size_t* j);
@@ -94,20 +101,14 @@ int		cnt_redir(char **tab);
 int		cnt_exp(char *str);
 char    **quotes_split(char *str);
 int		cnt_dollars(char *str);
-int is_var(char c);
+int		is_var(char c);
 char    **dollar_split(char *str);
-char    *expand_var(char *str);
-void    expander(t_cmd *cmd, int len);
-void    expand_all(t_cmd *cmds);
+char    *expand_var(char *str, t_data data);
+void    expander(t_cmd *cmd, int len, t_data data);
+void    expand_all(t_cmd *cmds, t_data data);
+int		check_in_env(t_data data, char *var);
 
 // moahmed
-
-typedef struct s_data
-{
-	char	**c_env;
-	int		len_env;
-	char	**key_env;
-}t_data;
 
 void	init_data_structs(t_data *data);
 void	copy_env(t_data *data, char **env);
@@ -133,8 +134,6 @@ void	open_dir_err(t_cmd *cmd, int op);
 void	my_echo(t_cmd *cmd, int i, int a);
 void	handle_my_echo(t_cmd *cmd, int i);
 void	my_cd(t_cmd	*cmd, int i, t_data *data);
-char	*my_getenv(char *name, t_data *data);
-char	*get_old_pwd();
 void	export_old_pwd(char *old_pwd, t_data *data);
 void	export_pwd(t_data *data);
 void	my_pwd(void);
@@ -189,5 +188,6 @@ int		len_arr(char **arr);
 void    perror_pipe(void);
 void    perror_fork(void);
 
+char	*ft_strtrim(char  *s1, char  *set);
 
 #endif
