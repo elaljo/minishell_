@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/29 21:37:58 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/30 00:29:26 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <readline/history.h>
 # include <dirent.h>
 # include <sys/wait.h>
-# include <fcntl.h>
 
 typedef struct s_redi
 {
@@ -110,6 +109,7 @@ void    expand_all(t_cmd *cmds, t_data data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
 void    parsing_errors(char *str);
+void	ft_trim(char **str);
 
 // mohamed
 
@@ -157,9 +157,6 @@ void	unpair(int fd1[2], int fd2[2]);
 void	last_unpair(int fd1[2], int fd2[2]);
 void	last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
-
-//	redir
-void    execute_redir(t_cmd *cmd, t_data *data);
 
 //	signals
 void    signal_handler(int signum);

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/29 21:49:51 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/09/30 01:15:58 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ int main(int ac, char *av[], char **env)
 	char	*input_string;
 	char	**splitted_cmds;
 	
-	if (!env || !*env)
-	{
-		printf("Aaaaaaa mexiiiiiiiii ltabon dyemak\n");
-		return (1);
-	}
 	(void)av;
 	if (ac != 1)
 		return (0);
@@ -46,16 +41,14 @@ int main(int ac, char *av[], char **env)
 		if (only_spaces(input_string) == 0)
 			continue ;
 		splitted_cmds = split(input_string);
-		// printf("✅splitting✅\n");
+		printf("✅splitting✅\n");
 		removing_spaces(splitted_cmds);
-		// printf("✅removing spaces✅\n");
+		printf("✅removing spaces✅\n");
 		cmds = get_cmds(splitted_cmds);
 		// printf("✅Getting cmds✅\n");
 		expand_all(cmds, data);
-		// printf("✅expanding✅\n");
-		if (cmds->redir_nbr != 0)
-			execute_redir(cmds, &data);
-		else if (cmds->args_nbr == 1)
+		printf("✅expanding✅\n");
+		if (cmds->args_nbr == 1)
 		{
 			if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
 				execute_builtin(cmds, &data, 0);
@@ -68,4 +61,28 @@ int main(int ac, char *av[], char **env)
 	free(input_string);
 	ft_str_free(splitted_cmds);
 	return (EXIT_SUCCESS);
+}
+
+void	ft_trim(char **str)
+{
+	int start = 0;
+	int i = 0;
+	int end = ft_strlen(*str) - 1;
+	char *tmp;
+	while (*str[start] == ' ')
+		start++;
+	while (*str[end] == ' ')
+		end++;
+	tmp = ft_strdup(*str);
+	free(*str);
+	printf("ana hna\n");
+	*str = malloc(end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
+	while (start < end + 1)
+	{
+		*str[i] = tmp[start];
+		i++;
+		start++;
+	}
+	*str[i] = '\0';
+	free(tmp);
 }
