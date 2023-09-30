@@ -48,7 +48,9 @@ int main(int ac, char *av[], char **env)
 		// printf("✅Getting cmds✅\n");
 		expand_all(cmds, data);
 		printf("✅expanding✅\n");
-		if (cmds->args_nbr == 1)
+		if (cmds->redir_nbr != 0)
+			execute_redir(cmds, &data);
+		else if (cmds->args_nbr == 1)
 		{
 			if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
 				execute_builtin(cmds, &data, 0);

@@ -22,6 +22,7 @@
 # include <readline/history.h>
 # include <dirent.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 typedef struct s_redi
 {
@@ -158,6 +159,12 @@ void	last_unpair(int fd1[2], int fd2[2]);
 void	last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
 
+//	redir
+void    redir_output(char *eof, int fd);
+void    redir_append(char *eof, int fd);
+void    redir_input(char *eof, int fd);
+void    execute_heredoc(char *eof);
+void    execute_redir(t_cmd *cmd, t_data *data);
 //	signals
 void    signal_handler(int signum);
 void    signal_part();
@@ -190,7 +197,5 @@ int		len_arr(char **arr);
 //	perror
 void    perror_pipe(void);
 void    perror_fork(void);
-
-char	*ft_strtrim(char  *s1, char  *set);
 
 #endif
