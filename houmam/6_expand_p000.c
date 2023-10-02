@@ -17,9 +17,11 @@ void    expand_all(t_cmd *cmds, t_data data)
     int i = 0;
     while (i < cmds->args_nbr && cmds->args[i] != NULL)
     {
+        // printf("\n\n\nI'm here\n\n\n\n");
         expander(&cmds[i], cmds[i].cmd_len, data);
         i++;
     }
+    
 }
 
 void    expander(t_cmd *cmd, int len, t_data data)
@@ -35,38 +37,27 @@ void    expander(t_cmd *cmd, int len, t_data data)
     char *joigned_1;
     char **quote_splitted;
     char **dollar_splitted;
-    // printf("🌕🌕(len -> %d)🌕🌕 \n", len);
     while (i < len)
     {
         quote_splitted = quotes_split(args[i]);
-        // printf("🌕🌕🌕🌕 \n");
         j = 0;
         while (quote_splitted[j] != NULL)
         {
-            // if (quote_splitted[j][0] == '\0')
-            // {
-            //     j++;
-            //     continue ;
-            // }
-            // printf("✅ *quote_splitted --> %s ✅\n", quote_splitted[j]);
             quoted = check_quoted(quote_splitted[j]);
 
             if (quoted != 0)
             {
                 if (ft_strlen(quote_splitted[j]) == 2)
                 {
-                    // printf("🔴\n");
                     free(quote_splitted[j]);
                     quote_splitted[j] = NULL;
                     empty = 1;
                 }
                 else
                 {
-                    // printf("🔴🔴\n");
                     tmp = ft_strdup(quote_splitted[j]);
                     free(quote_splitted[j]);
                     quote_splitted[j] = handle_quoted(tmp);
-                    // printf("🔴 handle_quoted --> %s 🔴\n", quote_splitted[j]);
                 }
             }
             dollar_splitted = dollar_split(quote_splitted[j]);
@@ -78,7 +69,8 @@ void    expander(t_cmd *cmd, int len, t_data data)
                     tmp = ft_strdup(dollar_splitted[k]);
                     free(dollar_splitted[k]);
                     dollar_splitted[k] = ft_strdup(expand_var(tmp, data));
-                    free(tmp);
+                    // free(tmp);
+                    // printf("********* %d **********\n", i);
                 }
                 if (k == 0)
                     joigned_0 = ft_strjoin("", dollar_splitted[k]);
@@ -91,7 +83,6 @@ void    expander(t_cmd *cmd, int len, t_data data)
                 }
                 k++;
             }
-            // printf("✅✅ joigned_0 --> %s✅✅\n", joigned_0);
             if (empty == 1)
             {
                 joigned_0 = ft_strdup("");
@@ -109,13 +100,12 @@ void    expander(t_cmd *cmd, int len, t_data data)
                 joigned_1 = ft_strjoin(tmp, quote_splitted[j]);
                 free(tmp);
             }
-            // printf("✅✅✅ joigned_1 --> %s✅✅✅\n", joigned_1);
             j++;
         }
         free(args[i]);
         args[i] = ft_strdup(joigned_1);
         free(joigned_1);
+        // printf("\n\n\nI'm here(%d)*(len = %d)---(joined --> %s)\n\n\n\n", i, len, args[i]);
         i++;
-    // printf("🌕🌕🌕🌕 \n");
     }
 }

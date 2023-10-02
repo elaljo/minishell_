@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/30 01:15:58 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:04:10 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int main(int ac, char *av[], char **env)
 		if (only_spaces(input_string) == 0)
 			continue ;
 		splitted_cmds = split(input_string);
-		printf("✅splitting✅\n");
+		// printf("✅splitting✅\n");
 		removing_spaces(splitted_cmds);
-		printf("✅removing spaces✅\n");
+		// printf("✅removing spaces✅\n");
 		cmds = get_cmds(splitted_cmds);
 		// printf("✅Getting cmds✅\n");
 		expand_all(cmds, data);
-		printf("✅expanding✅\n");
+		// printf("✅expanding✅\n");
 		if (cmds->redir_nbr != 0)
 			execute_redir(cmds, &data);
 		else if (cmds->args_nbr == 1)

@@ -96,6 +96,7 @@ char    *expand_var(char *str, t_data data)
 {
     char *tmp = ft_strdup(str);
     free(str);
+    // printf("getenv ----> %s\n", getenv(tmp + 1));
     if (check_in_env(data, tmp + 1) == 1)
         str = ft_strdup(getenv(tmp + 1));
     else

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:07:17 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/30 00:33:47 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:32:26 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ char	**split(char *str)
 		ndx.start = ndx.i;
 		while (str[ndx.i])
 		{
-			printf("🟥🟥start = %d 🟥🟥\n",ndx.start);
 			if (ndx.i != 0 && str[ndx.i] == 39 && str[ndx.i - 1] != '\\')
 				quote.sq++;
 			else if (ndx.i != 0 && str[ndx.i] == 34 && str[ndx.i - 1] != '\\')
@@ -90,8 +89,6 @@ char	**split(char *str)
 				quote.dq++;
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i + 1] != '\0' && (str[ndx.i + 1] == '|' || (str[ndx.i + 1] == '<' && str[ndx.i] != '<') || (str[ndx.i + 1] == '>' && str[ndx.i] != '>')))
 			{
-				printf("🟥🟥cnd-1🟥i = %d *** str[i] = (%c)🟥\n", ndx.i, str[ndx.i]);
-				// printf("❤️❤️❤️❤️ana dkhelt \n");
 				ndx.pipe = 1;
 				break;
 			}
@@ -99,42 +96,27 @@ char	**split(char *str)
 					 && ndx.i != 0 && str[ndx.i - 1] != '|' && str[ndx.i - 1] != ' ' && str[ndx.i - 1] != '\t' && \
 					str[ndx.i - 1] != '>' && str[ndx.i - 1] != '<' )
 			{
-				printf("🟥🟥cdn-2🟥i = %d *** str[i] = (%c)🟥\n", ndx.i, str[ndx.i]);
 				ndx.check_space = 1;
 				break ;                //in case l9ina space mora chi redir or space or pipe or chi character special that's why I check i - 1
 			}
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '|')
 				handle_pipe(tab, &ndx, str);
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '>' && str[ndx.i + 1] && str[ndx.i + 1] != '>')
-			{
-				printf("🟥🟥redi-1🟥i = %d *** str[i] = (%c)🟥\n", ndx.i, str[ndx.i]);
 				handle_redir(str, tab, &ndx, quote);
-			}	
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '<' && str[ndx.i + 1] && str[ndx.i + 1] != '<')
-			{
-				printf("🟥🟥redi-2🟥i = %d *** str[i] = (%c)🟥\n", ndx.i, str[ndx.i]);
 				handle_redir(str, tab, &ndx, quote);
-			}	
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '>' && str[ndx.i + 1] && str[ndx.i + 1] == '>')
-			{
-				printf("🟥🟥redi-3🟥i = %d *** str[i] = (%c)🟥\n", ndx.i, str[ndx.i]);
 				handle_redir(str, tab, &ndx, quote);
-			}	
 			else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && str[ndx.i] == '<' && str[ndx.i + 1] && str[ndx.i + 1] == '<')
-			{
-				printf("🟥🟥redi-4🟥i = %d *** str[i] = (%c)🟥\n", ndx.i, str[ndx.i]);
 				handle_redir(str, tab, &ndx, quote);
-			}	
-			printf("🟥before🟥i = %d *** str[i] = (%c)🟥🟥\n", ndx.i, str[ndx.i]);
 			if (str[ndx.i])
 				ndx.i++;
-			printf("🟥after🟥i = %d *** str[i] = (%c)🟥🟥\n", ndx.i, str[ndx.i]);
 		}
 		tab[ndx.j] = malloc((ndx.i - ndx.start + 1) * sizeof(char));
 		if (ndx.pipe == 1)
 			ndx.i++;
 		ndx.k = 0;
-		printf("🟥after after🟥start = %d |||| i = %d *** str[i] = (%c)🟥🟥\n",ndx.start, ndx.i, str[ndx.i]);
+		// printf("🟥after after🟥start = %d |||| i = %d *** str[i] = (%c)🟥🟥\n",ndx.start, ndx.i, str[ndx.i]);
 		while (ndx.start < ndx.i)
 		{
 			tab[ndx.j][ndx.k] = str[ndx.start];
@@ -147,10 +129,8 @@ char	**split(char *str)
 			ndx.i--;
 			ndx.pipe = 0;
 		}
-		printf("➡️split --> (%s)⬅️\n", tab[ndx.j]);
 		if (ndx.check_space == 1)
 		{
-			// printf("2nnnnnnnnnnnnnnnnnnnn\n");
 			while ((str[ndx.i] == ' ' || str[ndx.i] == '\t') && quote.sq % 2 == 0 && quote.dq % 2 == 0)
 				ndx.i++;
 			ndx.i--;//hadi dernaha 7itach f had if kan incrementer ta kanl9a chi haja mn ghir space o mn mora makykhrej mn had condition kayna hadi if (str[ndx.i]) katzid t incrementer mara akhra o kan9adro nskipiw chi space o ndekhlo f word akhor
@@ -168,7 +148,6 @@ char	*rm_spaces(char *str)
 {
 	int i = 0;
 	char *start;
-	// char *end;
 	int len;
 
 	while (str[i] == ' ')
