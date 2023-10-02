@@ -160,14 +160,16 @@ void	last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
 
 //	redir
-void    redir_output(char *eof, int fd);
-void    redir_append(char *eof, int fd);
-void    redir_input(char *eof, int fd);
+void    redir_output(char *eof);
+void    redir_append(char *eof);
+void    redir_input(char *eof);
 void    execute_heredoc(char *eof);
 void    execute_redir(t_cmd *cmd, t_data *data);
+
 //	signals
 void    signal_handler(int signum);
 void    signal_part();
+void    signal_herdoc(int signum);
 
 //			split
 int		is_delimiter(char c);
@@ -189,6 +191,7 @@ int		ft_isalnum(char *c);
 char	*ft_strchr(const char *s, char c);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
+
 //my_libft_helper
 char	*strback(char *line);
 void	ft_str_free(char **arr);
@@ -197,5 +200,6 @@ int		len_arr(char **arr);
 //	perror
 void    perror_pipe(void);
 void    perror_fork(void);
+void    perror_fd(void);
 
 #endif
