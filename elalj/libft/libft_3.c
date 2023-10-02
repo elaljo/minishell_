@@ -101,3 +101,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[len_s1 + i] = '\0';
 	return (str);
 }
+char	*ft_strcpy(char *dst, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	return (dst);
+}

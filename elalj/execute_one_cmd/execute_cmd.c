@@ -18,10 +18,7 @@ void	executing_one_cmd(t_cmd *cmd, int i, t_data *data)
 
 	pid_f = fork();
 	if (pid_f == -1)
-	{
-		perror("fork");
-		exit (1);
-	}
+		perror_fork();
 	if (pid_f == 0)
 		found_cmd(cmd, i, data);
 	else
@@ -72,6 +69,7 @@ void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
+		//g_exit_status = 127;
 		exit (127);
 	}
 	execve(cmd[i].path, cmd[i].args, data->c_env);
