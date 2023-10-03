@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/09/30 00:29:26 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:42:40 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
 void    parsing_errors(char *str);
 void	ft_trim(char **str);
+int		successive_redir(char *str);
 
 // mohamed
 

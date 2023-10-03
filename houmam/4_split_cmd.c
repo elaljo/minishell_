@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:07:17 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/02 19:32:26 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/03 22:04:20 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char	**split(char *str)
 			ndx.k++;
 		}
 		tab[ndx.j][ndx.k] = '\0';
+		// printf("*** (%s)\n", tab[ndx.j]);
 		if (ndx.pipe == 1)
 		{
 			ndx.i--;
