@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 18:32:33 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:24:04 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-extern int g_exit_status;
+// extern int g_exit_status;
+
+typedef struct s_exit
+{
+	int	status;
+	int	old_exit;
+} t_exit;
+
+extern t_exit g_exit_status;
 
 typedef struct s_redi
 {

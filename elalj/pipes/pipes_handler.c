@@ -13,7 +13,7 @@ void    execute_pipe(t_cmd *cmd, t_data *data)
     i = 0;
     while (i < cmd->args_nbr)
     {
-        wait(&g_exit_status);
+        wait(&g_exit_status.status);
         i++;
     }
 }

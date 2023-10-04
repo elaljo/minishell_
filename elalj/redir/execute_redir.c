@@ -35,7 +35,7 @@ void    redir_input(char *eof)
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(eof, 2);
         ft_putstr_fd(": No such file or directory\n", 2);
-        g_exit_status = 1;
+        g_exit_status.status = 1;
         exit (1);
     }
 }
@@ -107,5 +107,5 @@ void    execute_redir(t_cmd *cmd, t_data *data)
         found_cmd(cmd, 0 , data);
     }
     else
-        wait(&g_exit_status); 
+        wait(&g_exit_status.status); 
 }

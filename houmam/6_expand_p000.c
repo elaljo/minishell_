@@ -66,7 +66,7 @@ void    expander(t_cmd *cmd, int len, t_data data)
             {
                 if (quoted != 1 && dollar_splitted[k][0] == '$' && dollar_splitted[k][1] == '?')
                 {
-                    tmp = ft_itoa(g_exit_status);
+                    tmp = ft_itoa(g_exit_status.old_exit);
                     free(dollar_splitted[k]);
                     dollar_splitted[k] = ft_strdup(tmp);
                 }

@@ -6,13 +6,16 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 18:45:48 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:37:20 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_exit_status = 0;
+// int g_exit_status = 0;
+t_exit g_exit_status;
+// g_exit_status.status = 0;
+// g_exit_status.old_exit = 0;
 
 int main(int ac, char *av[], char **env)
 {
@@ -31,6 +34,9 @@ int main(int ac, char *av[], char **env)
 	signal_part();
 	while (1)
 	{
+		g_exit_status.old_exit = g_exit_status.status;
+		g_exit_status.status = 0;
+		// g_exit_status = 0;
 		input_string = readline("🌙❓➜ ");
 		// input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
@@ -44,41 +50,41 @@ int main(int ac, char *av[], char **env)
 		// successive_redir(input_string);
 		// printf("✅successive redir✅\n");
 		// printf("Ana hna\n");
-		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
-		{
-			g_exit_status = 2;
-			// printf("(%d)*************\n", g_exit_status);
-		}
 		if (only_spaces(input_string) == 0)
 			continue ;
-		splitted_cmds = split(input_string);
-		// printf("✅splitting✅\n");
-		removing_spaces(splitted_cmds);
-		// printf("✅removing spaces✅\n");
-		cmds = get_cmds(splitted_cmds);
-		// printf("✅Getting cmds✅\n");
-		if (redir_errors(cmds) == 2)
+		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
+			g_exit_status.status = 2;
+		else
 		{
-			g_exit_status = 2;
-			// printf("(%d)*************\n", g_exit_status);
-		}
-		// printf("✅tedir errors✅\n");
-		expand_all(cmds, data);
-		// printf("✅expanding✅\n");
-		if (g_exit_status != 2)
-		{
-			if (cmds->redir_nbr != 0)
-				execute_redir(cmds, &data);
-			else if (cmds->args_nbr == 1)
-			{
-				if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
-					execute_builtin(cmds, &data, 0);
-				else
-					executing_one_cmd(cmds, 0, &data);
-			}
+			splitted_cmds = split(input_string);
+			// printf("✅splitting✅\n");
+			removing_spaces(splitted_cmds);
+			// printf("✅removing spaces✅\n");
+			cmds = get_cmds(splitted_cmds);
+			// printf("✅Getting cmds✅\n");
+			if (redir_errors(cmds) == 2)
+				g_exit_status.status = 2;
 			else
-				execute_pipe(cmds, &data);
-			// printf("✅Done✅\n");
+			{
+				// printf("✅tedir errors✅\n");
+				expand_all(cmds, data);
+				// printf("✅expanding✅\n");
+				if (g_exit_status.status != 2)
+				{
+					if (cmds->redir_nbr != 0)
+						execute_redir(cmds, &data);
+					else if (cmds->args_nbr == 1)
+					{
+						if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
+							execute_builtin(cmds, &data, 0);
+						else
+							executing_one_cmd(cmds, 0, &data);
+					}
+					else
+						execute_pipe(cmds, &data);
+				}
+			}
+			
 		}
 	}
 	free(input_string);
