@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
+int g_exit_status;
+
 typedef struct s_redi
 {
 	char	*redi;//redirection and type will be defined later
@@ -203,5 +205,6 @@ int		len_arr(char **arr);
 void    perror_pipe(void);
 void    perror_fork(void);
 void    perror_fd(void);
+void	perror_execve(void);
 
 #endif
