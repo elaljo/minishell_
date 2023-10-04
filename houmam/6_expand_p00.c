@@ -14,7 +14,7 @@
 
 int is_var(char c)
 {
-    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_');
+    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_' || c == '?');
 }
 
 int cnt_dollars(char *str)

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:53:23 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/04 16:21:22 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:38:20 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_not_identifier_un(char *line)
 	ft_putstr_fd("minishell: unset: `", 2);
 	ft_putstr_fd(line, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	//g_exit_status = 1;
+	g_exit_status = 1;
 }
 
 void	remove_key(t_data *data, char *line)

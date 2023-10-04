@@ -12,7 +12,7 @@ void    signal_herdoc(int signum)
 {
     if (signum == SIGINT)
     {
-        ////g_exit_status = 1;
+        //g_exit_status = 1;
         exit(1);
     }
 }
@@ -25,6 +25,6 @@ void    signal_handler(int signum)
         rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-        ////g_exit_status = 1;
+        //g_exit_status = 1;
     }
 }

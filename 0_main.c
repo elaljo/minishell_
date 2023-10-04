@@ -6,11 +6,13 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 17:54:55 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:45:48 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int g_exit_status = 0;
 
 int main(int ac, char *av[], char **env)
 {
@@ -45,7 +47,7 @@ int main(int ac, char *av[], char **env)
 		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
 		{
 			g_exit_status = 2;
-			printf("(%d)*************\n", g_exit_status);
+			// printf("(%d)*************\n", g_exit_status);
 		}
 		if (only_spaces(input_string) == 0)
 			continue ;
@@ -58,12 +60,12 @@ int main(int ac, char *av[], char **env)
 		if (redir_errors(cmds) == 2)
 		{
 			g_exit_status = 2;
-			printf("(%d)*************\n", g_exit_status);
+			// printf("(%d)*************\n", g_exit_status);
 		}
 		// printf("✅tedir errors✅\n");
 		expand_all(cmds, data);
 		// printf("✅expanding✅\n");
-		if (g_exit_status == 0)
+		if (g_exit_status != 2)
 		{
 			if (cmds->redir_nbr != 0)
 				execute_redir(cmds, &data);

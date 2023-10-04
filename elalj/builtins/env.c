@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 20:44:14 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/04 16:21:22 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:38:20 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	my_env(t_data *data)
 	if (data->c_env[i] == NULL)
 	{
 		ft_putstr_fd("minishell: env: No such file of directory\n", 2);
-		//g_exit_status = 127;
+		g_exit_status = 127;
 	}
 	while (data->c_env[i] != NULL)
 	{
