@@ -6,20 +6,21 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:05 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 04:42:13 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:50:08 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    parsing_errors(char *str)
+int    parsing_errors(char *str)
 {
     t_quote qt = unclosed_quotes(str);
     if (qt.sq % 2 != 0 || qt.dq % 2 != 0)
     {
         ft_putstr_fd("minishell: syntax error unclosed quotes\n", 2);
-        exit (1);//exit status
+        return (2);//exit status
     }
+    return (0);
 }
 
 t_quote unclosed_quotes(char *str)
@@ -51,6 +52,7 @@ t_quote unclosed_quotes(char *str)
 
 int successive_redir(char *str)
 {
+    // printf("ana f successive redir\n");
         char **tab = split(str);
         removing_spaces(tab);
         int i = 0;
@@ -59,7 +61,6 @@ int successive_redir(char *str)
         {
             if (ft_strcmp(tab[i], "<") == 0 || ft_strcmp(tab[i], "<<") == 0 || ft_strcmp(tab[i], ">") == 0 || ft_strcmp(tab[i], ">>") == 0)
             {
-                // printf("(%d)(%s) Ana hna\n", i, tab[i]);
                 if (tab[i + 1] && (ft_strcmp(tab[i + 1], "<") == 0 || ft_strcmp(tab[i + 1], "<<") == 0 || ft_strcmp(tab[i + 1], ">") == 0 || ft_strcmp(tab[i + 1], ">>") == 0))
                 {
                     if (ft_strcmp(tab[i + 1], "<") == 0)
@@ -72,7 +73,7 @@ int successive_redir(char *str)
                         ft_putstr_fd("minishell: syntax error near unexpected token `<<'\n", 2);
                     else if (ft_strcmp(tab[i + 1], "|") == 0)
                         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                    exit (1);
+                    return (2);
                 }
                 else if (tab[i + 1] && ft_strcmp(tab[i + 1], "") == 0)
                 {
@@ -89,8 +90,13 @@ int successive_redir(char *str)
                             ft_putstr_fd("minishell: syntax error near unexpected token `<<'\n", 2);
                         else if (ft_strcmp(tab[i], "|") == 0)
                             ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                        exit (1);
+                        return (2);
                     }
+                }
+                else if (tab[i + 1] == NULL)
+                {
+                    ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+                    return (2);  
                 }
             }
             if (ft_strcmp(tab[i], "|") == 0)
@@ -99,13 +105,13 @@ int successive_redir(char *str)
                 if (tab[i] == NULL)
                 {
                      ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                     exit (0);   
+                     return (2);   
                 }
                 else if (ft_strcmp(tab[i], "|") == 0)
                 {
                 //      printf("ana f li te7t NULL\n");
                      ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                     exit (0);   
+                     return (2);   
                 }
             }
         //     printf("---%s--\n", tab[i]);
@@ -116,6 +122,7 @@ int successive_redir(char *str)
 
 int     redir_errors(t_cmd *cmds)
 {
+    
     int i = 0;
     int red;
 
@@ -128,8 +135,8 @@ int     redir_errors(t_cmd *cmds)
             {
                 if (cmds[i].redir[red].eof == NULL || cmds[i].redir[red].eof[0] == '\0')
                 {
-                    ft_putstr_fd("minishell: syntax error near unexpected token `newline'", 2);
-                    exit (0);
+                    ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+                    return (2);
                 }
             }
             red++;

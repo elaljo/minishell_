@@ -69,8 +69,6 @@ void    expander(t_cmd *cmd, int len, t_data data)
                     tmp = ft_strdup(dollar_splitted[k]);
                     free(dollar_splitted[k]);
                     dollar_splitted[k] = ft_strdup(expand_var(tmp, data));
-                    // free(tmp);
-                    // printf("********* %d **********\n", i);
                 }
                 if (k == 0)
                     joigned_0 = ft_strjoin("", dollar_splitted[k]);

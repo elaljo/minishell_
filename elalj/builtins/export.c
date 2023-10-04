@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:39:10 by moelalj           #+#    #+#             */
-/*   Updated: 2023/08/20 17:39:14 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:21:22 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_not_identifier_ex(char *line)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(line, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g_exit_status = 1;
+	//g_exit_status = 1;
 }
 
 void	get_key(t_data *data, int n_arg)

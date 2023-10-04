@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:59:02 by moelalj           #+#    #+#             */
-/*   Updated: 2023/09/04 18:59:03 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:22:55 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	executing_one_cmd(t_cmd *cmd, int i, t_data *data)
 	if (pid_f == 0)
 		found_cmd(cmd, i, data);
 	else
-		wait(&g_exit_status);
+		wait(NULL);
 }
 char *get_cmd_path(t_data *data, char *cmd)
 {
@@ -47,7 +47,7 @@ char *get_cmd_path(t_data *data, char *cmd)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		g_exit_status = 127;
+		//g_exit_status = 127;
 	}
 	path = ft_split(full_path);
 	i = 0;
@@ -69,7 +69,7 @@ void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		g_exit_status = 127;
+		//g_exit_status = 127;
 		exit (127);
 	}
 	if (execve(cmd[i].path, cmd[i].args, data->c_env) == -1)
@@ -90,7 +90,7 @@ void	found_cmd(t_cmd *cmd, int i, t_data *data)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
-		g_exit_status = 127;
+		//g_exit_status = 127;
 	}
 	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
 	{

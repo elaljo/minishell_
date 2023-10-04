@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd_helper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 00:03:47 by moelalj           #+#    #+#             */
-/*   Updated: 2023/09/05 00:03:48 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:21:22 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	open_dir_err(t_cmd *cmd, int i)
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd[i].args[0], 2);
 	ft_putstr_fd(": is a directory\n", 2);
-	g_exit_status = 126;
+	//g_exit_status = 126;
 }

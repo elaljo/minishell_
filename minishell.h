@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 03:28:38 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:52:52 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void    expander(t_cmd *cmd, int len, t_data data);
 void    expand_all(t_cmd *cmds, t_data data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
-void    parsing_errors(char *str);
+int    parsing_errors(char *str);
 void	ft_trim(char **str);
 int		successive_redir(char *str);
 int     redir_errors(t_cmd *cmds);
