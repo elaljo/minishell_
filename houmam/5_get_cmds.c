@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/02 20:42:17 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 04:39:44 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,28 +91,32 @@ t_cmd	*get_cmds(char **tab)
 					if (ft_strcmp("<<", tab[i]) == 0)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
-						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						if (tab[i])
+							cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
 						continue ;
 					}
 					else if (ft_strcmp("<", tab[i]) == 0)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
-						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						if (tab[i])
+							cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
 						continue ;
 					}
 					else if (ft_strcmp(">>", tab[i]) == 0)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
-						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						if (tab[i])
+							cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
 						continue ;
 					}
 					else if (ft_strcmp(">", tab[i]) == 0)
 					{
 						cmds[j].redir[red].redi = ft_strdup(tab[i++]);
-						cmds[j].redir[red].eof = ft_strdup(tab[i++]);
+						if (tab[i])
+							cmds[j].redir[red].eof = ft_strdup(tab[i++]);
 						red++;
 						continue ;
 					}
@@ -123,6 +127,7 @@ t_cmd	*get_cmds(char **tab)
 				i++;
 			}
 			cmds[j].args[k] = NULL;
+			// printf("---->(%s)<----\n", cmds[j].args[0]);
 			// printf("✅✅✅✅✅✅✅✅✅✅✅✅\n");
 			cmds[j].cmd_len = cmd_len(cmds[j].args);
 			// printf("✅✅✅ %d\n", cmds[j].cmd_len);

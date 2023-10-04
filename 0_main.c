@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/03 21:43:53 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 04:40:33 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ int main(int ac, char *av[], char **env)
 			exit (0);
 		}
 		parsing_errors(input_string);
+		// printf("✅parsing errors✅\n");
 		successive_redir(input_string);
+		// printf("✅successive redir✅\n");
+		// printf("Ana hna\n");
 		if (only_spaces(input_string) == 0)
 			continue ;
 		splitted_cmds = split(input_string);
@@ -47,6 +50,8 @@ int main(int ac, char *av[], char **env)
 		// printf("✅removing spaces✅\n");
 		cmds = get_cmds(splitted_cmds);
 		// printf("✅Getting cmds✅\n");
+		redir_errors(cmds);
+		// printf("✅tedir errors✅\n");
 		expand_all(cmds, data);
 		// printf("✅expanding✅\n");
 		if (cmds->redir_nbr != 0)
@@ -60,6 +65,7 @@ int main(int ac, char *av[], char **env)
 		}
 		else
 			execute_pipe(cmds, &data);
+		// printf("✅Done✅\n");
 	}
 	free(input_string);
 	ft_str_free(splitted_cmds);
@@ -78,7 +84,7 @@ void	ft_trim(char **str)
 		end++;
 	tmp = ft_strdup(*str);
 	free(*str);
-	printf("ana hna\n");
+	// printf("ana hna\n");
 	*str = malloc(end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
 	while (start < end + 1)
 	{
