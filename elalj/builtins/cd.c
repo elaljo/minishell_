@@ -76,7 +76,10 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 	if (!cmd[i].args[1])
 	{
 		if (home_dir == NULL)
+		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			g_exit_status = 1;
+		}
 		else
 		{
 			old_pwd = get_old_pwd();
@@ -95,6 +98,7 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 	if (check != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
+		g_exit_status = 1;
 		perror(cmd[i].args[1]);
 	}
 }

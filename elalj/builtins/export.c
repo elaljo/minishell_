@@ -17,6 +17,7 @@ void	print_not_identifier_ex(char *line)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(line, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_exit_status = 1;
 }
 
 void	get_key(t_data *data, int n_arg)

@@ -32,19 +32,19 @@ void    redir_input(char *eof)
     }
     else
     {
-    ft_putstr_fd("minishell: ", 2);
-    ft_putstr_fd(eof, 2);
-    ft_putstr_fd(": No such file or directory\n", 2);
-    exit (1);
-    // g_exit_status = 1;
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(eof, 2);
+        ft_putstr_fd(": No such file or directory\n", 2);
+        g_exit_status = 1;
+        exit (1);
     }
 }
 
 void    execute_heredoc(char *eof)
 {
+    int pipe_fd[2];
     // int expand;
     char *line = NULL;
-    int fd;
     // char *expanded_line;
 
     // expanded_line = NULL;
@@ -52,9 +52,8 @@ void    execute_heredoc(char *eof)
     //     expand = 0;
     // else
     //     expand = 1;
-    fd = open("/tmp/herdoce_file", O_CREAT | O_RDWR | O_TRUNC, 0644);
-    if (fd == -1)
-        perror_fd();
+    if (pipe(pipe_fd) == -1)
+        perror_pipe();
     while (1)
     {
         signal(SIGINT, signal_herdoc);
@@ -64,7 +63,7 @@ void    execute_heredoc(char *eof)
             free(line); //if i press cntl+/D
             break;
         }
-        if (ft_strcmp(line, eof) == 0)
+        if (ft_strncmp(line, eof, ft_strlen(eof)) == 0)
         {
             free(line);
             break ;
@@ -73,13 +72,12 @@ void    execute_heredoc(char *eof)
         // if (expanded_line && expand)
         //     write(pipe_fd[1], expanded_line, strlen(expanded_line));
         // else
-        write(fd, line, strlen(line));
-        ft_putstr_fd("\n", fd);
-        // free(line);
+        write(pipe_fd[1], line, ft_strlen(line));
+        ft_putstr_fd("\n", pipe_fd[1]);
+        free(line);
     }
-    // if (line)
-        // free(line);
-    dup2(fd, 0);
+    dup2(pipe_fd[0], 0);
+    close(pipe_fd[1]);
 }
 
 void    execute_redir(t_cmd *cmd, t_data *data)
@@ -109,5 +107,5 @@ void    execute_redir(t_cmd *cmd, t_data *data)
         found_cmd(cmd, 0 , data);
     }
     else
-        wait(NULL); 
+        wait(&g_exit_status); 
 }

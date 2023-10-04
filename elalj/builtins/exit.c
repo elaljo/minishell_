@@ -18,6 +18,7 @@ void	print_if_exit_valid(char *line)
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(line, 2); 
 	ft_putstr_fd(": numeric argument required\n", 2);
+	g_exit_status = 255;
 	exit (255);
 }
 
@@ -36,11 +37,13 @@ void	my_exit(t_cmd *cmd, int i)
 		{
 			ft_putstr_fd("exit\n", 1);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+			g_exit_status = 1;
 			return ;
 		}
 		else
 		{
 			ft_putstr_fd("exit\n", 1);
+			g_exit_status = ft_atoi(cmd[i].args[1]);
 			exit(ft_atoi(cmd[i].args[1]));
 		}
 	}

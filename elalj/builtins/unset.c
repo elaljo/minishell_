@@ -17,6 +17,7 @@ void	print_not_identifier_un(char *line)
 	ft_putstr_fd("minishell: unset: `", 2);
 	ft_putstr_fd(line, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
+	g_exit_status = 1;
 }
 
 void	remove_key(t_data *data, char *line)
@@ -24,19 +25,24 @@ void	remove_key(t_data *data, char *line)
 	int	i;
 
 	i = 0;
-	while (data->key_env[i] != NULL)
+	if (!data->key_env[i + 1])
+		data->c_env[i] = NULL;
+	else
 	{
-		get_key(data, 0);
-		if (ft_strcmp(line, data->key_env[i]) == 0)
+		while (data->key_env[i] != NULL)
 		{
-			while (data->c_env[i] != NULL)
+			get_key(data, 0);
+			if (ft_strcmp(line, data->key_env[i]) == 0)
 			{
-				data->c_env[i] = data->c_env[i + 1];
-				i++;
+				while (data->c_env[i] != NULL)
+				{
+					data->c_env[i] = data->c_env[i + 1];
+					i++;
+				}
 			}
+			else
+				i++;
 		}
-		else
-			i++;
 	}
 }
 

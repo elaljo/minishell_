@@ -32,6 +32,11 @@ void	my_env(t_data *data)
 	int	i;
 
 	i = 0;
+	if (data->c_env[i] == NULL)
+	{
+		ft_putstr_fd("minishell: env: No such file of directory\n", 2);
+		g_exit_status = 127;
+	}
 	while (data->c_env[i] != NULL)
 	{
 		if (ft_search(data->c_env[i], '=') == 1)
