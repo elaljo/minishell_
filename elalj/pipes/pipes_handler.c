@@ -7,13 +7,13 @@ void    execute_pipe(t_cmd *cmd, t_data *data)
     int i;
     
     if (pipe(fd1) == -1 || pipe(fd2) == -1)
-        perror_pipe();
+        perror_pipe(data);
     start_executing_pipe(cmd, data, fd1, fd2);
     close_pipes(fd1, fd2);
     i = 0;
     while (i < cmd->args_nbr)
     {
-        wait(&g_exit_status.status);
+        wait(&data->new_st);
         i++;
     }
 }
@@ -28,7 +28,7 @@ void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2])
     {
         pid_f = fork();
         if (pid_f == -1)
-            perror_fork();
+            perror_fork(data);
         if (pid_f == 0)
         {
             setup_pipes(fd1, fd2, i, cmd);

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:59:02 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/04 19:32:43 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:59:19 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	executing_one_cmd(t_cmd *cmd, int i, t_data *data)
 
 	pid_f = fork();
 	if (pid_f == -1)
-		perror_fork();
+		perror_fork(data);
 	if (pid_f == 0)
 		found_cmd(cmd, i, data);
 	else
-		wait(&g_exit_status.status);
+		wait(&data->new_st);
 }
 char *get_cmd_path(t_data *data, char *cmd)
 {
@@ -47,7 +47,7 @@ char *get_cmd_path(t_data *data, char *cmd)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		g_exit_status.status = 127;
+		data->new_st = 127;
 	}
 	path = ft_split(full_path);
 	i = 0;
@@ -69,11 +69,11 @@ void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
-		g_exit_status.status = 127;
+		data->new_st = 127;
 		exit (127);
 	}
 	if (execve(cmd[i].path, cmd[i].args, data->c_env) == -1)
-		perror_execve();
+		perror_execve(data);
 }
 
 void	found_cmd(t_cmd *cmd, int i, t_data *data)
@@ -84,18 +84,18 @@ void	found_cmd(t_cmd *cmd, int i, t_data *data)
 		exit (0);
 	}
 	if (opendir(cmd[i].args[0]) != NULL)
-		open_dir_err(cmd, i);
+		open_dir_err(cmd, i, data);
 	else if (access(cmd[i].args[0], X_OK) == -1 && ft_search(cmd[i].args[0], '/'))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
-		g_exit_status.status = 127;
+		data->new_st = 127;
 	}
 	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
 	{
 		if (execve(cmd[i].args[0], cmd[i].args, data->c_env) == -1)
-			perror_execve();
+			perror_execve(data);
 	}
 	else
 	{

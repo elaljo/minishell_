@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 20:48:37 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/04 19:29:04 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:51:26 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 		if (home_dir == NULL)
 		{
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-			g_exit_status.status = 1;
+			data->new_st = 1;
 		}
 		else
 		{
@@ -98,7 +98,7 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 	if (check != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
-		g_exit_status.status = 1;
+		data->new_st = 1;
 		perror(cmd[i].args[1]);
 	}
 }

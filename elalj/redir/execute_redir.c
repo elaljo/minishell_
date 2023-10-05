@@ -1,25 +1,25 @@
 #include "../../minishell.h"
 
-void    redir_output(char *eof)
+void    redir_output(char *eof, t_data *data)
 {
     int fd;
 
     fd = open(eof, O_RDWR | O_CREAT | O_TRUNC, 0644);
     if (fd == -1)
-        perror_fd();
+        perror_fd(data);
     dup2(fd, 1);
 }
-void    redir_append(char *eof)
+void    redir_append(char *eof, t_data *data)
 {
     int fd;
 
     fd = open(eof, O_RDWR | O_CREAT | O_APPEND, 0644);
     if (fd == -1)
-        perror_fd();
+        perror_fd(data);
     dup2(fd, 1);
 }
 
-void    redir_input(char *eof)
+void    redir_input(char *eof, t_data *data)
 {
     int fd;
 
@@ -27,7 +27,7 @@ void    redir_input(char *eof)
     {
         fd = open(eof, O_RDONLY);
         if (fd == -1)
-            perror_fd();
+            perror_fd(data);
         dup2(fd, 0);
     }
     else
@@ -35,12 +35,12 @@ void    redir_input(char *eof)
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(eof, 2);
         ft_putstr_fd(": No such file or directory\n", 2);
-        g_exit_status.status = 1;
+        data->new_st = 1;
         exit (1);
     }
 }
 
-void    execute_heredoc(char *eof, t_data data)
+void    execute_heredoc(char *eof, t_data *data)
 {
     int pipe_fd[2];
     char *tmp;
@@ -48,7 +48,7 @@ void    execute_heredoc(char *eof, t_data data)
     char *line = NULL;
 
     if (pipe(pipe_fd) == -1)
-        perror_pipe();
+        perror_pipe(data);
     quoted = check_quoted(eof);
     tmp = ft_strdup(eof);
     if (quoted != 0)
@@ -92,18 +92,18 @@ void    execute_redir(t_cmd *cmd, t_data *data)
         while (cmd->redir_nbr != 0)
         {
             if (ft_strcmp(cmd[0].redir[i].redi, ">") == 0)
-                redir_output(cmd[0].redir[i].eof);
+                redir_output(cmd[0].redir[i].eof, data);
             else if (ft_strcmp(cmd[0].redir[i].redi, ">>") == 0)
-                redir_append(cmd[0].redir[i].eof);
+                redir_append(cmd[0].redir[i].eof, data);
             else if (ft_strcmp(cmd[0].redir[i].redi, "<") == 0)
-                redir_input(cmd[0].redir[i].eof);
+                redir_input(cmd[0].redir[i].eof, data);
             else if (ft_strcmp(cmd[0].redir[i].redi, "<<") == 0)
-                execute_heredoc(cmd[0].redir[i].eof, *data);
+                execute_heredoc(cmd[0].redir[i].eof, data);
             cmd->redir_nbr--;
             i++;
         }
         found_cmd(cmd, 0 , data);
     }
     else
-        wait(&g_exit_status.status); 
+        wait(&data->new_st); 
 }

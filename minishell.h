@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/05 16:20:19 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:04:42 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct s_data
 	char	**c_env;
 	int		len_env;
 	char	**key_env;
+	int		new_st;
+	int		old_st;
 }t_data;
 
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
@@ -117,9 +119,9 @@ int		cnt_dollars(char *str);
 int		is_var(char c);
 char    **dollar_split(char *str);
 char    *expand_var(char *str, t_data data);
-void    expander(t_cmd *cmd, int len, t_data data);
-void    expand_herdoc(char **str, t_data data);
-void    expand_all(t_cmd *cmds, t_data data);
+void    expander(t_cmd *cmd, int len, t_data *data);
+void    expand_herdoc(char **str, t_data *data);
+void    expand_all(t_cmd *cmds, t_data *data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
 int    parsing_errors(char *str);
@@ -135,7 +137,7 @@ void	execute_builtin(t_cmd *cmd, t_data *data, int i);
 int		is_builtin(char *cmd);
 int		valid_num(char *str);
 void	if_there_var(t_cmd *cmd, t_data *data, int I);
-void	print_not_identifier_ex(char *line);
+void	print_not_identifier_ex(char *line, t_data *data);
 void	print_not_identifier_un(char *line, t_data *data);
 void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
@@ -147,7 +149,7 @@ void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
 void	found_cmd(t_cmd *cmd, int op, t_data *data);
 char	*get_cmd_path(t_data *data, char *cmd);
 void	execute_cmd(t_cmd *cmd, int i, t_data *data);
-void	open_dir_err(t_cmd *cmd, int op);
+void	open_dir_err(t_cmd *cmd, int op, t_data *data);
 
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
@@ -176,10 +178,10 @@ void	last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
 
 //	redir
-void    redir_output(char *eof);
-void    redir_append(char *eof);
-void    redir_input(char *eof);
-void    execute_heredoc(char *eof, t_data data);
+void    redir_output(char *eof, t_data *data);
+void    redir_append(char *eof, t_data *data);
+void    redir_input(char *eof, t_data *data);
+void    execute_heredoc(char *eof, t_data *data);
 void    execute_redir(t_cmd *cmd, t_data *data);
 
 //	signals
@@ -214,9 +216,9 @@ void	ft_str_free(char **arr);
 int		len_arr(char **arr);
 
 //	perror
-void    perror_pipe(void);
-void    perror_fork(void);
-void    perror_fd(void);
-void	perror_execve(void);
+void    perror_pipe(t_data *data);
+void    perror_fork(t_data *data);
+void    perror_fd(t_data *data);
+void	perror_execve(t_data *data);
 
 #endif

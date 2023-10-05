@@ -98,7 +98,7 @@ char    *expand_var(char *str, t_data data)
     free(str);
     // printf("getenv ----> %s\n", getenv(tmp + 1));
     if (check_in_env(data, tmp + 1) == 1)
-        str = ft_strdup(getenv(tmp + 1));
+        str = ft_strdup(my_getenv(tmp + 1, &data));
     else
         str = ft_strdup("");
     free(tmp);

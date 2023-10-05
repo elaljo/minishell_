@@ -90,7 +90,7 @@ char    **quotes_split(char *str)
                         break ;
                 i++;
         }
-        tab[j] = malloc((i - start + 1) * sizeof(char));
+        tab[j] = malloc((i - start + 2) * sizeof(char));
         k = 0;
         end = i;
         // printf("quotes -> index : %d\n", i);

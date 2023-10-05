@@ -1,26 +1,26 @@
 #include "../minishell.h"
 
-void    perror_pipe(void)
+void    perror_pipe(t_data *data)
 {
     perror("pipe");
-    g_exit_status.status = 1;
+    data->new_st = 1;
     exit (1);
 }
-void    perror_fork(void)
+void    perror_fork(t_data *data)
 {
     perror("fork");
-    g_exit_status.status = 1;
+    data->new_st = 1;
     exit (1);
 }
-void    perror_fd(void)
+void    perror_fd(t_data *data)
 {
     perror("fd");
-    g_exit_status.status = 1;
+    data->new_st = 1;
     exit (1);
 }
-void    perror_execve(void)
+void    perror_execve(t_data *data)
 {
     perror("execve");
-    g_exit_status.status = 1;
+    data->new_st = 1;
     exit (1);
 }

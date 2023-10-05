@@ -6,18 +6,18 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:39:10 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/04 19:29:18 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:58:08 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	print_not_identifier_ex(char *line)
+void	print_not_identifier_ex(char *line, t_data *data)
 {
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(line, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g_exit_status.status = 1;
+	data->new_st = 1;
 }
 
 void	get_key(t_data *data, int n_arg)
@@ -85,7 +85,7 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 	{
 		if (ft_isalpha(strback(cmd[I].args[i])[0]) || ft_isalnum(strback(cmd[I].args[i])))
 		{
-			print_not_identifier_ex(cmd[I].args[i]);
+			print_not_identifier_ex(cmd[I].args[i], data);
 			j++;
 			i++;
 			p--;

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 19:37:20 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:27:59 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // int g_exit_status = 0;
 t_exit g_exit_status;
-// g_exit_status.status = 0;
+// g_exit_status+status = 0;
 // g_exit_status.old_exit = 0;
 
 int main(int ac, char *av[], char **env)
@@ -32,11 +32,14 @@ int main(int ac, char *av[], char **env)
 	copy_env(&data, env);
 	data.key_env = ft_calloc(data.len_env + 1, sizeof(char *));
 	signal_part();
+	data.new_st = 0;
 	while (1)
 	{
-		g_exit_status.old_exit = g_exit_status.status;
-		g_exit_status.status = 0;
-		// g_exit_status = 0;
+		data.old_st = data.new_st;
+		data.new_st = 0;
+		// g_exit_status+old_exit = g_exit_status+status;
+		// g_exit_status+status = 0;
+		// g_exit_status+ = 0;
 		input_string = readline("🌙❓➜ ");
 		// input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
@@ -53,7 +56,7 @@ int main(int ac, char *av[], char **env)
 		if (only_spaces(input_string) == 0)
 			continue ;
 		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
-			g_exit_status.status = 2;
+			data.new_st = 258;
 		else
 		{
 			splitted_cmds = split(input_string);
@@ -63,13 +66,13 @@ int main(int ac, char *av[], char **env)
 			cmds = get_cmds(splitted_cmds);
 			// printf("✅Getting cmds✅\n");
 			if (redir_errors(cmds) == 2)
-				g_exit_status.status = 2;
+				data.new_st = 258;
 			else
 			{
 				// printf("✅tedir errors✅\n");
-				expand_all(cmds, data);
+				expand_all(cmds, &data);
 				// printf("✅expanding✅\n");
-				if (g_exit_status.status != 2)
+				if (data.new_st != 2)
 				{
 					if (cmds->redir_nbr != 0)
 						execute_redir(cmds, &data);
@@ -92,26 +95,26 @@ int main(int ac, char *av[], char **env)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_trim(char **str)
-{
-	int start = 0;
-	int i = 0;
-	int end = ft_strlen(*str) - 1;
-	char *tmp;
-	while (*str[start] == ' ')
-		start++;
-	while (*str[end] == ' ')
-		end++;
-	tmp = ft_strdup(*str);
-	free(*str);
-	// printf("ana hna\n");
-	*str = malloc(end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
-	while (start < end + 1)
-	{
-		*str[i] = tmp[start];
-		i++;
-		start++;
-	}
-	*str[i] = '\0';
-	free(tmp);
-}
+// void	ft_trim(char **str)
+// {
+// 	int start = 0;
+// 	int i = 0;
+// 	int end = ft_strlen(*str) - 1;
+// 	char *tmp;
+// 	while (*str[start] == ' ')
+// 		start++;
+// 	while (*str[end] == ' ')
+// 		end++;
+// 	tmp = ft_strdup(*str);
+// 	free(*str);
+// 	// printf("ana hna\n");
+// 	*str = malloc(end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
+// 	while (start < end + 1)
+// 	{
+// 		*str[i] = tmp[start];
+// 		i++;
+// 		start++;
+// 	}
+// 	*str[i] = '\0';
+// 	free(tmp);
+// }

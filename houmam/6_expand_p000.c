@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void    expand_all(t_cmd *cmds, t_data data)
+void    expand_all(t_cmd *cmds, t_data *data)
 {
     int i = 0;
     while (i < cmds->args_nbr && cmds->args[i] != NULL)
@@ -24,7 +24,7 @@ void    expand_all(t_cmd *cmds, t_data data)
     
 }
 
-void    expander(t_cmd *cmd, int len, t_data data)
+void    expander(t_cmd *cmd, int len, t_data *data)
 {
     char **args = cmd->args;
     int i = 0;
@@ -66,7 +66,7 @@ void    expander(t_cmd *cmd, int len, t_data data)
             {
                 if (quoted != 1 && dollar_splitted[k][0] == '$' && dollar_splitted[k][1] == '?')
                 {
-                    tmp = ft_itoa(g_exit_status.old_exit);
+                    tmp = ft_itoa(data->old_st);
                     free(dollar_splitted[k]);
                     dollar_splitted[k] = ft_strdup(tmp);
                 }
@@ -74,7 +74,7 @@ void    expander(t_cmd *cmd, int len, t_data data)
                 {
                     tmp = ft_strdup(dollar_splitted[k]);
                     free(dollar_splitted[k]);
-                    dollar_splitted[k] = ft_strdup(expand_var(tmp, data));
+                    dollar_splitted[k] = ft_strdup(expand_var(tmp, *data));
                 }
                 if (k == 0)
                     joigned_0 = ft_strjoin("", dollar_splitted[k]);
@@ -115,7 +115,7 @@ void    expander(t_cmd *cmd, int len, t_data data)
     }
 }
 
-void    expand_herdoc(char **str, t_data data)
+void    expand_herdoc(char **str, t_data *data)
 {
     int k;
     char *tmp;
@@ -130,7 +130,7 @@ void    expand_herdoc(char **str, t_data data)
         {
             tmp = ft_strdup(dollar_splitted[k]);
             free(dollar_splitted[k]);
-            dollar_splitted[k] = ft_strdup(expand_var(tmp, data));
+            dollar_splitted[k] = ft_strdup(expand_var(tmp, *data));
         }
         if (k == 0)
             joigned_0 = ft_strjoin("", dollar_splitted[k]);
