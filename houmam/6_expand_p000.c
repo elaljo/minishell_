@@ -114,3 +114,36 @@ void    expander(t_cmd *cmd, int len, t_data data)
         i++;
     }
 }
+
+void    expand_herdoc(char **str, t_data data)
+{
+    int k;
+    char *tmp;
+    char *joigned_0;
+    char **dollar_splitted;
+    
+    dollar_splitted = dollar_split(*str);
+    k = 0;
+    while (dollar_splitted[k] != NULL)
+    {
+        if (dollar_splitted[k][0] == '$' && is_var(dollar_splitted[k][1]) == 1 )
+        {
+            tmp = ft_strdup(dollar_splitted[k]);
+            free(dollar_splitted[k]);
+            dollar_splitted[k] = ft_strdup(expand_var(tmp, data));
+        }
+        if (k == 0)
+            joigned_0 = ft_strjoin("", dollar_splitted[k]);
+        else if (k != 0)
+        {
+            tmp = ft_strdup(joigned_0);
+            free(joigned_0);
+            joigned_0 = ft_strjoin(tmp, dollar_splitted[k]);
+            free(tmp);
+        }
+        k++;
+    }
+    free(*str);
+    *str = ft_strdup(joigned_0);
+    free(joigned_0);
+}

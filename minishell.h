@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 19:24:04 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:20:19 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int		is_var(char c);
 char    **dollar_split(char *str);
 char    *expand_var(char *str, t_data data);
 void    expander(t_cmd *cmd, int len, t_data data);
+void    expand_herdoc(char **str, t_data data);
 void    expand_all(t_cmd *cmds, t_data data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
@@ -177,7 +178,7 @@ void    close_pipes(int fd1[2], int fd2[2]);
 void    redir_output(char *eof);
 void    redir_append(char *eof);
 void    redir_input(char *eof);
-void    execute_heredoc(char *eof);
+void    execute_heredoc(char *eof, t_data data);
 void    execute_redir(t_cmd *cmd, t_data *data);
 
 //	signals

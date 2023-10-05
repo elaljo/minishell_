@@ -40,10 +40,11 @@ void    redir_input(char *eof)
     }
 }
 
-void    execute_heredoc(char *eof)
+void    execute_heredoc(char *eof, t_data data)
 {
     int pipe_fd[2];
-    // int expand;
+    char *tmp;
+    int quoted;
     char *line = NULL;
     // char *expanded_line;
 
@@ -54,10 +55,16 @@ void    execute_heredoc(char *eof)
     //     expand = 1;
     if (pipe(pipe_fd) == -1)
         perror_pipe();
+    quoted = check_quoted(eof);
+    tmp = ft_strdup(eof);
+    if (quoted != 0)
+        eof = handle_quoted(tmp);
     while (1)
     {
         signal(SIGINT, signal_herdoc);
         line = readline("> ");
+        if (quoted == 0)
+            expand_herdoc(&line, data);//hadi rah hiya li 9adit dyal expand bo7dha li zedt lek hna
         if (!line)
         {
             free(line); //if i press cntl+/D
@@ -78,6 +85,7 @@ void    execute_heredoc(char *eof)
     }
     dup2(pipe_fd[0], 0);
     close(pipe_fd[1]);
+    free(tmp);
 }
 
 void    execute_redir(t_cmd *cmd, t_data *data)
@@ -100,7 +108,7 @@ void    execute_redir(t_cmd *cmd, t_data *data)
             else if (ft_strcmp(cmd[0].redir[i].redi, "<") == 0)
                 redir_input(cmd[0].redir[i].eof);
             else if (ft_strcmp(cmd[0].redir[i].redi, "<<") == 0)
-                execute_heredoc(cmd[0].redir[i].eof);
+                execute_heredoc(cmd[0].redir[i].eof, *data);
             cmd->redir_nbr--;
             i++;
         }
