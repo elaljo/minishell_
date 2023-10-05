@@ -99,6 +99,8 @@ void	found_cmd(t_cmd *cmd, int i, t_data *data)
 	}
 	else
 	{
+		printf("cmd (%s)\n", cmd[i].args[0]);
+		printf("cmd (%s)\n", cmd[i].args[1]);
 		cmd[i].path = get_cmd_path(data, cmd[i].args[0]);
 		execute_cmd(cmd, i, data);
 	}

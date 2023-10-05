@@ -12,8 +12,9 @@
 
 #include "../../minishell.h"
 
-void	print_if_exit_valid(char *line)
+void	print_if_exit_valid(char *line, t_data *data)
 {
+	(void)data;
 	ft_putstr_fd("exit\n", 1);
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(line, 2); 
@@ -22,7 +23,7 @@ void	print_if_exit_valid(char *line)
 	exit (255);
 }
 
-void	my_exit(t_cmd *cmd, int i)
+void	my_exit(t_cmd *cmd, int i, t_data *data)
 {
 	if (cmd[i].args[0] && !cmd[i].args[1])
 	{
@@ -32,7 +33,7 @@ void	my_exit(t_cmd *cmd, int i)
 	else if (cmd[i].args[1])
 	{
 		if (valid_num(cmd[i].args[1]) == 0 || (ft_strlen(cmd[i].args[1]) == 19))
-			print_if_exit_valid(cmd[i].args[1]);
+			print_if_exit_valid(cmd[i].args[1], data);
 		else if (cmd[i].args[2])
 		{
 			ft_putstr_fd("exit\n", 1);

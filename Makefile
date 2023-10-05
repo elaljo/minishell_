@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
 
-# CFLAGS = -Wall -Werror -Wextra  -fsanitize=address -g
+# CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=address -g
 
 RM = rm -rf
 
@@ -46,7 +46,6 @@ C_FILES = elalj/builtins/echo.c\
 		  houmam/6_expand_p0.c\
 		  houmam/6_expand_p00.c\
 		  houmam/6_expand_p000.c\
-		  houmam/8_heredoc.c\
 		  houmam/9_redirections.c\
 										
 OBJ = ${C_FILES:.c=.o}

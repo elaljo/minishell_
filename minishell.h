@@ -136,11 +136,11 @@ int		is_builtin(char *cmd);
 int		valid_num(char *str);
 void	if_there_var(t_cmd *cmd, t_data *data, int I);
 void	print_not_identifier_ex(char *line);
-void	print_not_identifier_un(char *line);
+void	print_not_identifier_un(char *line, t_data *data);
 void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
-void	print_if_exit_valid(char *line);
+void	print_if_exit_valid(char *line, t_data *data);
 
 //	execute_cmd
 void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
@@ -160,7 +160,8 @@ void	my_export(t_cmd *cmd, t_data *data, int I);
 void	print_export(t_data *data ,int i, int j, int check);
 void	my_unset(t_cmd *cmd, t_data *data, int i);
 void	my_env(t_data *data);
-void	my_exit(t_cmd *cmd, int i);
+void	my_exit(t_cmd *cmd, int i, t_data *data);
+char	*my_getenv(char *name, t_data *data);
 
 //	pipes
 void    execute_pipe(t_cmd *cmd, t_data *data);

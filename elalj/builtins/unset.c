@@ -12,8 +12,9 @@
 
 #include "../../minishell.h"
 
-void	print_not_identifier_un(char *line)
+void	print_not_identifier_un(char *line, t_data *data)
 {
+	(void)data;
 	ft_putstr_fd("minishell: unset: `", 2);
 	ft_putstr_fd(line, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
@@ -66,7 +67,7 @@ void	my_unset(t_cmd *cmd, t_data *data, int i)
 	{
 		if (ft_isalpha(strback(cmd[i].args[arg - 1])[0]) || ft_isalnum(strback(cmd[i].args[arg - 1]))
 			|| ft_search(cmd[i].args[arg - 1], '='))
-			print_not_identifier_un(cmd[i].args[arg - 1]);
+			print_not_identifier_un(cmd[i].args[arg - 1], data);
 		else
 			remove_key(data, cmd[i].args[arg - 1]);
 		arg--;

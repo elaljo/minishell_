@@ -19,7 +19,7 @@ int	valid_num(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] >= '0' && str[i] <= '9')
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '+' || str[i] == '-')
 			i++;
 		else
 			return (0);
@@ -42,7 +42,7 @@ void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 	else if (ft_strcmp(cmd[i].args[0], "env") == 0)
 		my_env(data);
 	else if (ft_strcmp(cmd[i].args[0], "exit") == 0)
-		my_exit(cmd, i);
+		my_exit(cmd, i, data);
 }
 
 int	is_builtin(char *cmd)

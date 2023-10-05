@@ -46,13 +46,7 @@ void    execute_heredoc(char *eof, t_data data)
     char *tmp;
     int quoted;
     char *line = NULL;
-    // char *expanded_line;
 
-    // expanded_line = NULL;
-    //  if (ft_strncmp(eof, "'", 1) == 0 || ft_strncmp(eof, "\"", 1) == 0) // check for single or double quote
-    //     expand = 0;
-    // else
-    //     expand = 1;
     if (pipe(pipe_fd) == -1)
         perror_pipe();
     quoted = check_quoted(eof);
@@ -64,7 +58,7 @@ void    execute_heredoc(char *eof, t_data data)
         signal(SIGINT, signal_herdoc);
         line = readline("> ");
         if (quoted == 0)
-            expand_herdoc(&line, data);//hadi rah hiya li 9adit dyal expand bo7dha li zedt lek hna
+            expand_herdoc(&line, data);
         if (!line)
         {
             free(line); //if i press cntl+/D
@@ -75,10 +69,6 @@ void    execute_heredoc(char *eof, t_data data)
             free(line);
             break ;
         }
-        // expanded_line = expand_eof(line);
-        // if (expanded_line && expand)
-        //     write(pipe_fd[1], expanded_line, strlen(expanded_line));
-        // else
         write(pipe_fd[1], line, ft_strlen(line));
         ft_putstr_fd("\n", pipe_fd[1]);
         free(line);
