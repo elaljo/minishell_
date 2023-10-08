@@ -53,7 +53,7 @@ char    **dollar_split(char *str)
     int k;
     int start = 0;
     int len = cnt_dollars(str) + 1;
-    char **tab = malloc(len * sizeof(char *));
+    char **tab = ft_calloc(1,len * sizeof(char *));
     while (len > 1 && str[i])
     {
         start = i;
@@ -77,7 +77,7 @@ char    **dollar_split(char *str)
                 break ;
             }
         }
-        tab[j] = malloc(i - start + 1);
+        tab[j] = ft_calloc(1,i - start + 1);
         k = 0;
         while (start < i)
         {

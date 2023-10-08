@@ -11,7 +11,7 @@ void    signal_part()
 void    signal_herdoc(int signum)
 {
     if (signum == SIGINT)
-        exit(1);
+        exit(130);
 }
 
 void    signal_handler(int signum)

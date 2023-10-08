@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/08 21:35:03 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/04 04:39:44 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ t_cmd	*get_cmds(char **tab)
 	int		nbr;
 
 	nbr = count_cmds(tab);
-	// cmds = ft_calloc(nbr, sizeof(t_cmd));
-	cmds = malloc((nbr) * sizeof(t_cmd));
+	cmds = ft_calloc(1,(nbr) * sizeof(t_cmd));
 	i = 0;
 	j = 0;
 	while (tab[i] != NULL)
@@ -68,7 +67,7 @@ t_cmd	*get_cmds(char **tab)
 			cmds[j].cmd_len = commande_len;
 			cmds[j].args_nbr = nbr;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
-			cmds[j].args = malloc(2 * sizeof(char *));
+			cmds[j].args = ft_calloc(1,2 * sizeof(char *));
 			cmds[j].args[0] = ft_strdup(tab[i]);
 			cmds[j].args[1] = NULL;
 			j++;
@@ -79,8 +78,8 @@ t_cmd	*get_cmds(char **tab)
 			cmds[j].cmd_len = commande_len;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
 			cmds[j].args_nbr = nbr;
-			cmds[j].args = malloc((commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
-			cmds[j].redir = malloc(cmds[j].redir_nbr * sizeof(t_redi));
+			cmds[j].args = ft_calloc(1,(commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
+			cmds[j].redir = ft_calloc(1,cmds[j].redir_nbr * sizeof(t_redi));
 			k = 0;
 			int red = 0;
 			while (k < commande_len && tab[i] != NULL)

@@ -17,6 +17,7 @@ void    expand_all(t_cmd *cmds, t_data *data)
     int i = 0;
     while (i < cmds->args_nbr && cmds->args[i] != NULL)
     {
+        // printf("\n\n\nI'm here\n\n\n\n");
         expander(&cmds[i], cmds[i].cmd_len, data);
         i++;
     }
@@ -77,14 +78,15 @@ void    expander(t_cmd *cmd, int len, t_data *data)
                         free(dollar_splitted[k]);
                         dollar_splitted[k] = ft_strjoin(ft_itoa(data->old_st), &tmp[2]);
                     }
-                    // free(tmp);
+                    // tmp = ft_itoa(data->old_st);
+                    // free(dollar_splitted[k]);
+                    // dollar_splitted[k] = ft_strdup(tmp);
                 }
                 else if (quoted != 1 && dollar_splitted[k][0] == '$' && is_var(dollar_splitted[k][1]) == 1 )
                 {
                     tmp = ft_strdup(dollar_splitted[k]);
                     free(dollar_splitted[k]);
                     dollar_splitted[k] = ft_strdup(expand_var(tmp, *data));
-                    // free(tmp);
                 }
                 if (k == 0)
                     joigned_0 = ft_strjoin("", dollar_splitted[k]);
@@ -93,11 +95,10 @@ void    expander(t_cmd *cmd, int len, t_data *data)
                     tmp = ft_strdup(joigned_0);
                     free(joigned_0);
                     joigned_0 = ft_strjoin(tmp, dollar_splitted[k]);
-                    // free(tmp);
+                    free(tmp);
                 }
                 k++;
             }
-            ft_str_free(dollar_splitted);
             if (empty == 1)
             {
                 joigned_0 = ft_strdup("");
@@ -117,12 +118,10 @@ void    expander(t_cmd *cmd, int len, t_data *data)
             }
             j++;
         }
-        ft_str_free(quote_splitted);
         free(args[i]);
         args[i] = ft_strdup(joigned_1);
-        // printf("**->%s\n", args[i]);
-        free(joigned_1);
         // printf("%s", args[i]);
+        free(joigned_1);
         // printf("\n\n\nI'm here(%d)*(len = %d)---(joined --> %s)\n\n\n\n", i, len, args[i]);
         i++;
     }

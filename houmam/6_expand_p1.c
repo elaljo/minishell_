@@ -34,7 +34,7 @@ char	*handle_quoted(char *str)
 		tmp = ft_strdup(str);
 		free(str);
 		len = ft_strlen(tmp);
-		str = malloc((len - 1) * sizeof(char));
+		str = ft_calloc(1,(len - 1) * sizeof(char));
 		// printf("len - 1 --> %d\n", len - 1);
 		i = 1;
 		j = 0;

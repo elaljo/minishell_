@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/08 16:53:12 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:04:42 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_data
 	char	**key_env;
 	int		new_st;
 	int		old_st;
-	int		pid;
+	int pid;
 }t_data;
 
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
@@ -116,12 +116,10 @@ void    expand_herdoc(char **str, t_data *data);
 void    expand_all(t_cmd *cmds, t_data *data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
-t_quote unclosed_parenthis(char *str);
 int    parsing_errors(char *str);
-// void	ft_trim(char **str);
+void	ft_trim(char **str);
 int		successive_redir(char *str);
 int     redir_errors(t_cmd *cmds);
-void	free_cmds(t_cmd *cmds);
 
 // mohamed
 
@@ -139,11 +137,11 @@ void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char *line);
 
 //	execute_cmd
-void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
-void	found_cmd(t_cmd *cmd, int op, t_data *data);
+void	executing_one_cmd(t_cmd *cmd, int i, t_data *data, int j);
+void	found_cmd(t_cmd *cmd, int op, t_data *data, int j);
 char	*get_cmd_path(t_data *data, char *cmd);
-void	execute_cmd(t_cmd *cmd, int i, t_data *data);
-void	open_dir_err(t_cmd *cmd, int op);
+void	execute_cmd(t_cmd *cmd, int i, t_data *data, int j);
+void	open_dir_err(t_cmd *cmd, int op, int j);
 
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
@@ -172,9 +170,9 @@ void	last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
 
 //	redir
-void    redir_output(char *eof, t_data *data);
-void    redir_append(char *eof, t_data *data);
-void    redir_input(char *eof, t_data *data);
+void    redir_output(char *eof);
+void    redir_append(char *eof);
+void    redir_input(char *eof);
 void    execute_heredoc(char *eof, t_data *data);
 void    execute_redir(t_cmd *cmd, t_data *data);
 void    setup_redir(t_cmd *cmd, t_data *data, int i);

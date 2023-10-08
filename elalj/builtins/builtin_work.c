@@ -29,6 +29,7 @@ int	valid_num(char *str)
 
 void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 {
+{
 	int j = 0;
 	while (cmd[0].args[j][0] == '\0')
 		j++;
@@ -46,6 +47,7 @@ void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 		my_env(data);
 	else if (ft_strcmp(cmd[i].args[j], "exit") == 0)
 		my_exit(cmd, i, data);
+}
 }
 
 int	is_builtin(char *cmd)

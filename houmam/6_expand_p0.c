@@ -58,7 +58,7 @@ char    **quotes_split(char *str)
     int sq = 0;
     int dq = 0;
     int len = cnt_exp(str) + 1;
-    char **tab = malloc(len * sizeof(char *));
+    char **tab = ft_calloc(1,len * sizeof(char *));
     while (str[i])
     {
         start = i;
@@ -90,7 +90,7 @@ char    **quotes_split(char *str)
                         break ;
                 i++;
         }
-        tab[j] = malloc((i - start + 2) * sizeof(char));
+        tab[j] = ft_calloc(1,(i - start + 2) * sizeof(char));
         k = 0;
         end = i;
         // printf("quotes -> index : %d\n", i);

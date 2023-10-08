@@ -66,7 +66,7 @@ char    **split_str(char *str, char c)
     int k = 0;
     int start = 0;
     int wrds = cnt_wrds(str, c);
-    char **tab = malloc((wrds + 1) * sizeof(char *));
+    char **tab = ft_calloc(1,(wrds + 1) * sizeof(char *));
     int sq = 0;
     int dq = 0;
 
@@ -100,7 +100,7 @@ char    **split_str(char *str, char c)
                     dq++;
                 i++;
             }
-            tab[j] = malloc((i - start + 1) * sizeof(char));
+            tab[j] = ft_calloc(1,(i - start + 1) * sizeof(char));
             while (start < i)
             {
                 tab[j][k] = str[start];
@@ -121,7 +121,7 @@ char    **split_str(char *str, char c)
 // {
 // 	int i = 0;
 // 	// int len = start;
-// 	char *str = malloc((len + 1) * sizeof(char));
+// 	char *str = ft_calloc(1,(len + 1) * sizeof(char));
 
 // 	while (s[i] && i < len)
 // 	{
