@@ -42,10 +42,10 @@ C_FILES = elalj/builtins/echo.c\
 		  houmam/3_sp_characters.c\
 		  houmam/4_split_cmd.c\
 		  houmam/5_get_cmds.c\
-		  houmam/6_expand_p1.c\
-		  houmam/6_expand_p0.c\
-		  houmam/6_expand_p00.c\
-		  houmam/6_expand_p000.c\
+		  houmam/6_expand_all.c\
+		  houmam/6_handle_quoted.c\
+		  houmam/6_quotes_split.c\
+		  houmam/6_dollar_split.c\
 		  houmam/9_redirections.c\
 										
 OBJ = ${C_FILES:.c=.o}
