@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/07 23:52:59 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/08 18:48:45 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,26 @@ int main(int ac, char *av[], char **env)
 		add_history(input_string);
 		if (!input_string)
 		{
+			free(input_string);
 			printf("exit\n");
 			exit (0);
 		}
 		if (only_spaces(input_string) == 0)
+		{
+			free(input_string);
 			continue ;
+		}
 		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
 			data.new_st = 258;
 		else
 		{
 			splitted_cmds = split(input_string);
+			free(input_string);
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
 			// printf("✅removing spaces✅\n");
 			cmds = get_cmds(splitted_cmds);
+			ft_str_free(splitted_cmds);
 			// printf("✅Getting cmds✅\n");
 			if (redir_errors(cmds) == 2)
 				data.new_st = 258;
@@ -77,8 +83,8 @@ int main(int ac, char *av[], char **env)
 		}
 	}
 	free_cmds(cmds);
-	free(input_string);
-	ft_str_free(splitted_cmds);
+	// free(input_string);
+	// ft_str_free(splitted_cmds);
 	return (EXIT_SUCCESS);
 }
 
