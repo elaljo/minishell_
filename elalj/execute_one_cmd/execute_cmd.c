@@ -86,6 +86,8 @@ void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 
 void	found_cmd(t_cmd *cmd, int i, t_data *data)
 {
+	if (*cmd[i].args[0] == '\0')
+		return ;
 	if (is_builtin(cmd[i].args[0]) == 1)
 	{
 		execute_builtin(cmd, data, i);
