@@ -12,10 +12,6 @@
 
 #include "minishell.h"
 
-// int g_exit_status = 0;
-t_exit g_exit_status;
-// g_exit_status+status = 0;
-// g_exit_status.old_exit = 0;
 
 int main(int ac, char *av[], char **env)
 {
@@ -37,9 +33,6 @@ int main(int ac, char *av[], char **env)
 	{
 		data.old_st = data.new_st;
 		data.new_st = 0;
-		// g_exit_status+old_exit = g_exit_status+status;
-		// g_exit_status+status = 0;
-		// g_exit_status+ = 0;
 		input_string = readline("🌙❓➜ ");
 		// input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
@@ -74,7 +67,7 @@ int main(int ac, char *av[], char **env)
 				// printf("✅expanding✅\n");
 				if (data.new_st != 2)
 				{
-					if (cmds->redir_nbr != 0)
+					if (cmds->redir_nbr != 0 && cmds->args_nbr == 1)
 						execute_redir(cmds, &data);
 					else if (cmds->args_nbr == 1)
 					{
@@ -83,7 +76,7 @@ int main(int ac, char *av[], char **env)
 						else
 							executing_one_cmd(cmds, 0, &data);
 					}
-					else
+					else if (cmds->args_nbr > 1)
 						execute_pipe(cmds, &data);
 				}
 			}
@@ -108,7 +101,7 @@ int main(int ac, char *av[], char **env)
 // 	tmp = ft_strdup(*str);
 // 	free(*str);
 // 	// printf("ana hna\n");
-// 	*str = malloc(end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
+// 	*str = ft_calloc(1,end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
 // 	while (start < end + 1)
 // 	{
 // 		*str[i] = tmp[start];

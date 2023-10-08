@@ -24,15 +24,6 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-// extern int g_exit_status;
-
-typedef struct s_exit
-{
-	int	status;
-	int	old_exit;
-} t_exit;
-
-extern t_exit g_exit_status;
 
 typedef struct s_redi
 {
@@ -75,6 +66,7 @@ typedef struct s_data
 	char	**key_env;
 	int		new_st;
 	int		old_st;
+	int pid;
 }t_data;
 
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
@@ -142,14 +134,14 @@ void	print_not_identifier_un(char *line, t_data *data);
 void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
-void	print_if_exit_valid(char *line, t_data *data);
+void	print_if_exit_valid(char *line);
 
 //	execute_cmd
 void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
 void	found_cmd(t_cmd *cmd, int op, t_data *data);
 char	*get_cmd_path(t_data *data, char *cmd);
 void	execute_cmd(t_cmd *cmd, int i, t_data *data);
-void	open_dir_err(t_cmd *cmd, int op, t_data *data);
+void	open_dir_err(t_cmd *cmd, int op);
 
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
@@ -183,6 +175,7 @@ void    redir_append(char *eof, t_data *data);
 void    redir_input(char *eof, t_data *data);
 void    execute_heredoc(char *eof, t_data *data);
 void    execute_redir(t_cmd *cmd, t_data *data);
+void    setup_redir(t_cmd *cmd, t_data *data, int i);
 
 //	signals
 void    signal_handler(int signum);
@@ -216,9 +209,9 @@ void	ft_str_free(char **arr);
 int		len_arr(char **arr);
 
 //	perror
-void    perror_pipe(t_data *data);
-void    perror_fork(t_data *data);
-void    perror_fd(t_data *data);
-void	perror_execve(t_data *data);
+void    perror_pipe();
+void    perror_fork();
+void    perror_fd();
+void	perror_execve();
 
 #endif

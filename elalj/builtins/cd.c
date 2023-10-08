@@ -37,7 +37,7 @@ char	*get_old_pwd()
 	char	*old_pwd;
 
 	size = 1024;
-	buffer = malloc(size + 1 * sizeof(char));
+	buffer = ft_calloc(1,size + 1 * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	old_pwd = getcwd(buffer, size);

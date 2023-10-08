@@ -8,6 +8,7 @@ void    redir_output(char *eof, t_data *data)
     if (fd == -1)
         perror_fd(data);
     dup2(fd, 1);
+    close (fd);
 }
 void    redir_append(char *eof, t_data *data)
 {
@@ -35,7 +36,6 @@ void    redir_input(char *eof, t_data *data)
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(eof, 2);
         ft_putstr_fd(": No such file or directory\n", 2);
-        data->new_st = 1;
         exit (1);
     }
 }
@@ -78,6 +78,29 @@ void    execute_heredoc(char *eof, t_data *data)
     free(tmp);
 }
 
+void    setup_redir(t_cmd *cmd, t_data *data, int e)
+{
+    (void)data;
+    (void)e;
+    int j = 0;
+    // ft_putstr_fd(ft_itoa(cmd->redir_nbr), 2);
+    //     ft_putstr_fd(cmd[e].redir[0].eof, 2);
+    while (cmd[e].redir_nbr != 0)
+    {
+        // ft_putstr_fd("\n", 2);
+        if (ft_strcmp(cmd[e].redir[j].redi, ">") == 0)
+            redir_output(cmd[e].redir[j].eof, data);
+        if (ft_strcmp(cmd[e].redir[j].redi, ">>") == 0)
+            redir_append(cmd[e].redir[j].eof, data);
+        if (ft_strcmp(cmd[e].redir[j].redi, "<") == 0)
+            redir_input(cmd[e].redir[j].eof, data);
+        if (ft_strcmp(cmd[e].redir[j].redi, "<<") == 0)
+            execute_heredoc(cmd[e].redir[j].eof, data);
+        cmd->redir_nbr--;
+        j++;
+    }
+}
+
 void    execute_redir(t_cmd *cmd, t_data *data)
 {
     int pid_f;
@@ -105,5 +128,14 @@ void    execute_redir(t_cmd *cmd, t_data *data)
         found_cmd(cmd, 0 , data);
     }
     else
-        wait(&data->new_st); 
+    {
+        wait(&data->new_st);
+        unsigned char *s;
+
+        s = (unsigned char *)&data->new_st;
+        if (s[0])
+            data->new_st = s[0] + 128;
+        else
+            data->new_st = s[1];
+    }
 }
