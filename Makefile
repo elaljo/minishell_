@@ -2,13 +2,13 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
+# CFLAGS = -Wall -Werror -Wextra -I $(RL)/include
 
-# CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=address -g
 
 RM = rm -rf
 
-RL = ${shell brew --prefix readline}
+# RL = ${shell brew --prefix readline}
 
 RESET = \033[0m
 RED = \033[1;31m
