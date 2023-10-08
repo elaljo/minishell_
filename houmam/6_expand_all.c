@@ -65,9 +65,18 @@ void    expander(t_cmd *cmd, int len, t_data *data)
             {
                 if (quoted != 1 && dollar_splitted[k][0] == '$' && dollar_splitted[k][1] == '?')
                 {
-                    tmp = ft_itoa(data->old_st);
-                    free(dollar_splitted[k]);
-                    dollar_splitted[k] = ft_strdup(tmp);
+                    if (dollar_splitted[k][2] == '\0')
+                    {
+                        tmp = ft_itoa(data->old_st);
+                        free(dollar_splitted[k]);
+                        dollar_splitted[k] = ft_strdup(tmp);
+                    }
+                    else if (dollar_splitted[k][2] != '\0')
+                    {
+                        tmp = ft_strdup(dollar_splitted[k]);
+                        free(dollar_splitted[k]);
+                        dollar_splitted[k] = ft_strjoin(ft_itoa(data->old_st), &tmp[2]);
+                    }
                     free(tmp);
                 }
                 else if (quoted != 1 && dollar_splitted[k][0] == '$' && is_var(dollar_splitted[k][1]) == 1 )
