@@ -26,6 +26,9 @@ void	my_exit(t_cmd *cmd, int i, t_data *data)
 	if (cmd[i].args[0] && !cmd[i].args[1])
 	{
 		ft_putstr_fd("exit\n", 1);
+		free_cmds(cmd);
+		ft_str_free(data->c_env);
+		ft_str_free(data->key_env);
 		exit (0);
 	}
 	else if (cmd[i].args[1])

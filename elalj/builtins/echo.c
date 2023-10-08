@@ -23,22 +23,20 @@ void	my_echo(t_cmd *cmd, int i, int a)
 	}
 }
 
-void	handle_my_echo(t_cmd *cmd, int i)
+void	handle_my_echo(t_cmd *cmd, int i, int j)
 {
-	int	a;
-
-	a = 1;
-	if (!cmd[i].args[1])
+	if (cmd[i].args[j] && !cmd[i].args[j + 1])
 		printf("\n");
-	else if (cmd[i].args[0] && cmd[i].args[1][0] == '-' && cmd[i].args[1][1] == 'n')
+	else if (cmd[i].args[j] && cmd[i].args[j+1][0] == '-' && cmd[i].args[j+1][1] == 'n')
 	{
-		while (cmd[i].args[a][0] == '-' && cmd[i].args[a][1] == 'n')
-			a++;
-		my_echo(cmd, i, a);
+		j++;
+		while (cmd[i].args[j][0] == '-' && cmd[i].args[j][1] == 'n')
+			j++;
+		my_echo(cmd, i, j);
 	}
-	else if (cmd[i].args[a])
+	else if (cmd[i].args[j + 1])
 	{
-		my_echo(cmd, i, a);
+		my_echo(cmd, i, j + 1);
 		printf("\n");
 	}
 }

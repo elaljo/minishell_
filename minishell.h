@@ -66,7 +66,7 @@ typedef struct s_data
 	char	**key_env;
 	int		new_st;
 	int		old_st;
-	int pid;
+	int		pid;
 }t_data;
 
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
@@ -147,7 +147,7 @@ void	open_dir_err(t_cmd *cmd, int op);
 
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
-void	handle_my_echo(t_cmd *cmd, int i);
+void	handle_my_echo(t_cmd *cmd, int i, int j);
 void	my_cd(t_cmd	*cmd, int i, t_data *data);
 void	export_old_pwd(char *old_pwd, t_data *data);
 void	export_pwd(t_data *data);

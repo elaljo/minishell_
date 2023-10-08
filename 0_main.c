@@ -38,6 +38,9 @@ int main(int ac, char *av[], char **env)
 		{
 			free(input_string);
 			printf("exit\n");
+			ft_str_free(data.c_env);
+			ft_str_free(data.key_env);
+			free_cmds(cmds);
 			exit (0);
 		}
 		if (only_spaces(input_string) == 0)
@@ -70,7 +73,10 @@ int main(int ac, char *av[], char **env)
 						execute_redir(cmds, &data);
 					else if (cmds->args_nbr == 1)
 					{
-						if (is_builtin(cmds[0].args[0]) == 1 && cmds->args_nbr == 1)
+						int i = 0;
+						while (cmds[0].args[i][0] == '\0')
+							i++;
+						if (is_builtin(cmds[0].args[i]) == 1 && cmds->args_nbr == 1)
 							execute_builtin(cmds, &data, 0);
 						else
 							executing_one_cmd(cmds, 0, &data);
@@ -81,10 +87,9 @@ int main(int ac, char *av[], char **env)
 			}
 			
 		}
+		free_cmds(cmds);
+
 	}
-	free_cmds(cmds);
-	// free(input_string);
-	// ft_str_free(splitted_cmds);
 	return (EXIT_SUCCESS);
 }
 
