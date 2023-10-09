@@ -87,12 +87,12 @@ void    setup_redir(t_cmd *cmd, t_data *data, int e)
     j = 0;
     while (cmd[e].redir_nbr != 0)
     {
-        if (ft_strcmp(cmd[e].redir[j].redi, ">") == 0)
-            redir_output(cmd[e].redir[j].eof);
-        if (ft_strcmp(cmd[e].redir[j].redi, ">>") == 0)
-            redir_append(cmd[e].redir[j].eof);
-        if (ft_strcmp(cmd[e].redir[j].redi, "<") == 0)
-            redir_input(cmd[e].redir[j].eof);
+        if (ft_strcmp(cmd[e].redii[j].redi, ">") == 0)
+            redir_output(cmd[e].redii[j].eof);
+        if (ft_strcmp(cmd[e].redii[j].redi, ">>") == 0)
+            redir_append(cmd[e].redii[j].eof);
+        if (ft_strcmp(cmd[e].redii[j].redi, "<") == 0)
+            redir_input(cmd[e].redii[j].eof);
         if (ft_strcmp(cmd[e].redir[j].redi, "<<") == 0)
             execute_heredoc(cmd[e].redir[j].eof, data);
         cmd[e].redir_nbr--;
@@ -113,12 +113,12 @@ void    execute_redir(t_cmd *cmd, t_data *data)
     {
         while (cmd->redir_nbr != 0)
         {
-            if (ft_strcmp(cmd[0].redir[i].redi, ">") == 0)
-                redir_output(cmd[0].redir[i].eof);
-            else if (ft_strcmp(cmd[0].redir[i].redi, ">>") == 0)
-                redir_append(cmd[0].redir[i].eof);
-            else if (ft_strcmp(cmd[0].redir[i].redi, "<") == 0)
-                redir_input(cmd[0].redir[i].eof);
+            if (ft_strcmp(cmd[0].redii[i].redi, ">") == 0)
+                redir_output(cmd[0].redii[i].eof);
+            else if (ft_strcmp(cmd[0].redii[i].redi, ">>") == 0)
+                redir_append(cmd[0].redii[i].eof);
+            else if (ft_strcmp(cmd[0].redii[i].redi, "<") == 0)
+                redir_input(cmd[0].redii[i].eof);
             else if (ft_strcmp(cmd[0].redir[i].redi, "<<") == 0)
                 execute_heredoc(cmd[0].redir[i].eof, data);
             cmd->redir_nbr--;
