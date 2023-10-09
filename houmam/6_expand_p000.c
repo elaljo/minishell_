@@ -157,7 +157,6 @@ void    expand_herdoc(char **str, t_data *data)
     }
     free(*str);
     *str = ft_strdup(joigned_0);
-    printf("ana heredoc --> %s\n", *str);
     free(joigned_0);
 }
 
@@ -173,7 +172,7 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
     char **quote_splitted;
     char **dollar_splitted;
 
-    quote_splitted = quotes_split(cmds[red].redii[i].eof);
+    quote_splitted = quotes_split(cmds[i].redii[red].eof);
     j = 0;
     while (quote_splitted[j] != NULL)
     {
@@ -238,7 +237,7 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
             joigned_0 = ft_strdup("");
             empty = 0;
         }
-        free(quote_splitted[j]);
+        // free(quote_splitted[j]);
         quote_splitted[j] = ft_strdup(joigned_0);
         free(joigned_0);
         if (j == 0)
@@ -252,7 +251,7 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
         }
         j++;
     }
-    free(cmds[red].redii[i].eof);
-    cmds[j].redii[i].eof = ft_strdup(joigned_1);
+    free(cmds[i].redii[red].eof);
+    cmds[i].redii[red].eof = ft_strdup(joigned_1);
     free(joigned_1);
 }

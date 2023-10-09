@@ -148,7 +148,7 @@ void	cp_redir(t_cmd *cmds, int j, t_data *data)
 			cmds[j].redii[i].eof = ft_strdup(cmds[j].redir[i].eof);
 			cmds[j].redii[i].redi = ft_strdup(cmds[j].redir[i].redi);
 			// expand_herdoc(&cmds[j].redii[i].eof, data);
-			expand_redir(cmds, i, j, data);
+			expand_redir(cmds, j, i, data);
 			// expand_herdoc(&cmds[j].redii[i].redi, data);
 			i++;
 		}
