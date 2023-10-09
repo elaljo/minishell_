@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/05 21:04:42 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/09 01:16:33 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef struct s_cmd
 {
 	int		args_nbr;//che7al mn commande machi arg
 	char	**args;//command + args
-	t_redi	*redir;//redirections type + eof
+	t_redi	*redir;//used for heredoc
+	t_redi	*redii;//used for cmds
 	int		redir_nbr;//redirection number
 	int		cmd_len;
 	char	*path;
@@ -103,7 +104,7 @@ char	*handle_quoted(char *str);
 int		check_quoted(char *str);
 int		count_cmds(char **tab);
 int		cmd_len(char **tab);
-t_cmd	*get_cmds(char **tab);
+t_cmd	*get_cmds(char **tab, t_data *data);
 int		cnt_redir(char **tab);
 int		cnt_exp(char *str);
 char    **quotes_split(char *str);
@@ -117,9 +118,11 @@ void    expand_all(t_cmd *cmds, t_data *data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
 int    parsing_errors(char *str);
-void	ft_trim(char **str);
+// void	ft_trim(char **str);
 int		successive_redir(char *str);
 int     redir_errors(t_cmd *cmds);
+void	cp_redir(t_cmd *cmds, int j, t_data *data);
+void    expand_redir(t_cmd *cmds, int i, int j, t_data *data);
 
 // mohamed
 

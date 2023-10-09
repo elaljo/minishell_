@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/05 21:27:59 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/09 01:17:00 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int main(int ac, char *av[], char **env)
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
 			// printf("✅removing spaces✅\n");
-			cmds = get_cmds(splitted_cmds);
+			cmds = get_cmds(splitted_cmds, &data);
 			// printf("✅Getting cmds✅\n");
 			if (redir_errors(cmds) == 2)
 				data.new_st = 258;
