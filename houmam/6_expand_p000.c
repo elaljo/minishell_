@@ -78,9 +78,6 @@ void    expander(t_cmd *cmd, int len, t_data *data)
                         free(dollar_splitted[k]);
                         dollar_splitted[k] = ft_strjoin(ft_itoa(data->old_st), &tmp[2]);
                     }
-                    // tmp = ft_itoa(data->old_st);
-                    // free(dollar_splitted[k]);
-                    // dollar_splitted[k] = ft_strdup(tmp);
                 }
                 else if (quoted != 1 && dollar_splitted[k][0] == '$' && is_var(dollar_splitted[k][1]) == 1 )
                 {
@@ -97,8 +94,10 @@ void    expander(t_cmd *cmd, int len, t_data *data)
                     joigned_0 = ft_strjoin(tmp, dollar_splitted[k]);
                     free(tmp);
                 }
+                free(dollar_splitted[k]);
                 k++;
             }
+            free(dollar_splitted);
             if (empty == 1)
             {
                 joigned_0 = ft_strdup("");
@@ -116,13 +115,13 @@ void    expander(t_cmd *cmd, int len, t_data *data)
                 joigned_1 = ft_strjoin(tmp, quote_splitted[j]);
                 free(tmp);
             }
+            free(quote_splitted[j]);
             j++;
         }
+        free(quote_splitted);
         free(args[i]);
         args[i] = ft_strdup(joigned_1);
-        // printf("%s", args[i]);
         free(joigned_1);
-        // printf("\n\n\nI'm here(%d)*(len = %d)---(joined --> %s)\n\n\n\n", i, len, args[i]);
         i++;
     }
 }
@@ -153,8 +152,10 @@ void    expand_herdoc(char **str, t_data *data)
             joigned_0 = ft_strjoin(tmp, dollar_splitted[k]);
             free(tmp);
         }
+        free(dollar_splitted[k]);
         k++;
     }
+    free(dollar_splitted);
     free(*str);
     *str = ft_strdup(joigned_0);
     free(joigned_0);
@@ -211,9 +212,6 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
                     free(dollar_splitted[k]);
                     dollar_splitted[k] = ft_strjoin(ft_itoa(data->old_st), &tmp[2]);
                 }
-                // tmp = ft_itoa(data->old_st);
-                // free(dollar_splitted[k]);
-                // dollar_splitted[k] = ft_strdup(tmp);
             }
             else if (quoted != 1 && dollar_splitted[k][0] == '$' && is_var(dollar_splitted[k][1]) == 1 )
             {
@@ -230,14 +228,15 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
                 joigned_0 = ft_strjoin(tmp, dollar_splitted[k]);
                 free(tmp);
             }
+            free(dollar_splitted[k]);
             k++;
         }
+        free(dollar_splitted);
         if (empty == 1)
         {
             joigned_0 = ft_strdup("");
             empty = 0;
         }
-        // free(quote_splitted[j]);
         quote_splitted[j] = ft_strdup(joigned_0);
         free(joigned_0);
         if (j == 0)
@@ -249,8 +248,10 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
             joigned_1 = ft_strjoin(tmp, quote_splitted[j]);
             free(tmp);
         }
+        free(quote_splitted[j]);
         j++;
     }
+    free(quote_splitted);
     free(cmds[i].redii[red].eof);
     cmds[i].redii[red].eof = ft_strdup(joigned_1);
     free(joigned_1);

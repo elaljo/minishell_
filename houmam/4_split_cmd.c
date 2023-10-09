@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:07:17 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/05 21:36:42 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/09 20:59:43 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,11 @@ char	*rm_spaces(char *str)
 void	removing_spaces(char **str)
 {
 	int i = 0;
-	char *tmp;
+	// char *tmp;
 
 	while (str[i] != NULL)
 	{
-		tmp = ft_strdup(rm_spaces(str[i]));
-		str[i] = ft_strdup(tmp);
-		free(tmp);
+		ft_trim(str, i);
 		i++;
 	}
 }

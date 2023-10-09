@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/09 01:12:23 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:11:21 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ int cmd_len(char **tab)
 
 	while (tab[i] != NULL)
 	{
-		// printf("---i = %d---%s---\n", i, tab[i]);
 		if (tab[i][0] == '|' || tab[i] == NULL)
 			break ;
 		i++;
 	}
-	// printf("✅ %d\n", i);
 	return (i);
 }
 
@@ -152,5 +150,33 @@ void	cp_redir(t_cmd *cmds, int j, t_data *data)
 			// expand_herdoc(&cmds[j].redii[i].redi, data);
 			i++;
 		}
+	}
+}
+
+void	free_cmds(t_cmd *cmds)
+{
+	int i = 0;
+	int j;
+	
+	while (i < cmds[0].args_nbr)
+	{
+		j = 0;
+		while (cmds[i].args[j] != NULL)
+		{
+			free(cmds[i].args[j]);
+			j++;
+		}
+		free(cmds[i].args);
+		j = 0;
+		while (j < cmds[i].redir_nbr)
+		{
+			free(cmds[i].redir[j].eof);
+			free(cmds[i].redir[j].redi);
+			free(cmds[i].redii[j].eof);
+			free(cmds[i].redii[j].redi);
+			j++;
+		}
+		free(cmds[i].path);
+		i++;
 	}
 }

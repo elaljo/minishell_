@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/09 01:17:00 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/09 21:12:19 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int main(int ac, char *av[], char **env)
 		// printf("✅successive redir✅\n");
 		// printf("Ana hna\n");
 		if (only_spaces(input_string) == 0)
+		{
+			free(input_string);
 			continue ;
+		}
 		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
 			data.new_st = 258;
 		else
@@ -57,6 +60,7 @@ int main(int ac, char *av[], char **env)
 			removing_spaces(splitted_cmds);
 			// printf("✅removing spaces✅\n");
 			cmds = get_cmds(splitted_cmds, &data);
+			ft_str_free(splitted_cmds);
 			// printf("✅Getting cmds✅\n");
 			if (redir_errors(cmds) == 2)
 				data.new_st = 258;
@@ -85,32 +89,31 @@ int main(int ac, char *av[], char **env)
 			}
 			
 		}
+		free_cmds(cmds);
 	}
-	free(input_string);
-	ft_str_free(splitted_cmds);
 	return (EXIT_SUCCESS);
 }
 
-// void	ft_trim(char **str)
-// {
-// 	int start = 0;
-// 	int i = 0;
-// 	int end = ft_strlen(*str) - 1;
-// 	char *tmp;
-// 	while (*str[start] == ' ')
-// 		start++;
-// 	while (*str[end] == ' ')
-// 		end++;
-// 	tmp = ft_strdup(*str);
-// 	free(*str);
-// 	// printf("ana hna\n");
-// 	*str = ft_calloc(1,end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
-// 	while (start < end + 1)
-// 	{
-// 		*str[i] = tmp[start];
-// 		i++;
-// 		start++;
-// 	}
-// 	*str[i] = '\0';
-// 	free(tmp);
-// }
+void	ft_trim(char **str, int i)
+{
+	int start = 0;
+	int j = 0;
+	int end = ft_strlen(str[i]) - 1;
+	char *tmp = ft_strdup(str[i]);
+	
+	while (tmp[start] == ' ')
+		start++;
+	while (tmp[end] == ' ')	
+		end--;
+	free(str[i]);
+	str[i] = malloc(end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
+	while (start < end + 1)
+	{
+		str[i][j] = tmp[start];
+		j++;
+		start++;
+	}
+	str[i][j] = '\0';
+	// printf("test --> %s\n", str[i]);
+	free(tmp);
+}
