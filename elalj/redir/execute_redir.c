@@ -66,7 +66,7 @@ void    execute_heredoc(char *eof, t_data *data)
             free(line); //if i press cntl+/D
             break;
         }
-        if (ft_strncmp(line, eof, ft_strlen(eof)) == 0)
+        if (ft_strcmp(line , eof) == 0)
         {
             free(line);
             break ;

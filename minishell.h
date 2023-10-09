@@ -176,6 +176,7 @@ void    redir_input(char *eof);
 void    execute_heredoc(char *eof, t_data *data);
 void    execute_redir(t_cmd *cmd, t_data *data);
 void    setup_redir(t_cmd *cmd, t_data *data, int i);
+int same_eof(char *line, char *eof);
 
 //	signals
 void    signal_handler(int signum);
