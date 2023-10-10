@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/09 21:12:19 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/10 05:39:25 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int main(int ac, char *av[], char **env)
 	t_data	data;
 	char	*input_string;
 	char	**splitted_cmds;
+	char	**splitted;
 	
 	(void)av;
 	if (ac != 1)
@@ -38,6 +39,7 @@ int main(int ac, char *av[], char **env)
 		add_history(input_string);
 		if (!input_string)
 		{
+			free(input_string);
 			printf("exit\n");
 			exit (0);
 		}
@@ -58,9 +60,17 @@ int main(int ac, char *av[], char **env)
 			splitted_cmds = split(input_string);
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
+			splitted = rm_empty(splitted_cmds);
+			// int i = 0;
+			// while (splitted_cmds[i] != NULL)
+			// {
+			// 	printf("***->(%s)\n", splitted_cmds[i]);
+			// 	printf("*(%d)*\n", splitted_cmds[i][0]);
+			// 	i++;
+			// }
 			// printf("✅removing spaces✅\n");
-			cmds = get_cmds(splitted_cmds, &data);
-			ft_str_free(splitted_cmds);
+			cmds = get_cmds(splitted, &data);
+			ft_str_free(splitted);
 			// printf("✅Getting cmds✅\n");
 			if (redir_errors(cmds) == 2)
 				data.new_st = 258;
@@ -114,6 +124,57 @@ void	ft_trim(char **str, int i)
 		start++;
 	}
 	str[i][j] = '\0';
-	// printf("test --> %s\n", str[i]);
 	free(tmp);
+}
+
+char	**rm_empty(char **tab)
+{
+	char **tmp = tab_dup(tab);
+	ft_str_free(tab);
+	int cnt = 0;
+	int i = 0;
+
+	while (tmp[i] != NULL)
+	{
+		if (tmp[i][0] == 0)
+			cnt++;
+		i++;
+	}
+	tab = malloc((i - cnt + 1) * sizeof(char *));
+	// printf("**(%d)**\n", i - cnt + 1);
+	i = 0;
+	cnt = 0;
+	while (tmp[cnt] != NULL)
+	{
+		if (tmp[cnt][0] == 0)
+		{
+			cnt++;
+			continue ;
+		}
+		tab[i] = ft_strdup(tmp[cnt]);
+		// printf("*(%s)*\n", tab[i]);
+		i++;
+		cnt++;
+	}
+	tab[i] = NULL;
+	ft_str_free(tmp);
+	return (tab);
+}
+
+char **tab_dup(char **tab)
+{
+	int i = 0;
+	char **dup;
+
+	while (tab[i] != NULL)
+		i++;
+	dup = malloc((i + 1) * sizeof(char *));
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		dup[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	dup[i] = NULL;
+	return (dup);
 }

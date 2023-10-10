@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/09 21:11:21 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/10 05:42:36 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,15 +139,11 @@ void	cp_redir(t_cmd *cmds, int j, t_data *data)
 	if (cmds[j].redir_nbr != 0)
 	{
 		cmds[j].redii = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
-		// printf("teeeet red nbr (%d) \n", cmds->redir_nbr);
 		while (i < cmds[j].redir_nbr)
 		{
-			// printf("teeeet (%d)(%s) \n", i, cmds[j].redir[i].eof);
 			cmds[j].redii[i].eof = ft_strdup(cmds[j].redir[i].eof);
 			cmds[j].redii[i].redi = ft_strdup(cmds[j].redir[i].redi);
-			// expand_herdoc(&cmds[j].redii[i].eof, data);
 			expand_redir(cmds, j, i, data);
-			// expand_herdoc(&cmds[j].redii[i].redi, data);
 			i++;
 		}
 	}
