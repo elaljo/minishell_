@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:05 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 20:31:37 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:57:41 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,21 @@ t_quote unclosed_quotes(char *str)
     return (qt);
 }
 
+int cmd_pipe(char **tab, t_cmd *cmds)
+{
+	if (ft_strcmp(tab[0], "|") == 0 && cmds->argu_nbr == 1)
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (2);
+	}
+	return (0);
+}
 int successive_redir(char *str)
 {
-    // printf("ana f successive redir\n");
         char **tab = split(str);
         removing_spaces(tab);
-		char ** splitted = rm_empty(tab);
         int i = 0;
         
-		if (ft_strcmp(splitted[0], "|") == 0)
-		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-			return (2);
-		}
         while (tab[i] != NULL)
         {
             if (ft_strcmp(tab[i], "<") == 0 || ft_strcmp(tab[i], "<<") == 0 || ft_strcmp(tab[i], ">") == 0 || ft_strcmp(tab[i], ">>") == 0)

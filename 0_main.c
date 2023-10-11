@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 20:26:49 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 21:02:13 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,16 @@ int main(int ac, char *av[], char **env)
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
 			splitted = rm_empty(splitted_cmds);
-			int i = 0;
-			while (splitted[i] != NULL)
-			{
-				printf("*%s\n", splitted[i]);
-				i++;
-			}
+			// int i = 0;
+			// while (splitted[i] != NULL)
+			// {
+			// 	printf("*%s\n", splitted[i]);
+			// 	i++;
+			// }
 			// printf("✅removing spaces✅\n");
 			cmds = get_cmds(splitted, &data);
 			// printf("✅Getting cmds✅\n");
-			if (redir_errors(cmds) == 2)
+			if (redir_errors(cmds) == 2 || cmd_pipe(splitted, cmds) == 2)
 				data.new_st = 258;
 			else
 			{

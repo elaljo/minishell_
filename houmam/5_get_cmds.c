@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 20:27:42 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:45:23 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 	int		nbr;
 
 	nbr = count_cmds(tab);
-	printf("*** %d ***\n", nbr);
+	// printf("*** %d ***\n", nbr);
 	cmds = ft_calloc(1,(nbr) * sizeof(t_cmd));
 	i = 0;
 	j = 0;
