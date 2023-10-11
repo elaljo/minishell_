@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/10 05:37:05 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:02:53 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_cmd
 {
 	int		args_nbr;//che7al mn commande machi arg
 	char	**args;//command + args
+	char	**argu;
 	t_redi	*redir;//used for heredoc
 	t_redi	*redii;//used for cmds
 	int		redir_nbr;//redirection number

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 00:30:32 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:34:29 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 			cmds[j].cmd_len = commande_len;
 			cmds[j].args_nbr = nbr;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
-			cmds[j].args = ft_calloc(1,2 * sizeof(char *));
-			cmds[j].args[0] = ft_strdup(tab[i]);
-			cmds[j].args[1] = NULL;
+			cmds[j].argu = ft_calloc(1,2 * sizeof(char *));
+			cmds[j].argu[0] = ft_strdup(tab[i]);
+			cmds[j].argu[1] = NULL;
 			j++;
 			i++;
 		}
@@ -76,7 +76,7 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 			cmds[j].cmd_len = commande_len;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
 			cmds[j].args_nbr = nbr;
-			cmds[j].args = ft_calloc(1,(commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
+			cmds[j].argu = ft_calloc(1,(commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
 			cmds[j].redir = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
 			k = 0;
 			int red = 0;
@@ -119,13 +119,13 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 						continue ;
 					}
 				}
-				cmds[j].args[k] = ft_strdup(tab[i]);
+				cmds[j].argu[k] = ft_strdup(tab[i]);
 				k++;
 				i++;
 			}
-			cmds[j].args[k] = NULL;
+			cmds[j].argu[k] = NULL;
 			cp_redir(cmds, j, data);
-			cmds[j].cmd_len = cmd_len(cmds[j].args);
+			cmds[j].cmd_len = cmd_len(cmds[j].argu);
 			j++;
 		}
 	}

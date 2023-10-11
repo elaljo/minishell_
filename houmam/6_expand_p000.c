@@ -15,10 +15,10 @@
 void    expand_all(t_cmd *cmds, t_data *data)
 {
     int i = 0;
-    while (i < cmds->args_nbr && cmds->args[i] != NULL)
+    while (i < cmds->args_nbr && cmds->argu[i] != NULL)
     {
-        // printf("\n\n\nI'm here\n\n\n\n");
         expander(&cmds[i], cmds[i].cmd_len, data);
+		cmds[i].args = rm_empty(cmds[i].argu);
         i++;
     }
     
@@ -26,7 +26,7 @@ void    expand_all(t_cmd *cmds, t_data *data)
 
 void    expander(t_cmd *cmd, int len, t_data *data)
 {
-    char **args = cmd->args;
+    char **args = cmd->argu;
     int i = 0;
     int j;
     int k;

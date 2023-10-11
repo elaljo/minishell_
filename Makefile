@@ -2,11 +2,11 @@ NAME = minishell
 
 CC = cc
 
-# CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -g
+CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -g
 
 # CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=address -g
 
-CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=leak -g
+# CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=leak -g
 
 
 RM = rm -rf
