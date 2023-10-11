@@ -191,6 +191,11 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
             {
                 tmp = ft_strdup(quote_splitted[j]);
                 free(quote_splitted[j]);
+                // printf("quote_splitted[j] --> (%p)\n", &quote_splitted[j]);
+                // printf("tmp --> (%p)\n", &tmp);
+                // printf("joigned_0 --> (%p)\n", &joigned_0);
+                // printf("joigned_1 --> (%p)\n", &joigned_1);
+                // printf("dollar_splitted --> (%p)\n", &dollar_splitted);
                 quote_splitted[j] = handle_quoted(tmp);
             }
         }
@@ -249,8 +254,10 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
             free(tmp);
         }
         free(quote_splitted[j]);
+        // printf("*** j = %d *** (%p)\n", j, &quote_splitted[j]);
         j++;
     }
+    // printf("*** *** (%p)\n", &tmp);
     free(quote_splitted);
     free(cmds[i].redii[red].eof);
     cmds[i].redii[red].eof = ft_strdup(joigned_1);

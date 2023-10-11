@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/10 05:42:36 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 00:30:32 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 	int		nbr;
 
 	nbr = count_cmds(tab);
-	cmds = ft_calloc(1,(nbr) * sizeof(t_cmd));
+	cmds = malloc(nbr * sizeof(t_cmd));
 	i = 0;
 	j = 0;
 	while (tab[i] != NULL)
@@ -135,7 +135,9 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 
 void	cp_redir(t_cmd *cmds, int j, t_data *data)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (cmds[j].redir_nbr != 0)
 	{
 		cmds[j].redii = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
@@ -168,11 +170,14 @@ void	free_cmds(t_cmd *cmds)
 		{
 			free(cmds[i].redir[j].eof);
 			free(cmds[i].redir[j].redi);
-			free(cmds[i].redii[j].eof);
-			free(cmds[i].redii[j].redi);
+			// free(cmds[i].redii[j].eof);
+			// free(cmds[i].redii[j].redi);
 			j++;
 		}
-		free(cmds[i].path);
+		free(cmds[i].redir);
+		// free(cmds[i].redii);
+		// free(cmds[i].path);
 		i++;
 	}
+	free(cmds);
 }

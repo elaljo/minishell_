@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/10 05:39:25 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 00:30:28 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,6 @@ int main(int ac, char *av[], char **env)
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
 			splitted = rm_empty(splitted_cmds);
-			// int i = 0;
-			// while (splitted_cmds[i] != NULL)
-			// {
-			// 	printf("***->(%s)\n", splitted_cmds[i]);
-			// 	printf("*(%d)*\n", splitted_cmds[i][0]);
-			// 	i++;
-			// }
-			// printf("✅removing spaces✅\n");
 			cmds = get_cmds(splitted, &data);
 			ft_str_free(splitted);
 			// printf("✅Getting cmds✅\n");
@@ -100,6 +92,7 @@ int main(int ac, char *av[], char **env)
 			
 		}
 		free_cmds(cmds);
+		// free(cmds);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -141,7 +134,6 @@ char	**rm_empty(char **tab)
 		i++;
 	}
 	tab = malloc((i - cnt + 1) * sizeof(char *));
-	// printf("**(%d)**\n", i - cnt + 1);
 	i = 0;
 	cnt = 0;
 	while (tmp[cnt] != NULL)
@@ -152,7 +144,6 @@ char	**rm_empty(char **tab)
 			continue ;
 		}
 		tab[i] = ft_strdup(tmp[cnt]);
-		// printf("*(%s)*\n", tab[i]);
 		i++;
 		cnt++;
 	}

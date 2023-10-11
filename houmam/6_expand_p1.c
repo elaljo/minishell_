@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:46 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/05 16:55:29 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 00:13:13 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,19 @@ char	*handle_quoted(char *str)
 	int len;
 	char *tmp;
 
-	// printf("🔴 handle_quoted_fct --> %s 🔴\n", str);
-	// while (check_quoted(str) != 0)
-	// {
-		tmp = ft_strdup(str);
-		free(str);
-		len = ft_strlen(tmp);
-		str = ft_calloc(1,(len - 1) * sizeof(char));
-		// printf("len - 1 --> %d\n", len - 1);
-		i = 1;
-		j = 0;
-		while (i < len - 1)
-		{
-			str[j] = tmp[i];
-			i++;
-			j++;
-		}
-		str[j] = '\0';
-		// printf("*🔴 handle_quoted_fct --> %s 🔴\n", str);
-	// }
-	// printf("🔴 handle_quoted_fct --> %s 🔴\n", str);
+	tmp = ft_strdup(str);
+	free(str);
+	len = ft_strlen(tmp);
+	str = malloc((len - 1) * sizeof(char));
+	i = 1;
+	j = 0;
+	while (i < len - 1)
+	{
+		str[j] = tmp[i];
+		i++;
+		j++;
+	}
+	str[j] = '\0';
+	free(tmp);
 	return (str);
 }
