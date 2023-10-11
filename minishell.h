@@ -144,15 +144,15 @@ void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char *line);
 
 //	execute_cmd
-void	executing_one_cmd(t_cmd *cmd, int i, t_data *data, int j);
-void	found_cmd(t_cmd *cmd, int op, t_data *data, int j);
+void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
+void	found_cmd(t_cmd *cmd, int op, t_data *data);
 char	*get_cmd_path(t_data *data, char *cmd);
-void	execute_cmd(t_cmd *cmd, int i, t_data *data, int j);
-void	open_dir_err(t_cmd *cmd, int op, int j);
+void	execute_cmd(t_cmd *cmd, int i, t_data *data);
+void	open_dir_err(t_cmd *cmd, int op);
 
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
-void	handle_my_echo(t_cmd *cmd, int i, int j);
+void	handle_my_echo(t_cmd *cmd, int i);
 void	my_cd(t_cmd	*cmd, int i, t_data *data);
 void	export_old_pwd(char *old_pwd, t_data *data);
 void	export_pwd(t_data *data);
@@ -183,7 +183,6 @@ void    redir_input(char *eof);
 void    execute_heredoc(char *eof, t_data *data);
 void    execute_redir(t_cmd *cmd, t_data *data);
 void    setup_redir(t_cmd *cmd, t_data *data, int i);
-int same_eof(char *line, char *eof);
 
 //	signals
 void    signal_handler(int signum);
