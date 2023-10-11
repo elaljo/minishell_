@@ -44,7 +44,7 @@ void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2])
             setup_pipes(fd1, fd2, i, cmd);
             if (cmd[i].redir_nbr)
                 setup_redir(cmd, data, i);
-            found_cmd(cmd, i, data, 0);
+            found_cmd(cmd, i, data);
         }
         gives_pipe_to_the_next_child(fd1, fd2, i);
         i++;

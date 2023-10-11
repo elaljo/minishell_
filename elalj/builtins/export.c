@@ -117,7 +117,7 @@ void	my_export(t_cmd *cmd, t_data *data, int I)
 
 	check = 0;
 	i = 0;
-	if (cmd[I].args[0] && (!cmd[I].args[1] || cmd[I].args[1][0] == '\0'))
+	if (cmd[I].args[0] && (!cmd[I].args[1]))
 	{
 		while (data->c_env[i] != NULL)
 		{

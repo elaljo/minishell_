@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-void	executing_one_cmd(t_cmd *cmd, int i, t_data *data, int j)
+void	executing_one_cmd(t_cmd *cmd, int i, t_data *data)
 {
 	int	pid_f;
 
@@ -20,7 +20,7 @@ void	executing_one_cmd(t_cmd *cmd, int i, t_data *data, int j)
 	if (pid_f == -1)
 		perror_fork(data);
 	if (pid_f == 0)
-		found_cmd(cmd, i, data, j);
+		found_cmd(cmd, i, data);
 	else
 	{
 		wait(&data->new_st);
@@ -71,45 +71,45 @@ char *get_cmd_path(t_data *data, char *cmd)
 	return NULL;
 }
 
-void	execute_cmd(t_cmd *cmd, int i, t_data *data, int j)
+void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 {
 	if (cmd[i].path == NULL)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[i].args[j], 2);
+		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 		exit (127);
 	}
-	if (execve(cmd[i].path, &cmd[i].args[j], data->c_env) == -1)
+	if (execve(cmd[i].path, cmd[i].args, data->c_env) == -1)
 		perror_execve(data);
 }
 
-void	found_cmd(t_cmd *cmd, int i, t_data *data, int j)
+void	found_cmd(t_cmd *cmd, int i, t_data *data)
 {
-	if (*cmd[i].args[0] == '\0' && !cmd[i].args[j])
+	if (!cmd[i].args[0])
 		return ;
 	if (is_builtin(cmd[i].args[0]) == 1)
 	{
 		execute_builtin(cmd, data, i);
 		exit (0);
 	}
-	if (opendir(cmd[i].args[j]) != NULL)
-		open_dir_err(cmd, i, j);
-	else if (access(cmd[i].args[j], X_OK) == -1 && ft_search(cmd[i].args[j], '/'))
+	if (opendir(cmd[i].args[0]) != NULL)
+		open_dir_err(cmd, i);
+	else if (access(cmd[i].args[0], X_OK) == -1 && ft_search(cmd[i].args[0], '/'))
 	{
 		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[i].args[j], 2);
+		ft_putstr_fd(cmd[i].args[0], 2);
 		ft_putstr_fd(": no such file or directory\n", 2);
 		exit (127);
 	}
-	else if (access(cmd[i].args[j], X_OK) == 0 && ft_search(cmd[i].args[j], '/'))
+	else if (access(cmd[i].args[0], X_OK) == 0 && ft_search(cmd[i].args[0], '/'))
 	{
-		if (execve(cmd[i].args[j], &cmd[i].args[j], data->c_env) == -1)
+		if (execve(cmd[i].args[0], cmd[i].args, data->c_env) == -1)
 			perror_execve(data);
 	}
 	else
 	{
-		cmd[i].path = get_cmd_path(data, cmd[i].args[j]);
-		execute_cmd(cmd, i, data, j);
+		cmd[i].path = get_cmd_path(data, cmd[i].args[0]);
+		execute_cmd(cmd, i, data);
 	}
 }

@@ -124,7 +124,7 @@ void    execute_redir(t_cmd *cmd, t_data *data)
             cmd->redir_nbr--;
             i++;
         }
-        found_cmd(cmd, 0 , data, 0);
+        found_cmd(cmd, 0 , data);
     }
     else
     {

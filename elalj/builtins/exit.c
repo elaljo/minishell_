@@ -30,7 +30,7 @@ void	my_exit(t_cmd *cmd, int i, t_data *data)
 	}
 	else if (cmd[i].args[1])
 	{
-		if (valid_num(cmd[i].args[1]) == 0 || (ft_strlen(cmd[i].args[1]) == 19))
+		if (valid_num(cmd[i].args[1]) == 0 || (ft_strlen(cmd[i].args[1]) >= 19))
 			print_if_exit_valid(cmd[i].args[1]);
 		else if (cmd[i].args[2])
 		{
