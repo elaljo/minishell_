@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 16:02:53 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:02:56 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct s_redi
 
 typedef struct s_cmd
 {
-	int		args_nbr;//che7al mn commande machi arg
-	char	**args;//command + args
-	char	**argu;
+	int		argu_nbr;//che7al mn commande machi arg
+	char	**argu;//command + argu
+	char	**args;
 	t_redi	*redir;//used for heredoc
 	t_redi	*redii;//used for cmds
 	int		redir_nbr;//redirection number
@@ -118,15 +118,14 @@ void    expand_herdoc(char **str, t_data *data);
 void    expand_all(t_cmd *cmds, t_data *data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
-int		parsing_errors(char *str);
+int    parsing_errors(char *str);
+void	ft_trim(char **str, int i);
 int		successive_redir(char *str);
 int     redir_errors(t_cmd *cmds);
 void	cp_redir(t_cmd *cmds, int j, t_data *data);
 void    expand_redir(t_cmd *cmds, int i, int j, t_data *data);
-void	ft_trim(char **str, int i);
-void	free_cmds(t_cmd *cmds);
 char	**rm_empty(char **tab);
-char	**tab_dup(char **tab);
+char **tab_dup(char **tab);
 
 // mohamed
 
@@ -158,7 +157,7 @@ void	export_old_pwd(char *old_pwd, t_data *data);
 void	export_pwd(t_data *data);
 void	my_pwd(void);
 void	my_export(t_cmd *cmd, t_data *data, int I);
-void	print_export(t_data *data ,int i, int j, int check);
+void	print_export(t_data *data ,int i, int check);
 void	my_unset(t_cmd *cmd, t_data *data, int i);
 void	my_env(t_data *data);
 void	my_exit(t_cmd *cmd, int i, t_data *data);
@@ -169,11 +168,11 @@ void    execute_pipe(t_cmd *cmd, t_data *data);
 void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2]);
 void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd);
 void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i);
-void	first_cmd(int fd1[2], int fd2[2]);
-void	pair(int fd1[2], int fd2[2]);
-void	unpair(int fd1[2], int fd2[2]);
-void	last_unpair(int fd1[2], int fd2[2]);
-void	last_pair(int fd1[2], int fd2[2]);
+void		first_cmd(int fd1[2], int fd2[2]);
+void		pair(int fd1[2], int fd2[2]);
+void		unpair(int fd1[2], int fd2[2]);
+void		last_unpair(int fd1[2], int fd2[2]);
+void		last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
 
 //	redir

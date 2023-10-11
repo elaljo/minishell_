@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:39:10 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/05 20:58:08 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:00:11 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,34 @@ int	same_key(t_data *data, char *line)
 	}
 	return (0);
 }
+//int	export_valid_argu(t_cmd *cmd, int I)
+//{
+//	int i;
+//	int	n_arg;
+
+//	n_arg = 0;
+//	i = 1;
+//	while (cmd[I].argu[i] != NULL)
+//	{
+//		if (ft_isalnum(strback(cmd[I].argu[i])) || ft_isalpha(strback(cmd[I].argu[i])[0]))
+//			i++;
+//		else
+//		{
+//			n_arg++;
+//			i++;
+//		}
+//	}
+//	return (n_arg);
+//}
+//int	all_argu(t_cmd *cmd, int I)
+//{
+//	int	i;
+
+//	i = 1;
+//	while(cmd[I].argu[i])
+//		i++;
+//	return (i);
+//}
 
 void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
@@ -64,9 +92,11 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 	i = 1;
 	j = 0;
 	n_arg = 0;
-	while (cmd[I].args[i] != NULL)
+	//n_arg = export_valid_argu(cmd , I);
+	//j = all_argu(cmd , I);
+	while (cmd[I].argu[i] != NULL)
 	{
-		if (ft_isalnum(strback(cmd[I].args[i])) || ft_isalpha(strback(cmd[I].args[i])[0]))
+		if (ft_isalnum(strback(cmd[I].argu[i])) || ft_isalpha(strback(cmd[I].argu[i])[0]))
 		{
 			j++;
 			i++;
@@ -78,19 +108,21 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 			i++;
 		}
 	}
+	//printf("n_arg = %d\n", n_arg);
+	//printf("j = %d\n", j);
 	data->c_env = realloc(data->c_env, sizeof(char *) * (len_env + n_arg + 1));
 	int	p = j;
 	i = 1;
 	while (p != 0)
 	{
-		if (ft_isalpha(strback(cmd[I].args[i])[0]) || ft_isalnum(strback(cmd[I].args[i])))
+		if (ft_isalpha(strback(cmd[I].argu[i])[0]) || ft_isalnum(strback(cmd[I].argu[i])))
 		{
-			print_not_identifier_ex(cmd[I].args[i], data);
+			print_not_identifier_ex(cmd[I].argu[i], data);
 			j++;
 			i++;
 			p--;
 		}
-		else if (same_key(data, cmd[I].args[i]) == 1)
+		else if (same_key(data, cmd[I].argu[i]) == 1)
 		{
 			i++;
 			j++;
@@ -98,7 +130,7 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 		}
 		else
 		{
-			data->c_env[len_env] = ft_strdup(cmd[I].args[i]);
+			data->c_env[len_env] = ft_strdup(cmd[I].argu[i]);
 			data->c_env[len_env + 1] = NULL;
 			i++;
 			j++;
@@ -112,18 +144,16 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 void	my_export(t_cmd *cmd, t_data *data, int I)
 {
 	int	i;
-	int	j;
 	int	check;
 
 	check = 0;
 	i = 0;
-	if (cmd[I].args[0] && (!cmd[I].args[1]))
+	if (cmd[I].argu[0] && !cmd[I].argu[1])
 	{
 		while (data->c_env[i] != NULL)
 		{
 			printf("declare -x ");
-			j = 0;
-			print_export(data, i, j, check);
+			print_export(data, i, check);
 			check = 0;
 			printf("\n");
 			i++;
@@ -134,8 +164,11 @@ void	my_export(t_cmd *cmd, t_data *data, int I)
 		if_there_var(cmd, data, I);
 }
 
-void print_export(t_data *data ,int i, int j, int check)
+void print_export(t_data *data ,int i, int check)
 {
+	int j;
+
+	j = 0;
 	while (data->c_env[i][j] != '\0')
 		{
 			printf("%c", data->c_env[i][j]);

@@ -12,7 +12,7 @@ void    execute_pipe(t_cmd *cmd, t_data *data)
     close_pipes(fd1, fd2);
     i = 0;
     waitpid(data->pid, &data->new_st, 0);
-    while (i < cmd->args_nbr - 1)
+    while (i < cmd->argu_nbr - 1)
     {
         wait(NULL);
         i++;
@@ -32,12 +32,12 @@ void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2])
     int pid_f;
 
     i = 0;
-    while (i < cmd->args_nbr)
+    while (i < cmd->argu_nbr)
     {
         pid_f = fork();
         if (pid_f == -1)
             perror_fork(data);
-        if (i == cmd->args_nbr - 1)
+        if (i == cmd->argu_nbr - 1)
             data->pid = pid_f;
         if (pid_f == 0)
         {
@@ -55,9 +55,9 @@ void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd)
 {
 	if (i == 0)
 		first_cmd(fd1, fd2);
-	else if ((i == cmd->args_nbr - 1) && (i % 2 != 0))
+	else if ((i == cmd->argu_nbr - 1) && (i % 2 != 0))
 		last_unpair(fd1, fd2);
-	else if((i == cmd->args_nbr - 1) && (i % 2 == 0))
+	else if((i == cmd->argu_nbr - 1) && (i % 2 == 0))
 		last_pair(fd1, fd2);
 	else if (i % 2 != 0)
 		unpair(fd1, fd2);

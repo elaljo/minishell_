@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:07:17 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/10 04:25:30 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:23:27 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ char	*rm_spaces(char *str)
 void	removing_spaces(char **str)
 {
 	int i = 0;
-	// char *tmp;
 
 	while (str[i] != NULL)
 	{

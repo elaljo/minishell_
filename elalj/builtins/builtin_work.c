@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_work.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:04:54 by moelalj           #+#    #+#             */
-/*   Updated: 2023/09/09 17:09:56 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/10/11 19:57:28 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,20 @@ int	valid_num(char *str)
 
 void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 {
-{
-	if (ft_strcmp(cmd[i].args[0], "echo") == 0)
+	if (ft_strcmp(cmd[i].argu[0], "echo") == 0)
 		handle_my_echo(cmd, i);
-	else if (ft_strcmp(cmd[i].args[0], "cd") == 0)
+	else if (ft_strcmp(cmd[i].argu[0], "cd") == 0)
 		my_cd(cmd, i, data);
-	else if (ft_strcmp(cmd[i].args[0], "pwd") == 0)
+	else if (ft_strcmp(cmd[i].argu[0], "pwd") == 0)
 		my_pwd();
-	else if (ft_strcmp(cmd[i].args[0], "export") == 0)
+	else if (ft_strcmp(cmd[i].argu[0], "export") == 0)
 		my_export(cmd, data, i);
-	else if (ft_strcmp(cmd[i].args[0], "unset") == 0)
+	else if (ft_strcmp(cmd[i].argu[0], "unset") == 0)
 		my_unset(cmd, data, i);
-	else if (ft_strcmp(cmd[i].args[0], "env") == 0)
+	else if (ft_strcmp(cmd[i].argu[0], "env") == 0)
 		my_env(data);
-	else if (ft_strcmp(cmd[i].args[0], "exit") == 0)
+	else if (ft_strcmp(cmd[i].argu[0], "exit") == 0)
 		my_exit(cmd, i, data);
-}
 }
 
 int	is_builtin(char *cmd)

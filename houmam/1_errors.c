@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:05 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/09 20:15:11 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:31:37 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,17 @@ t_quote unclosed_quotes(char *str)
 
 int successive_redir(char *str)
 {
+    // printf("ana f successive redir\n");
         char **tab = split(str);
         removing_spaces(tab);
+		char ** splitted = rm_empty(tab);
         int i = 0;
         
+		if (ft_strcmp(splitted[0], "|") == 0)
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			return (2);
+		}
         while (tab[i] != NULL)
         {
             if (ft_strcmp(tab[i], "<") == 0 || ft_strcmp(tab[i], "<<") == 0 || ft_strcmp(tab[i], ">") == 0 || ft_strcmp(tab[i], ">>") == 0)
@@ -72,7 +79,6 @@ int successive_redir(char *str)
                         ft_putstr_fd("minishell: syntax error near unexpected token `<<'\n", 2);
                     else if (ft_strcmp(tab[i + 1], "|") == 0)
                         ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                    ft_str_free(tab);
                     return (2);
                 }
                 else if (tab[i + 1] && ft_strcmp(tab[i + 1], "") == 0)
@@ -90,14 +96,12 @@ int successive_redir(char *str)
                             ft_putstr_fd("minishell: syntax error near unexpected token `<<'\n", 2);
                         else if (ft_strcmp(tab[i], "|") == 0)
                             ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                        ft_str_free(tab);
                         return (2);
                     }
                 }
                 else if (tab[i + 1] == NULL)
                 {
                     ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
-                    ft_str_free(tab);
                     return (2);  
                 }
             }
@@ -107,19 +111,18 @@ int successive_redir(char *str)
                 if (tab[i] == NULL)
                 {
                      ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                     ft_str_free(tab);
                      return (2);   
                 }
                 else if (ft_strcmp(tab[i], "|") == 0)
                 {
+                //      printf("ana f li te7t NULL\n");
                      ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-                     ft_str_free(tab);
                      return (2);   
                 }
             }
+        //     printf("---%s--\n", tab[i]);
             i++;
         }
-        ft_str_free(tab);
         return (0);
 }
 
@@ -129,7 +132,7 @@ int     redir_errors(t_cmd *cmds)
     int i = 0;
     int red;
 
-    while (i < cmds[0].args_nbr)
+    while (i < cmds[0].argu_nbr)
     {
         red = 0;
         while (red < cmds[i].redir_nbr)

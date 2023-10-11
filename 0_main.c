@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 16:21:05 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:26:49 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int main(int ac, char *av[], char **env)
 	char	*input_string;
 	char	**splitted_cmds;
 	char	**splitted;
-	
 	(void)av;
 	if (ac != 1)
 		return (0);
@@ -39,20 +38,11 @@ int main(int ac, char *av[], char **env)
 		add_history(input_string);
 		if (!input_string)
 		{
-			free(input_string);
 			printf("exit\n");
 			exit (0);
 		}
-		// parsing_errors(input_string);
-		// printf("✅parsing errors✅\n");
-		// successive_redir(input_string);
-		// printf("✅successive redir✅\n");
-		// printf("Ana hna\n");
 		if (only_spaces(input_string) == 0)
-		{
-			free(input_string);
 			continue ;
-		}
 		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
 			data.new_st = 258;
 		else
@@ -61,10 +51,15 @@ int main(int ac, char *av[], char **env)
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
 			splitted = rm_empty(splitted_cmds);
+			int i = 0;
+			while (splitted[i] != NULL)
+			{
+				printf("*%s\n", splitted[i]);
+				i++;
+			}
+			// printf("✅removing spaces✅\n");
 			cmds = get_cmds(splitted, &data);
-			ft_str_free(splitted);
 			// printf("✅Getting cmds✅\n");
-			
 			if (redir_errors(cmds) == 2)
 				data.new_st = 258;
 			else
@@ -74,29 +69,33 @@ int main(int ac, char *av[], char **env)
 				// printf("✅expanding✅\n");
 				if (data.new_st != 2)
 				{
-					if (cmds->redir_nbr != 0 && cmds->args_nbr == 1)
+					if (cmds->redir_nbr != 0 && cmds->argu_nbr == 1)
 						execute_redir(cmds, &data);
-					else if (cmds->args_nbr == 1)
+					else if (cmds->argu_nbr == 1)
 					{
-						int i = 0;
-						while (cmds[0].args[i] && cmds[0].args[i][0] == '\0')
-							i++;
-						if (cmds[0].args[i] && is_builtin(cmds[0].args[i]) == 1 && cmds->args_nbr == 1)
+						if (cmds[0].argu[0] && is_builtin(cmds[0].argu[0]) == 1 && cmds->argu_nbr == 1)
 							execute_builtin(cmds, &data, 0);
 						else
-							executing_one_cmd(cmds, 0, &data, i);
+							executing_one_cmd(cmds, 0, &data);
 					}
-					else if (cmds->args_nbr > 1)
+					else if (cmds->argu_nbr > 1)
 						execute_pipe(cmds, &data);
 				}
 			}
 			
 		}
-		// free_cmds(cmds);
-		// free(cmds);
 	}
+	free(input_string);
+	ft_str_free(splitted_cmds);
 	return (EXIT_SUCCESS);
 }
+
+
+
+
+
+
+
 
 void	ft_trim(char **str, int i)
 {
@@ -130,7 +129,7 @@ char	**rm_empty(char **tab)
 
 	while (tmp[i] != NULL)
 	{
-		if (tmp[i][0] == 0)
+		if (tmp[i][0] == '\0')
 			cnt++;
 		i++;
 	}

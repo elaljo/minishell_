@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:53:23 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/05 20:58:19 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:29:17 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	count_arg_un(t_cmd *cmd)
 	int	arg;
 
 	arg = 1;
-	while (cmd[0].args[arg] != NULL)
+	while (cmd[0].argu[arg] != NULL)
 		arg++;
 	return (arg);
 }
@@ -64,11 +64,16 @@ void	my_unset(t_cmd *cmd, t_data *data, int i)
 	arg = count_arg_un(cmd);
 	while (arg != 0)
 	{
-		if (ft_isalpha(strback(cmd[i].args[arg - 1])[0]) || ft_isalnum(strback(cmd[i].args[arg - 1]))
-			|| ft_search(cmd[i].args[arg - 1], '='))
-			print_not_identifier_un(cmd[i].args[arg - 1], data);
+		if (cmd[i].argu[arg - 1][0] == '\0')
+		{
+			arg--;
+			continue ;
+		}
+		if (ft_isalpha(strback(cmd[i].argu[arg - 1])[0]) || ft_isalnum(strback(cmd[i].argu[arg - 1]))
+			|| ft_search(cmd[i].argu[arg - 1], '='))
+			print_not_identifier_un(cmd[i].argu[arg - 1], data);
 		else
-			remove_key(data, cmd[i].args[arg - 1]);
+			remove_key(data, cmd[i].argu[arg - 1]);
 		arg--;
 	}
 }

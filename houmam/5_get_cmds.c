@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 16:34:29 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:27:42 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int count_cmds(char **tab)
 
 	while (tab[i] != NULL)
 	{
-		if (tab[i][0] == '|')
+		if (tab[i][0] == '|' && i != 0)
 			cnt++;
 		i++;
 	}
@@ -32,10 +32,12 @@ int cmd_len(char **tab)
 
 	while (tab[i] != NULL)
 	{
+		// printf("---i = %d---%s---\n", i, tab[i]);
 		if (tab[i][0] == '|' || tab[i] == NULL)
 			break ;
 		i++;
 	}
+	// printf("✅ %d\n", i);
 	return (i);
 }
 
@@ -49,7 +51,8 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 	int		nbr;
 
 	nbr = count_cmds(tab);
-	cmds = malloc(nbr * sizeof(t_cmd));
+	printf("*** %d ***\n", nbr);
+	cmds = ft_calloc(1,(nbr) * sizeof(t_cmd));
 	i = 0;
 	j = 0;
 	while (tab[i] != NULL)
@@ -63,11 +66,11 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 		if (commande_len == 1)
 		{
 			cmds[j].cmd_len = commande_len;
-			cmds[j].args_nbr = nbr;
+			cmds[j].argu_nbr = nbr;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
-			cmds[j].argu = ft_calloc(1,2 * sizeof(char *));
-			cmds[j].argu[0] = ft_strdup(tab[i]);
-			cmds[j].argu[1] = NULL;
+			cmds[j].args = ft_calloc(1,2 * sizeof(char *));
+			cmds[j].args[0] = ft_strdup(tab[i]);
+			cmds[j].args[1] = NULL;
 			j++;
 			i++;
 		}
@@ -75,8 +78,8 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 		{
 			cmds[j].cmd_len = commande_len;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
-			cmds[j].args_nbr = nbr;
-			cmds[j].argu = ft_calloc(1,(commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
+			cmds[j].argu_nbr = nbr;
+			cmds[j].args = ft_calloc(1,(commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
 			cmds[j].redir = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
 			k = 0;
 			int red = 0;
@@ -119,13 +122,13 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 						continue ;
 					}
 				}
-				cmds[j].argu[k] = ft_strdup(tab[i]);
+				cmds[j].args[k] = ft_strdup(tab[i]);
 				k++;
 				i++;
 			}
-			cmds[j].argu[k] = NULL;
+			cmds[j].args[k] = NULL;
 			cp_redir(cmds, j, data);
-			cmds[j].cmd_len = cmd_len(cmds[j].argu);
+			cmds[j].cmd_len = cmd_len(cmds[j].args);
 			j++;
 		}
 	}
@@ -135,49 +138,20 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 
 void	cp_redir(t_cmd *cmds, int j, t_data *data)
 {
-	int	i;
-
-	i = 0;
+	int i = 0;
 	if (cmds[j].redir_nbr != 0)
 	{
 		cmds[j].redii = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
+		// printf("teeeet red nbr (%d) \n", cmds->redir_nbr);
 		while (i < cmds[j].redir_nbr)
 		{
+			// printf("teeeet (%d)(%s) \n", i, cmds[j].redir[i].eof);
 			cmds[j].redii[i].eof = ft_strdup(cmds[j].redir[i].eof);
 			cmds[j].redii[i].redi = ft_strdup(cmds[j].redir[i].redi);
+			// expand_herdoc(&cmds[j].redii[i].eof, data);
 			expand_redir(cmds, j, i, data);
+			// expand_herdoc(&cmds[j].redii[i].redi, data);
 			i++;
 		}
 	}
-}
-
-void	free_cmds(t_cmd *cmds)
-{
-	int i = 0;
-	int j;
-	
-	while (i < cmds[0].args_nbr)
-	{
-		j = 0;
-		while (cmds[i].args[j] != NULL)
-		{
-			free(cmds[i].args[j]);
-			j++;
-		}
-		free(cmds[i].args);
-		j = 0;
-		while (j < cmds[i].redir_nbr)
-		{
-			free(cmds[i].redir[j].eof);
-			free(cmds[i].redir[j].redi);
-			// free(cmds[i].redii[j].eof);
-			// free(cmds[i].redii[j].redi);
-			j++;
-		}
-		free(cmds[i].redir);
-		// free(cmds[i].redii);
-		// free(cmds[i].path);
-		i++;
-	}
-	free(cmds);
 }

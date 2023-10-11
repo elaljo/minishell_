@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 20:48:37 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/05 20:51:26 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:59:36 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 
 	check = 0;
 	home_dir = my_getenv("HOME", data);
-	if (!cmd[i].args[1])
+	if (!cmd[i].argu[1])
 	{
 		if (home_dir == NULL)
 		{
@@ -92,13 +92,13 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 	{
 		old_pwd = get_old_pwd();
 		export_old_pwd(old_pwd, data);
-		check = chdir(cmd[i].args[1]);
+		check = chdir(cmd[i].argu[1]);
 		export_pwd(data);
 	}
 	if (check != 0)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		data->new_st = 1;
-		perror(cmd[i].args[1]);
+		perror(cmd[i].argu[1]);
 	}
 }
