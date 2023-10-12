@@ -125,6 +125,7 @@ void    expander(t_cmd *cmd, int len, t_data *data)
         ft_str_free(quote_splitted);
         free(argu[i]);
         argu[i] = ft_strdup(joigned_1);
+		// printf("--(%s)--\n", argu[i]);
         free(joigned_1);
         i++;
     }

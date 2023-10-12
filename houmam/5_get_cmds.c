@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 06:48:46 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:09:59 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 					}
 				}
 				cmds[j].args[k] = ft_strdup(tab[i]);
+				// printf("cmds --> (%s)\n", cmds[j].args[k]);
 				k++;
 				i++;
 			}

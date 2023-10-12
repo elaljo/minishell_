@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 17:19:35 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:10:18 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int main(int ac, char *av[], char **env)
 			data.new_st = 258;
 		else
 		{
+			// printf("******* before splitted cmds *******\n");
 			splitted_cmds = split(input_string);
+			// printf("******* after splitted cmds *******\n");
 			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
 			splitted = rm_empty(splitted_cmds);
@@ -93,9 +95,8 @@ void	ft_trim(char **str, int i)
 {
 	int start = 0;
 	int j = 0;
-	char *tmp = ft_strdup(*str);
-	// printf("tmp -> (%s)\n", tmp);
-	int end = ft_strlen(tmp) - 1;
+	char *tmp = ft_strdup(str[i]);
+	int end = ft_strlen(str[i]) - 1;
 	
 	while (tmp[start] == ' ')
 		start++;
@@ -137,7 +138,6 @@ char	**rm_empty(char **tab)
 			continue ;
 		}
 		tab[i] = ft_strdup(tmp[cnt]);
-		// printf("(%s)\n", tab[i]);
 		i++;
 		cnt++;
 	}
@@ -158,6 +158,7 @@ char **tab_dup(char **tab)
 	while (tab[i] != NULL)
 	{
 		dup[i] = ft_strdup(tab[i]);
+		// printf("..... (%s) .....\n", dup[i]);
 		i++;
 	}
 	dup[i] = NULL;

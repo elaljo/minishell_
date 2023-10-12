@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:07:17 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 19:23:27 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:09:39 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	count(char *str)
 			prt++;
 			i++;
 		}
-		else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && !str[i + 1] && str[i - 1] != '|' && str[i - 1] != ' ' && str[i - 1] != '\t' && str[i - 1] != '>' && str[i - 1] != '<')
+		else if (quote.sq % 2 == 0 && quote.dq % 2 == 0 && !str[i + 1] && i != 0 && str[i - 1] != '|' && str[i - 1] != ' ' && str[i - 1] != '\t' && str[i - 1] != '>' && str[i - 1] != '<')
 			prt++;           //in case wslna lchar li 9bl nul o kan 3ad 9bel mno chi pipe ola chi haja li deja 7sbna
 		i++;
 	}
@@ -180,7 +180,9 @@ void	removing_spaces(char **str)
 
 	while (str[i] != NULL)
 	{
+		// printf("----- (%s) \n", str[i]);
 		ft_trim(str, i);
+		// printf("+++++ (%s) \n", str[i]);
 		i++;
 	}
 }
