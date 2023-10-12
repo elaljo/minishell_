@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 06:05:17 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:51:50 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int main(int ac, char *av[], char **env)
 			splitted = rm_empty(splitted_cmds);
 			cmds = get_cmds(splitted, &data);
 			// printf("✅Getting cmds✅\n");
-			if (redir_errors(cmds) == 2 || cmd_pipe(splitted, cmds) == 2)
+			if (cmd_pipe(splitted, cmds) == 2 || redir_errors(cmds) == 2)
 				data.new_st = 258;
 			else
 			{
@@ -136,6 +136,7 @@ char	**rm_empty(char **tab)
 			continue ;
 		}
 		tab[i] = ft_strdup(tmp[cnt]);
+		// printf("(%s)\n", tab[i]);
 		i++;
 		cnt++;
 	}

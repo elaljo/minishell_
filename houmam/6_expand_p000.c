@@ -15,7 +15,7 @@
 void    expand_all(t_cmd *cmds, t_data *data)
 {
     int i = 0;
-    while (i < cmds->argu_nbr && cmds->args[i] != NULL)
+    while (i < cmds->argu_nbr && cmds[i].args != NULL)
     {
         expander(&cmds[i], cmds[i].cmd_len, data);
 		cmds[i].argu = rm_empty(cmds[i].args);
