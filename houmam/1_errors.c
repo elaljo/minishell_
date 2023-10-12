@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:05 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 17:12:47 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:53:26 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int cmd_pipe(char **tab, t_cmd *cmds)
 int successive_redir(char *str)
 {
         char **tab = split(str);
+		// printf("**********\n");
         removing_spaces(tab);
-        int i = 0;
-        
+	
+        int i = 0;    
         while (tab[i] != NULL)
         {
             if (ft_strcmp(tab[i], "<") == 0 || ft_strcmp(tab[i], "<<") == 0 || ft_strcmp(tab[i], ">") == 0 || ft_strcmp(tab[i], ">>") == 0)

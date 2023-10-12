@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 18:10:18 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 18:53:11 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int main(int ac, char *av[], char **env)
 		{
 			// printf("******* before splitted cmds *******\n");
 			splitted_cmds = split(input_string);
-			// printf("******* after splitted cmds *******\n");
-			// printf("✅splitting✅\n");
 			removing_spaces(splitted_cmds);
+			// printf("******* after splitted cmds *******\n");
 			splitted = rm_empty(splitted_cmds);
+			// printf("✅splitting✅\n");
 			cmds = get_cmds(splitted, &data);
 			// printf("✅Getting cmds✅\n");
 			if (cmd_pipe(splitted, cmds) == 2 || redir_errors(cmds) == 2)
@@ -93,25 +93,27 @@ int main(int ac, char *av[], char **env)
 
 void	ft_trim(char **str, int i)
 {
-	int start = 0;
-	int j = 0;
-	char *tmp = ft_strdup(str[i]);
-	int end = ft_strlen(str[i]) - 1;
-	
-	while (tmp[start] == ' ')
-		start++;
-	while (tmp[end] == ' ')	
-		end--;
-	free(str[i]);
-	str[i] = ft_calloc(1, end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
-	while (start < end + 1)
+	if (str[i][0] != 0)
 	{
-		str[i][j] = tmp[start];
-		j++;
-		start++;
+		int start = 0;
+		int j = 0;
+		char *tmp = ft_strdup(str[i]);
+		int end = ft_strlen(str[i]) - 1;
+		while (tmp[start] == ' ')
+			start++;
+		while (tmp[end] == ' ')	
+			end--;
+		free(str[i]);
+		str[i] = ft_calloc(1, end - start + 1 + 1);//dima kadir end - start katn9es lik 1 dkchi lach kanzido o wahd d \0
+		while (start < end + 1)
+		{
+			str[i][j] = tmp[start];
+			j++;
+			start++;
+		}
+		str[i][j] = '\0';
+		free(tmp);
 	}
-	str[i][j] = '\0';
-	free(tmp);
 }
 
 char	**rm_empty(char **tab)
