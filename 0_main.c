@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 16:51:50 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:19:35 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void	ft_trim(char **str, int i)
 {
 	int start = 0;
 	int j = 0;
-	int end = ft_strlen(str[i]) - 1;
-	char *tmp = ft_strdup(str[i]);
+	char *tmp = ft_strdup(*str);
+	// printf("tmp -> (%s)\n", tmp);
+	int end = ft_strlen(tmp) - 1;
 	
 	while (tmp[start] == ' ')
 		start++;
