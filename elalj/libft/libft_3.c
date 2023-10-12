@@ -113,3 +113,23 @@ char	*ft_strcpy(char *dst, char *src)
 	}
 	return (dst);
 }
+
+char    **ft_realloc(char **s, size_t size)
+{
+  int		i;
+  char	**buff;
+
+  i = 0;
+  buff = ft_calloc(size + 1, sizeof(char *));
+  if (buff)
+  {
+    while (s[i])
+		{
+			buff[i] = ft_strdup(s[i]);
+			free(s[i]);
+			i++;
+		}
+		free(s);
+  }
+  return (buff);
+}

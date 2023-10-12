@@ -24,15 +24,13 @@ void	get_key(t_data *data, int n_arg)
 {
 	int	i;
 
-	data->key_env = realloc(data->key_env, sizeof(char *) ////
-			* (len_arr(data->c_env) + n_arg + 1));
+	data->key_env = ft_realloc(data->key_env, (len_arr(data->c_env) + n_arg));
 	i = 0;
 	while (data->c_env[i] != NULL)
 	{
 		data->key_env[i] = ft_strdup(strback(data->c_env[i]));
 		i++;
 	}
-	data->key_env[i] = NULL;
 }
 
 int	same_key(t_data *data, char *line)
@@ -52,35 +50,6 @@ int	same_key(t_data *data, char *line)
 	}
 	return (0);
 }
-//int	export_valid_argu(t_cmd *cmd, int I)
-//{
-//	int i;
-//	int	n_arg;
-
-//	n_arg = 0;
-//	i = 1;
-//	while (cmd[I].argu[i] != NULL)
-//	{
-//		if (ft_isalnum(strback(cmd[I].argu[i])) || ft_isalpha(strback(cmd[I].argu[i])[0]))
-//			i++;
-//		else
-//		{
-//			n_arg++;
-//			i++;
-//		}
-//	}
-//	return (n_arg);
-//}
-//int	all_argu(t_cmd *cmd, int I)
-//{
-//	int	i;
-
-//	i = 1;
-//	while(cmd[I].argu[i])
-//		i++;
-//	return (i);
-//}
-
 void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
 	int	n_arg;
@@ -92,8 +61,6 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 	i = 1;
 	j = 0;
 	n_arg = 0;
-	//n_arg = export_valid_argu(cmd , I);
-	//j = all_argu(cmd , I);
 	while (cmd[I].argu[i] != NULL)
 	{
 		if (ft_isalnum(strback(cmd[I].argu[i])) || ft_isalpha(strback(cmd[I].argu[i])[0]))
@@ -108,9 +75,7 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 			i++;
 		}
 	}
-	//printf("n_arg = %d\n", n_arg);
-	//printf("j = %d\n", j);
-	data->c_env = realloc(data->c_env, sizeof(char *) * (len_env + n_arg + 1));
+	data->c_env = ft_realloc(data->c_env, (len_env + n_arg));
 	int	p = j;
 	i = 1;
 	while (p != 0)
@@ -131,7 +96,6 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 		else
 		{
 			data->c_env[len_env] = ft_strdup(cmd[I].argu[i]);
-			data->c_env[len_env + 1] = NULL;
 			i++;
 			j++;
 			p--;
