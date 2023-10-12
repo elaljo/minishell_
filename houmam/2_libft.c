@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:08:34 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/04 18:32:05 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 04:13:34 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ char	*ft_itoa(int n)
 
 	nb = n;
 	nl = nbr_l(nb);
-	p = malloc (nl * sizeof(char) + 1);
+	p = ft_calloc (1, nl * sizeof(char) + 1);
 	if (!p)
 		return (NULL);
 	if (n == 0)

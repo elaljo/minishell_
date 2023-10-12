@@ -86,6 +86,7 @@ char    **dollar_split(char *str)
             start++;
         }
         tab[j][k] = '\0';
+        // printf("ddddd -> (%s)\n", tab[j]);
         j++;
     }
     tab[j] = NULL;

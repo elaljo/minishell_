@@ -93,7 +93,6 @@ char    **quotes_split(char *str)
         tab[j] = ft_calloc(1,(i - start + 2) * sizeof(char));
         k = 0;
         end = i;
-        // printf("quotes -> index : %d\n", i);
         if ((str[i] == '\"' && dq % 2 == 0) || (str[i] == '\'' && sq % 2 == 0) || str[i + 1] == '\0')
             end++;
         while (start < end)
@@ -103,7 +102,6 @@ char    **quotes_split(char *str)
             start++;
         }
         tab[j][k] = '\0';
-        // printf("❤️quoted[%d] --> %s❤️\n", j, tab[j]);
         j++;
         if (str[i])
             i++;

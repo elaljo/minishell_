@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/11 20:54:26 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 05:58:59 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void    expand_redir(t_cmd *cmds, int i, int j, t_data *data);
 char	**rm_empty(char **tab);
 char	**tab_dup(char **tab);
 int		cmd_pipe(char **tab, t_cmd *cmds);
+void	free_cmds(t_cmd *cmds);
 
 // mohamed
 
