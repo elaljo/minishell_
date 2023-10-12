@@ -73,7 +73,7 @@ void    expander(t_cmd *cmd, int len, t_data *data)
                         tmp = ft_itoa(data->old_st);
                         free(dollar_splitted[k]);
                         dollar_splitted[k] = ft_strdup(tmp);
-                        // free(tmp);
+                        free(tmp);
                     }
                     else if (dollar_splitted[k][2] != '\0')
                     {
@@ -247,6 +247,7 @@ void    expand_redir(t_cmd *cmds, int i, int red, t_data *data)
             joigned_0 = ft_strdup("");
             empty = 0;
         }
+        free(quote_splitted[j]);
         quote_splitted[j] = ft_strdup(joigned_0);
         free(joigned_0);
         if (j == 0)

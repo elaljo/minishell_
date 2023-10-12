@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 18:09:59 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:32:05 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
 			cmds[j].argu_nbr = nbr;
 			cmds[j].args = ft_calloc(1,(commande_len - cmds[j].redir_nbr + 1) * sizeof(char *));
-			cmds[j].redir = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
+			if (cmds[j].redir_nbr != 0)
+				cmds[j].redir = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
 			k = 0;
 			int red = 0;
 			while (k < commande_len && tab[i] != NULL)
@@ -128,7 +129,8 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 				i++;
 			}
 			cmds[j].args[k] = NULL;
-			cp_redir(cmds, j, data);
+			if (cmds[j].redir_nbr != 0)
+				cp_redir(cmds, j, data);
 			cmds[j].cmd_len = cmd_len(cmds[j].args);
 			j++;
 		}
