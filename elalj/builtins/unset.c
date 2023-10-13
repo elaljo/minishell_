@@ -32,7 +32,7 @@ void	remove_key(t_data *data, char *line)
 	{
 		while (data->key_env[i] != NULL)
 		{
-			get_key(data, 0);
+			//get_key(data, 0);
 			if (ft_strcmp(line, data->key_env[i]) == 0)
 			{
 				while (data->c_env[i] != NULL)

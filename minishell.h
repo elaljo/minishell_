@@ -144,6 +144,7 @@ void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
 void	print_if_exit_valid(char *line);
+char    **ft_realloc(char **s, size_t size);
 
 //	execute_cmd
 void	executing_one_cmd(t_cmd *cmd, int i, t_data *data);
@@ -155,6 +156,9 @@ void	open_dir_err(t_cmd *cmd, int op);
 //	builtins
 void	my_echo(t_cmd *cmd, int i, int a);
 void	handle_my_echo(t_cmd *cmd, int i);
+int check_first_n(t_cmd *cmd, int i);
+int check_n_n(t_cmd *cmd , int i, int a);
+void	option_n(t_cmd *cmd, int i);
 void	my_cd(t_cmd	*cmd, int i, t_data *data);
 void	export_old_pwd(char *old_pwd, t_data *data);
 void	export_pwd(t_data *data);
