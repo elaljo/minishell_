@@ -25,13 +25,13 @@ void	remove_key(t_data *data, char *line)
 	int	i;
 
 	i = 0;
+	get_key(data, 0);
 	if (!data->key_env[i + 1])
 		data->c_env[i] = NULL;
 	else
 	{
 		while (data->key_env[i] != NULL)
 		{
-			get_key(data, 0);
 			if (ft_strcmp(line, data->key_env[i]) == 0)
 			{
 				while (data->c_env[i] != NULL)
@@ -40,7 +40,8 @@ void	remove_key(t_data *data, char *line)
 					i++;
 				}
 			}
-			i++;
+			else
+				i++;
 		}
 	}
 }
@@ -59,7 +60,7 @@ void	my_unset(t_cmd *cmd, t_data *data, int i)
 {
 	int	arg;
 
-	get_key(data, 0);
+	//get_key(data, 0);
 	arg = count_arg_un(cmd, i);
 	arg--;
 	while (arg != 0)

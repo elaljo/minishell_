@@ -59,12 +59,12 @@ void    execute_heredoc(char *eof, t_data *data)
         line = readline("> ");
         if (*line == '\0')
             continue ;
-        if (quoted == 0)
-            expand_herdoc(&line, data);
-        if (ft_strcmp(line , eof) == 0 || !line)
-            break ;
         if (quoted != 0)
             eof = handle_quoted(tmp);
+        if (ft_strcmp(line , eof) == 0 || !line)
+            break ;
+        if (quoted == 0)
+            expand_herdoc(&line, data);
         write(pipe_fd[1], line, ft_strlen(line));
         ft_putstr_fd("\n", pipe_fd[1]);
         free(line);

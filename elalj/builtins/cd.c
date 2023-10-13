@@ -42,7 +42,11 @@ char	*get_old_pwd()
 		return (NULL);
 	old_pwd = getcwd(buffer, size);
 	if (old_pwd == NULL)
+	{
 		perror("getcwd");
+		free(buffer);
+	}
+	free(buffer);
 	return (old_pwd);
 }
 void	export_old_pwd(char *old_pwd, t_data *data)
