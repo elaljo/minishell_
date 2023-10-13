@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 22:37:51 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:42:08 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int main(int ac, char *av[], char **env)
 		data.old_st = data.new_st;
 		data.new_st = 0;
 		input_string = readline("🌙❓➜ ");
-		// input_string = readline("minishell-0.5$ ");
 		add_history(input_string);
 		if (!input_string)
 		{
@@ -43,11 +42,11 @@ int main(int ac, char *av[], char **env)
 		}
 		if (only_spaces(input_string) == 0)
 			continue ;
+		// printf("******* before splitted cmds *******\n");
 		if (parsing_errors(input_string) == 2 || successive_redir(input_string) == 2)
 			data.new_st = 258;
 		else
 		{
-			// printf("******* before splitted cmds *******\n");
 			splitted_cmds = split(input_string);
 			free(input_string);
 			removing_spaces(splitted_cmds);
@@ -60,6 +59,7 @@ int main(int ac, char *av[], char **env)
 				data.new_st = 258;
 			else
 			{
+				// printf("✅ana fo9 expand✅\n");
 				ft_str_free(splitted);
 				expand_all(cmds, &data);
 				// printf("✅expanding✅\n");

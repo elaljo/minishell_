@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 10:50:05 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 18:53:26 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:20:30 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,36 @@ int successive_redir(char *str)
 
 int     redir_errors(t_cmd *cmds)
 {
-    
     int i = 0;
     int red;
 
     while (i < cmds[0].argu_nbr)
     {
+        red = 0;
+        while (red < cmds[i].redir_nbr)
+        {
+            if (ft_strcmp(cmds[i].redir[red].redi, "<<") == 0 || ft_strcmp(cmds[i].redir[red].redi, ">>") == 0 || ft_strcmp(cmds[i].redir[red].redi, ">") == 0 || ft_strcmp(cmds[i].redir[red].redi, "<") == 0)
+            {
+                if (cmds[i].redir[red].eof == NULL || cmds[i].redir[red].eof[0] == '\0')
+                {
+                    ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+                    return (2);
+                }
+                else if (ft_strcmp(cmds[i].redir[red].eof, "<<") == 0 || ft_strcmp(cmds[i].redir[red].eof, ">>") == 0 || ft_strcmp(cmds[i].redir[red].eof, ">") == 0 || ft_strcmp(cmds[i].redir[red].eof, "<") == 0)
+                {
+                    if (ft_strcmp(cmds[i].redir[red].eof, "<") == 0)
+                        ft_putstr_fd("minishell: syntax error near unexpected token `<'\n", 2);
+                    else if (ft_strcmp(cmds[i].redir[red].eof, ">") == 0)
+                        ft_putstr_fd("minishell: syntax error near unexpected token `>'\n", 2);
+                    else if (ft_strcmp(cmds[i].redir[red].eof, ">>") == 0)
+                        ft_putstr_fd("minishell: syntax error near unexpected token `>>'\n", 2);
+                    else if (ft_strcmp(cmds[i].redir[red].eof, "<<") == 0)
+                        ft_putstr_fd("minishell: syntax error near unexpected token `<<'\n", 2);
+                    return (2);
+                }
+            }
+            red++;
+        }
         red = 0;
         while (red < cmds[i].redir_nbr)
         {

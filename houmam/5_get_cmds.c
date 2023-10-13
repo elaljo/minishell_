@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 22:32:05 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/13 03:41:01 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 	int		nbr;
 
 	nbr = count_cmds(tab);
-	// printf("*** %d ***\n", nbr);
 	cmds = ft_calloc(1,(nbr) * sizeof(t_cmd));
 	i = 0;
 	j = 0;
@@ -68,6 +67,12 @@ t_cmd	*get_cmds(char **tab, t_data *data)
 			cmds[j].cmd_len = commande_len;
 			cmds[j].argu_nbr = nbr;
 			cmds[j].redir_nbr = cnt_redir(&tab[i]);
+			if (cmds[j].redir_nbr != 0)
+			{
+				cmds[j].redir = ft_calloc(cmds[j].redir_nbr, sizeof(t_redi));
+				cmds[j].redir[0].redi = ft_strdup(tab[i]);
+				cmds[j].redir[0].eof = NULL;
+			}
 			cmds[j].args = ft_calloc(1,2 * sizeof(char *));
 			cmds[j].args[0] = ft_strdup(tab[i]);
 			cmds[j].args[1] = NULL;
