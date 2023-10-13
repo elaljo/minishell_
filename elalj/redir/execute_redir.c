@@ -53,30 +53,26 @@ void    execute_heredoc(char *eof, t_data *data)
         perror_pipe();
     quoted = check_quoted(eof);
     tmp = ft_strdup(eof);
-    if (quoted != 0)
-        eof = handle_quoted(tmp);
+    signal(SIGINT, signal_herdoc);
     while (1)
     {
-        signal(SIGINT, signal_herdoc);
         line = readline("> ");
+        if (*line == '\0')
+            continue ;
         if (quoted == 0)
             expand_herdoc(&line, data);
-        if (!line)
-        {
-            free(line); //if i press cntl+/D
-            return ;
-        }
-        if (ft_strcmp(line , eof) == 0)
-        {
-            free(line);
+        if (ft_strcmp(line , eof) == 0 || !line)
             break ;
-        }
+        if (quoted != 0)
+            eof = handle_quoted(tmp);
         write(pipe_fd[1], line, ft_strlen(line));
         ft_putstr_fd("\n", pipe_fd[1]);
         free(line);
     }
+    free(line);
     dup2(pipe_fd[0], 0);
     close(pipe_fd[1]);
+    close(pipe_fd[0]);
     free(tmp);
 }
 

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
 void	print_not_identifier_ex(char *line, t_data *data)
 {
 	ft_putstr_fd("minishell: export: `", 2);
@@ -24,13 +23,15 @@ void	get_key(t_data *data, int n_arg)
 {
 	int	i;
 
-	data->key_env = ft_realloc(data->key_env, (len_arr(data->c_env) + n_arg));
+	if (n_arg > 0)
+		data->key_env = ft_realloc(data->key_env, (len_arr(data->c_env) + n_arg));
 	i = 0;
 	while (data->c_env[i] != NULL)
 	{
 		data->key_env[i] = ft_strdup(strback(data->c_env[i]));
 		i++;
 	}
+	data->key_env[i] = NULL;
 }
 
 int	same_key(t_data *data, char *line)
@@ -50,6 +51,7 @@ int	same_key(t_data *data, char *line)
 	}
 	return (0);
 }
+
 void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
 	int	n_arg;

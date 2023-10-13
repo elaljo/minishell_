@@ -166,6 +166,7 @@ void	my_pwd(void);
 void	my_export(t_cmd *cmd, t_data *data, int I);
 void	print_export(t_data *data ,int i, int check);
 void	my_unset(t_cmd *cmd, t_data *data, int i);
+int		count_arg_un(t_cmd *cmd, int i);
 void	my_env(t_data *data);
 void	my_exit(t_cmd *cmd, int i, t_data *data);
 char	*my_getenv(char *name, t_data *data);
