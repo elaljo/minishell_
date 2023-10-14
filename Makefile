@@ -4,7 +4,6 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -g
 
-# CFLAGS = -Wall -Werror -Wextra -I $(RL)/include -fsanitize=leak -g
 
 
 RM = rm -rf
@@ -98,19 +97,7 @@ define MINI_SHELL
     ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██║ ███████║ ██║  ██║ ███████╗ ███████╗ ███████╗
     ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝
 
-	*********************  $(NAME) in progress ⏳  *********************
+	*********************  $(NAME) is ready ✅  *********************
 
 endef
 export MINI_SHELL
-
-define SCHOOL
-
- 		  mmm            mmmm          mmmm         mmmmmm
- 		    #           "   "#        "   "#            #"
- 		    #             mmm"          mmm"           m"
- 		    #               "#            "#          m"
- 		  mm#mm         "mmm#"        "mmm#"         m"
-
-endef
-export SCHOOL
-# $(NAME) is ready ✅

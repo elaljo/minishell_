@@ -6,19 +6,43 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/13 03:42:08 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:20:05 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	main_p0(t_init *x, t_data *data, t_cmd *cmds)
+{
+	if (parsing_errors(x->input_string) == 2 || \
+	successive_redir(x->input_string) == 2)
+		data->new_st = 258;
+	else
+	{
+		x->splitted_cmds = split(x->input_string);
+		free(x->input_string);
+		removing_spaces(x->splitted_cmds);
+		x->splitted = rm_empty(x->splitted_cmds);
+		cmds = get_cmds(x->splitted, data);
+		if (cmd_pipe(x->splitted, cmds) == 2 || \
+			redir_errors(cmds) == 2)
+			data->new_st = 258;
+		else
+		{
+			ft_str_free(x->splitted);
+			expand_all(cmds, data);
+			if (data->new_st != 2)
+				executer(cmds, data);
+			free_cmds(cmds);
+		}
+	}
+}
+
 int	main(int ac, char *av[], char **env)
 {
 	t_cmd	*cmds;
 	t_data	data;
-	char	*input_string;
-	char	**splitted_cmds;
-	char	**splitted;
+	t_init	x;
 
 	(void)av;
 	if (ac != 1)
@@ -29,34 +53,15 @@ int	main(int ac, char *av[], char **env)
 	signal_part();
 	while (1)
 	{
+		cmds = NULL;
 		set_exit_status(&data);
-		input_string = readline("🌙❓➜ ");
-		add_history(input_string);
-		ctrl_d(&data, input_string);
-		if (only_spaces(input_string) == 0)
+		x.input_string = readline("🌙❓➜ ");
+		add_history(x.input_string);
+		ctrl_d(&data, x.input_string);
+		if (only_spaces(x.input_string) == 0)
 			continue ;
-		if (parsing_errors(input_string) == 2 || \
-			successive_redir(input_string) == 2)
-			data.new_st = 258;
-		else
-		{
-			splitted_cmds = split(input_string);
-			free(input_string);
-			removing_spaces(splitted_cmds);
-			splitted = rm_empty(splitted_cmds);
-			cmds = get_cmds(splitted, &data);
-			if (cmd_pipe(splitted, cmds) == 2 || \
-				redir_errors(cmds) == 2)
-				data.new_st = 258;
-			else
-			{
-				ft_str_free(splitted);
-				expand_all(cmds, &data);
-				if (data.new_st != 2)
-					executer(cmds, &data);
-				free_cmds(cmds);
-			}
-		}
+		main_p0(&x, &data, cmds);
+		system("leaks -q minishell");
 	}
 	return (EXIT_SUCCESS);
 }

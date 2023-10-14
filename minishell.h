@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/14 18:06:49 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/14 20:09:46 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@ typedef struct s_sp
 	int	end;
 	int	len;
 }	t_sp;
+
+typedef struct s_init
+{
+	char	*input_string;
+	char	**splitted_cmds;
+	char	**splitted;
+}	t_init;
 
 typedef struct s_redi
 {
