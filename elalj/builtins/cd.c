@@ -72,6 +72,27 @@ void	export_old_pwd(char *old_pwd, t_data *data)
 	data->c_env[i] = full_env;
 }
 
+int	run_cd_only(t_data *data, char *home_dir)
+{
+	char	*old_pwd;
+	int		check;
+
+	check = 0;
+	if (home_dir == NULL)
+	{
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		data->new_st = 1;
+	}
+	else
+	{
+		old_pwd = get_old_pwd();
+		export_old_pwd(old_pwd, data);
+		check = chdir((const char *)home_dir);
+		export_pwd(data);
+	}
+	return (check);
+}
+
 void	my_cd(t_cmd *cmd, int i, t_data *data)
 {
 	char	*home_dir;
@@ -81,20 +102,7 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 	check = 0;
 	home_dir = my_getenv("HOME", data);
 	if (!cmd[i].argu[1])
-	{
-		if (home_dir == NULL)
-		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
-			data->new_st = 1;
-		}
-		else
-		{
-			old_pwd = get_old_pwd();
-			export_old_pwd(old_pwd, data);
-			check = chdir((const char *)home_dir);
-			export_pwd(data);
-		}
-	}
+		run_cd_only(data, home_dir);
 	else
 	{
 		old_pwd = get_old_pwd();

@@ -11,28 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-void	print_not_identifier_ex(char *line, t_data *data)
-{
-	ft_putstr_fd("minishell: export: `", 2);
-	ft_putstr_fd(line, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-	data->new_st = 1;
-}
-
-void	get_key(t_data *data, int n_arg)
-{
-	int	i;
-
-	if (n_arg > 0)
-		data->key_env = ft_realloc(data->key_env, (len_arr(data->c_env) + n_arg));
-	i = 0;
-	while (data->c_env[i] != NULL)
-	{
-		data->key_env[i] = ft_strdup(strback(data->c_env[i]));
-		i++;
-	}
-	data->key_env[i] = NULL;
-}
 
 int	same_key(t_data *data, char *line)
 {
@@ -56,53 +34,26 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
 	int	n_arg;
 	int	i;
-	int	j;
+	int	p;
 	int	len_env;
 
 	len_env = len_arr(data->c_env);
-	i = 1;
-	j = 0;
-	n_arg = 0;
-	while (cmd[I].argu[i] != NULL)
-	{
-		if (ft_isalnum(strback(cmd[I].argu[i])) || ft_isalpha(strback(cmd[I].argu[i])[0]))
-		{
-			j++;
-			i++;
-		}
-		else
-		{
-			j++;
-			n_arg++;
-			i++;
-		}
-	}
+	n_arg = export_arg_count(cmd, I);
 	data->c_env = ft_realloc(data->c_env, (len_env + n_arg));
-	int	p = j;
 	i = 1;
+	p = export_total_arg(cmd, I);
 	while (p != 0)
 	{
-		if (ft_isalpha(strback(cmd[I].argu[i])[0]) || ft_isalnum(strback(cmd[I].argu[i])))
-		{
+		if (ft_isalpha(strback(cmd[I].argu[i])[0])
+			|| ft_isalnum(strback(cmd[I].argu[i])))
 			print_not_identifier_ex(cmd[I].argu[i], data);
-			j++;
-			i++;
-			p--;
-		}
-		else if (same_key(data, cmd[I].argu[i]) == 1)
-		{
-			i++;
-			j++;
-			p--;
-		}
-		else
+		else if (!same_key(data, cmd[I].argu[i]))
 		{
 			data->c_env[len_env] = ft_strdup(cmd[I].argu[i]);
-			i++;
-			j++;
-			p--;
 			len_env = len_arr(data->c_env);
 		}
+		i++;
+		p--;
 		get_key(data, n_arg);
 	}
 }
@@ -130,21 +81,21 @@ void	my_export(t_cmd *cmd, t_data *data, int I)
 		if_there_var(cmd, data, I);
 }
 
-void print_export(t_data *data ,int i, int check)
+void	print_export(t_data *data, int i, int check)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (data->c_env[i][j] != '\0')
+	{
+		printf("%c", data->c_env[i][j]);
+		if (data->c_env[i][j] == '=' && check == 0)
 		{
-			printf("%c", data->c_env[i][j]);
-			if (data->c_env[i][j] == '=' && check == 0)
-			{
-				check = 1;
-				printf("\"");
-			}
-			if (data->c_env[i][j + 1] == '\0' && check == 1)
-				printf("\"");
-			j++;
+			check = 1;
+			printf("\"");
 		}
+		if (data->c_env[i][j + 1] == '\0' && check == 1)
+			printf("\"");
+		j++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:59:02 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/11 20:09:09 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/14 13:45:41 by moelalj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,24 @@ void	executing_one_cmd(t_cmd *cmd, int i, t_data *data)
 
 	pid_f = fork();
 	if (pid_f == -1)
-		perror_fork(data);
+		perror_fork();
 	if (pid_f == 0)
 		found_cmd(cmd, i, data);
 	else
-	{
-		wait(&data->new_st);
-		unsigned char *s;
-
-        s = (unsigned char *)&data->new_st;
-        if (s[0])
-            data->new_st = s[0] + 128;
-        else
-            data->new_st = s[1];
-	}
+		exit_status_func(data);
 }
-char *get_cmd_path(t_data *data, char *cmd)
+
+char	*get_cmd_path(t_data *data, char *cmd)
 {
 	int		i;
 	char	*full_path;
 	char	**path;
 	char	*cmd_path;
 
-	i = 0;
 	full_path = NULL;
-	while (data->c_env[i])
-	{
-		if (ft_strncmp(data->c_env[i], "PATH", 4) == 0)
-		{
-			full_path = ft_strdup(ft_strchr(data->c_env[i], '='));
-			break ;
-		}
-		i++;
-	}
+	full_path = get_full_path(data, full_path);
 	if (full_path == NULL)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		exit (127);
-	}
+		printf_no_file_no_dir(cmd);
 	path = ft_split(full_path);
 	i = 0;
 	while (path[i] != NULL)
@@ -68,7 +46,7 @@ char *get_cmd_path(t_data *data, char *cmd)
 			return (cmd_path);
 		i++;
 	}
-	return NULL;
+	return (NULL);
 }
 
 void	execute_cmd(t_cmd *cmd, int i, t_data *data)
@@ -81,7 +59,7 @@ void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 		exit (127);
 	}
 	if (execve(cmd[i].path, cmd[i].argu, data->c_env) == -1)
-		perror_execve(data);
+		perror_execve();
 }
 
 void	found_cmd(t_cmd *cmd, int i, t_data *data)
@@ -95,17 +73,14 @@ void	found_cmd(t_cmd *cmd, int i, t_data *data)
 	}
 	if (opendir(cmd[i].argu[0]) != NULL)
 		open_dir_err(cmd, i);
-	else if (access(cmd[i].argu[0], X_OK) == -1 && ft_search(cmd[i].argu[0], '/'))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd[i].argu[0], 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
-		exit (127);
-	}
-	else if (access(cmd[i].argu[0], X_OK) == 0 && ft_search(cmd[i].argu[0], '/'))
+	else if (access(cmd[i].argu[0], X_OK) == -1
+		&& ft_search(cmd[i].argu[0], '/'))
+		printf_no_file_no_dir(cmd[i].argu[0]);
+	else if (access(cmd[i].argu[0], X_OK) == 0
+		&& ft_search(cmd[i].argu[0], '/'))
 	{
 		if (execve(cmd[i].argu[0], cmd[i].argu, data->c_env) == -1)
-			perror_execve(data);
+			perror_execve();
 	}
 	else
 	{

@@ -60,13 +60,13 @@ void	my_unset(t_cmd *cmd, t_data *data, int i)
 {
 	int	arg;
 
-	//get_key(data, 0);
 	arg = count_arg_un(cmd, i);
 	arg--;
 	while (arg != 0)
 	{
-		if (ft_isalpha(strback(cmd[i].argu[arg])[0]) || ft_isalnum(strback(cmd[i].argu[arg]))
-			|| ft_search(cmd[i].argu[arg], '='))
+		if (ft_isalpha(strback(cmd[i].argu[arg])[0])
+		|| ft_isalnum(strback(cmd[i].argu[arg]))
+		|| ft_search(cmd[i].argu[arg], '='))
 			print_not_identifier_un(cmd[i].argu[arg], data);
 		else
 			remove_key(data, cmd[i].argu[arg]);

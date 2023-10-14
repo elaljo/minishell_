@@ -37,19 +37,6 @@ int	ft_isalnum(char *c)
 	return (0);
 }
 
-void	ft_str_free(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-}
-
 int	len_arr(char **arr)
 {
 	int	i;
@@ -74,33 +61,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char	*str;
-	size_t	i;
-	size_t	len_s1;
-
-	if (!s1 || !s2)
-		return (0);
-	len_s1 = ft_strlen(s1);
-	i = 0;
-	str = ft_calloc(1,len_s1 + ft_strlen(s2) + 1 * sizeof(char));
-	if (!str)
-		return (0);
-	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (s2[i] != '\0')
-	{
-		str[len_s1 + i] = s2[i];
-		i++;
-	}
-	str[len_s1 + i] = '\0';
-	return (str);
-}
 char	*ft_strcpy(char *dst, char *src)
 {
 	int	i;
@@ -112,24 +72,4 @@ char	*ft_strcpy(char *dst, char *src)
 		i++;
 	}
 	return (dst);
-}
-
-char    **ft_realloc(char **s, size_t size)
-{
-  int		i;
-  char	**buff;
-
-  i = 0;
-  buff = ft_calloc(size + 1, sizeof(char *));
-  if (buff)
-  {
-    while (s[i])
-		{
-			buff[i] = ft_strdup(s[i]);
-			free(s[i]);
-			i++;
-		}
-		free(s);
-  }
-  return (buff);
 }

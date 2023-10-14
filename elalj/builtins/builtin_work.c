@@ -47,14 +47,20 @@ void	execute_builtin(t_cmd *cmd, t_data *data, int i)
 
 int	is_builtin(char *cmd)
 {
-	char	*arr[] = {"echo", "cd", "pwd", "exit", "env", "export", "unset", NULL};
+	char	*arr[8];
 	int		i;
 
+	arr[0] = "echo";
+	arr[1] = "cd";
+	arr[2] = "pwd";
+	arr[3] = "exit";
+	arr[4] = "env";
+	arr[5] = "export";
+	arr[6] = "unset";
+	arr[7] = NULL;
 	i = -1;
 	while (arr[++i])
-	{
 		if (ft_strcmp(cmd, arr[i]) == 0)
 			return (1);
-	}
 	return (0);
 }

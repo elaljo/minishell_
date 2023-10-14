@@ -25,6 +25,7 @@ void	copy_env(t_data *data, char **env)
 		data->c_env[i] = ft_strdup(env[i]);
 		i++;
 	}
+	data->key_env = ft_calloc(data->len_env + 1, sizeof(char *));
 }
 
 void	my_env(t_data *data)

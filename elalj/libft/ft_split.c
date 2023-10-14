@@ -45,7 +45,7 @@ char	*get_word(char *str)
 	i = 0;
 	while (str[i] && !is_delimiter(str[i]))
 		i++;
-	word = (char *)ft_calloc(1,sizeof(char) * (i + 1));
+	word = (char *)ft_calloc(1, sizeof(char) * (i + 1));
 	if (!word)
 		return (NULL);
 	i = 0;
@@ -63,7 +63,7 @@ char	**ft_split(char *str)
 	int		i;
 	char	**split;
 
-	split = (char **)ft_calloc(1,sizeof(char *) * words_len(str) + 1);
+	split = (char **)ft_calloc(1, sizeof(char *) * words_len(str) + 1);
 	if (!split)
 		return (NULL);
 	i = 0;

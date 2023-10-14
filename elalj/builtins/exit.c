@@ -28,8 +28,6 @@ void	my_exit(t_cmd *cmd, int i, t_data *data)
 	if (cmd[i].argu[0] && !cmd[i].argu[1])
 	{
 		ft_putstr_fd("exit\n", 1);
-		ft_str_free(data->c_env);
-		ft_str_free(data->key_env);
 		exit (0);
 	}
 	else if (cmd[i].argu[1])
@@ -47,8 +45,6 @@ void	my_exit(t_cmd *cmd, int i, t_data *data)
 		{
 			ft_putstr_fd("exit\n", 1);
 			data->new_st = ft_atoi(cmd[i].argu[1]);
-			ft_str_free(data->c_env);
-			ft_str_free(data->key_env);
 			exit(ft_atoi(cmd[i].argu[1]));
 		}
 	}
