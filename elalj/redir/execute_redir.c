@@ -70,10 +70,10 @@ void    execute_heredoc(char *eof, t_data *data)
         free(line);
     }
     free(line);
+    free(tmp);
     dup2(pipe_fd[0], 0);
     close(pipe_fd[1]);
     close(pipe_fd[0]);
-    free(tmp);
 }
 
 void    setup_redir(t_cmd *cmd, t_data *data, int e)

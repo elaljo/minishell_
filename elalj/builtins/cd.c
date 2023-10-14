@@ -24,20 +24,22 @@ char	*my_getenv(char *name, t_data *data)
 	while (data->c_env[i] != NULL)
 	{
 		env_var = data->c_env[i];
-		if ((ft_strncmp(env_var, name, name_len) == 0) && (env_var[name_len] == '='))
+		if ((ft_strncmp(env_var, name, name_len) == 0)
+			&& (env_var[name_len] == '='))
 			return (&env_var[name_len + 1]);
 		i++;
 	}
 	return (NULL);
 }
-char	*get_old_pwd()
+
+char	*get_old_pwd(void)
 {
 	size_t	size;
 	char	*buffer;
 	char	*old_pwd;
 
 	size = 1024;
-	buffer = ft_calloc(1,size + 1 * sizeof(char));
+	buffer = ft_calloc(1, size + 1 * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	old_pwd = getcwd(buffer, size);
@@ -49,10 +51,11 @@ char	*get_old_pwd()
 	free(buffer);
 	return (old_pwd);
 }
+
 void	export_old_pwd(char *old_pwd, t_data *data)
 {
-	int	i;
-	char *full_env;
+	int		i;
+	char	*full_env;
 
 	full_env = "OLDPWD=";
 	full_env = ft_strjoin(full_env, old_pwd);
@@ -73,7 +76,7 @@ void	my_cd(t_cmd *cmd, int i, t_data *data)
 {
 	char	*home_dir;
 	int		check;
-	char 	*old_pwd;
+	char	*old_pwd;
 
 	check = 0;
 	home_dir = my_getenv("HOME", data);
