@@ -40,6 +40,7 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/redir/execute_redir.c\
 			elalj/redir/redir_helper.c\
 		  elalj/perror.c\
+			elalj/main_helper.c\
 		  0_main.c\
 		  houmam/0_others.c\
 		  houmam/1_errors_p2.c\
