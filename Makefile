@@ -38,15 +38,24 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/redir/execute_redir.c\
 		  elalj/perror.c\
 		  0_main.c\
+		  houmam/0_others.c\
+		  houmam/1_errors_p2.c\
 		  houmam/1_errors.c\
+		  houmam/2_libft_p2.c\
 		  houmam/2_libft.c\
 		  houmam/3_sp_characters.c\
+		  houmam/4_split_cmd_p2.c\
 		  houmam/4_split_cmd.c\
+		  houmam/5_get_cmds_p2.c\
 		  houmam/5_get_cmds.c\
-		  houmam/6_expand_p1.c\
-		  houmam/6_expand_p0.c\
-		  houmam/6_expand_p00.c\
-		  houmam/6_expand_p000.c\
+		  houmam/6_dollar_split_p2.c\
+		  houmam/6_dollar_split.c\
+		  houmam/6_expand_p2.c\
+		  houmam/6_expand_redir.c\
+		  houmam/6_expand.c\
+		  houmam/6_quote_split_p2.c\
+		  houmam/6_quote_split.c\
+		  houmam/6_quotes_check.c\
 		  houmam/9_redirections.c\
 										
 OBJ = ${C_FILES:.c=.o}

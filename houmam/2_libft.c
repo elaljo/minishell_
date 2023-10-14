@@ -6,190 +6,124 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:08:34 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/12 04:13:34 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/14 12:15:14 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int ft_tablen(char **tab)
+void	cnt_wrds_p2(char *str, char c, t_sp *sp)
 {
-	int i = 0;
-	while (tab[i])
-		i++;
-	return (i);
-}
-
-int    cnt_wrds(char *str, char c)
-{
-    int i = 0;
-    int wrds = 0;
-    int sq = 0;
-    int dq = 0;
-    
-    while (str[i])
-    {
-        while (str[i] == c  && sq % 2 == 0 && dq % 2 == 0 && str[i])
-            i++;
-        if (str[i] == 39)
+	if (str[sp->i] == 39)
+	{
+		sp->i++;
+		sp->sq++;
+	}
+	if (str[sp->i] == 34)
+	{
+		sp->i++;
+		sp->dq++;
+	}
+	if (str[sp->i] && sp->sq % 2 == 0 && sp->dq % 2 == 0)
+	{
+		while (str[sp->i] != c && str[sp->i])
 		{
-			i++;	
-        	sq++;
+			if (str[sp->i] == 39)
+				sp->sq++;
+			if (str[sp->i] == 34)
+				sp->dq++;
+			sp->i++;
 		}
-        if (str[i] == 34)
-        {
-			i++;
-			dq++;
+		sp->wrds++;
+	}
+	else if (str[sp->i])
+		sp->i++;
+}
+
+int	cnt_wrds(char *str, char c)
+{
+	t_sp	sp;
+
+	sp.i = 0;
+	sp.wrds = 0;
+	sp.sq = 0;
+	sp.dq = 0;
+	while (str[sp.i])
+	{
+		while (str[sp.i] == c && sp.sq % 2 == 0 && sp.dq % 2 == 0 && str[sp.i])
+			sp.i++;
+		cnt_wrds_p2(str, c, &sp);
+	}
+	return (sp.wrds);
+}
+
+void	split_str_p2(char *str, char **tab, t_sp *sp, char c)
+{
+	if (sp->i > 0 && str[sp->i - 1] && \
+		(str[sp->i - 1] == 34 || str[sp->i - 1] == 34))
+		sp->start = sp->i - 1;
+	sp->k = 0;
+	while (str[sp->i])
+	{
+		if (str[sp->i] == c && sp->sq % 2 == 0 && sp->dq % 2 == 0)
+			break ;
+		if (str[sp->i] == 39)
+			sp->sq++;
+		if (str[sp->i] == 34)
+			sp->dq++;
+		sp->i++;
+	}
+	tab[sp->j] = ft_calloc(1, (sp->i - sp->start + 1) * sizeof(char));
+	while (sp->start < sp->i)
+	{
+		tab[sp->j][sp->k] = str[sp->start];
+		sp->k++;
+		sp->start++;
+	}
+	if (str[sp->i] == 34 || str[sp->i] == 34)
+		sp->i++;
+	tab[sp->j][sp->k] = '\0';
+	sp->j++;
+}
+
+void	split_str_p1(char *str, t_sp *sp, char c)
+{
+	while (str[sp->i] == c && sp->sq % 2 == 0 && sp->dq % 2 == 0 && str[sp->i])
+		sp->i++;
+	if (str[sp->i] == 39)
+	{
+		sp->i++;
+		sp->sq++;
+	}
+	if (str[sp->i] == 34)
+	{
+		sp->i++;
+		sp->dq++;
+	}
+}
+
+char	**split_str(char *str, char c)
+{
+	t_sp	sp;
+	char	**tab;
+
+	sp.i = 0;
+	sp.j = 0;
+	sp.k = 0;
+	sp.start = 0;
+	sp.sq = 0;
+	sp.dq = 0;
+	sp.wrds = cnt_wrds(str, c);
+	tab = ft_calloc(1, (sp.wrds + 1) * sizeof(char *));
+	while (str[sp.i])
+	{
+		split_str_p1(str, &sp, c);
+		if (str && str[sp.i])
+		{
+			sp.start = sp.i;
+			split_str_p2(str, tab, &sp, c);
 		}
-        if (str[i]  && sq % 2 == 0 && dq % 2 == 0)
-        {
-            while (str[i] != c && str[i])
-            {
-                if (str[i] == 39)
-                    sq++;
-                if (str[i] == 34)
-                    dq++;
-                i++;
-            }
-            wrds++;
-        }
-		else if (str[i])
-        	i++;
-    }
-    return (wrds);
-}
-
-char    **split_str(char *str, char c)
-{
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    int start = 0;
-    int wrds = cnt_wrds(str, c);
-    char **tab = ft_calloc(1,(wrds + 1) * sizeof(char *));
-    int sq = 0;
-    int dq = 0;
-
-    while (str[i])
-    {
-        while (str[i] == c  && sq % 2 == 0 && dq % 2 == 0 && str[i])
-            i++;
-        if (str[i] == 39)
-        {
-            i++;    
-            sq++;
-        }
-        if (str[i] == 34)
-        {
-            i++;
-            dq++;
-        }
-        if (str && str[i])
-        {
-            start = i;
-			if (i > 0 && str[i - 1] && (str[i - 1] == 34 || str[i - 1] == 34))
-				start = i - 1;
-            k = 0;
-            while (str[i])
-            {
-                if (str[i] == c && sq % 2 == 0 && dq % 2 == 0)
-                    break;
-                if (str[i] == 39)
-                    sq++;
-                if (str[i] == 34)
-                    dq++;
-                i++;
-            }
-            tab[j] = ft_calloc(1,(i - start + 1) * sizeof(char));
-            while (start < i)
-            {
-                tab[j][k] = str[start];
-                k++;
-                start++;
-            }
-			if (str[i] == 34 || str[i] == 34)
-				i++;
-            tab[j][k] = '\0';
-            j++;
-        }
-    }
-    tab[j] = NULL;
-    return (tab);
-}
-
-// char	*ft_substr(char const *s, unsigned int start, size_t len)
-// {
-// 	int i = 0;
-// 	// int len = start;
-// 	char *str = ft_calloc(1,(len + 1) * sizeof(char));
-
-// 	while (s[i] && i < len)
-// 	{
-// 		str[i] = s[start];
-// 		i++;
-// 		start++;
-// 	}
-// 	str[5] = '\0';
-// 	return (str);
-// }
-
-int	only_spaces(char *str)
-{
-	int i = 0;
-
-	while (str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\t')
-			i++;
-		else
-			return (1);
 	}
-	return (0);
-}
-
-int	nbr_l(int n)
-{
-	long	num;
-	int		i;
-
-	num = n;
-	i = 0;
-	if (num == 0)
-		return (1);
-	if (num < 0)
-		i++;
-	while (num)
-	{
-		num = num / 10;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_itoa(int n)
-{
-	long	nb;
-	int		nl;
-	char	*p;
-
-	nb = n;
-	nl = nbr_l(nb);
-	p = ft_calloc (1, nl * sizeof(char) + 1);
-	if (!p)
-		return (NULL);
-	if (n == 0)
-		p[0] = 48;
-	else if (nb < 0)
-	{
-		p[0] = 45;
-		nb *= -1;
-	}
-	while (nb)
-	{
-		p[nl - 1] = nb % 10 + 48;
-		nb /= 10;
-		nl--;
-	}
-	p[nbr_l(n)] = 0;
-	return (p);
+	tab[sp.j] = NULL;
+	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/13 03:33:38 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:06:49 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,35 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
+int g_exit_status;
+
+typedef	struct s_exp
+{
+	char **argu;
+	int i;
+	int j;
+	int k;
+	int	quoted;
+	int	empty;
+	char *tmp;
+    char *joigned_0;
+    char *joigned_1;
+	char **quote_splitted;
+    char **dollar_splitted;
+} t_exp;
+
+typedef struct s_sp
+{
+	int	i;
+    int	j;
+    int	k;
+    int	start;
+    int	wrds;
+    int	sq;
+    int	dq;
+	int end;
+	int len;
+} t_sp;
 
 typedef struct s_redi
 {
@@ -47,6 +76,7 @@ typedef	struct s_quote
 {
 	int sq;
 	int dq;
+	int cnt;
 } t_quote;
 
 typedef	struct s_ndx
@@ -54,11 +84,15 @@ typedef	struct s_ndx
 	int i;
 	int j;
 	int k;
+	int	len;
+	int	nbr;
+	int	red;
 	int check;
 	int check_space;
 	int pipe;
 	int start;
 	int cnt;
+	int	brk;
 } t_ndx;
 
 typedef struct s_data
@@ -106,6 +140,12 @@ int		check_quoted(char *str);
 int		count_cmds(char **tab);
 int		cmd_len(char **tab);
 t_cmd	*get_cmds(char **tab, t_data *data);
+void	get_cmds_p0(char **tab, int *comnd_len, t_cmd *cmds, t_ndx *n);
+void	get_cmds_p1(char **tab, int *comnd_len, t_cmd *cmds, t_ndx *n);
+int		get_cmds_p2(char **tab, t_cmd *cmds, t_ndx *n);
+int		get_cmds_p3(char **tab, t_cmd *cmds, t_ndx *n);
+void	get_cmds_p4(char **tab, int *comnd_len, t_cmd *cmds, t_ndx *n);
+void	get_cmds_p5(t_data *data, t_cmd *cmds, t_ndx *n);
 int		cnt_redir(char **tab);
 int		cnt_exp(char *str);
 char    **quotes_split(char *str);
@@ -118,17 +158,21 @@ void    expand_herdoc(char **str, t_data *data);
 void    expand_all(t_cmd *cmds, t_data *data);
 int		check_in_env(t_data data, char *var);
 t_quote unclosed_quotes(char *str);
-int    parsing_errors(char *str);
+int		parsing_errors(char *str);
 void	ft_trim(char **str, int i);
 int		successive_redir(char *str);
 int     redir_errors(t_cmd *cmds);
 void	cp_redir(t_cmd *cmds, int j, t_data *data);
 void    expand_redir(t_cmd *cmds, int i, int j, t_data *data);
 char	**rm_empty(char **tab);
+void	rm_empty_p2(char **tab, char **tmp, int *i, int *cnt);
 char	**tab_dup(char **tab);
 int		cmd_pipe(char **tab, t_cmd *cmds);
 void	free_cmds(t_cmd *cmds);
 int		is_redir(char *str);
+////////////// Added recently
+
+void	put_error(char *str);
 
 // mohamed
 
@@ -143,7 +187,7 @@ void	print_not_identifier_un(char *line, t_data *data);
 void	get_key(t_data *data, int n_arg);
 int		same_key(t_data *data, char *line);
 void	remove_key(t_data *data, char *line);
-void	print_if_exit_valid(char *line);
+void	print_if_exit_valid(char *line, t_data *data);
 char    **ft_realloc(char **s, size_t size);
 
 //	execute_cmd
@@ -176,11 +220,11 @@ void    execute_pipe(t_cmd *cmd, t_data *data);
 void    start_executing_pipe(t_cmd *cmd, t_data *data, int fd1[2], int fd2[2]);
 void    setup_pipes(int fd1[2], int fd2[2], int i, t_cmd *cmd);
 void    gives_pipe_to_the_next_child(int fd1[2], int fd2[2], int i);
-void		first_cmd(int fd1[2], int fd2[2]);
-void		pair(int fd1[2], int fd2[2]);
-void		unpair(int fd1[2], int fd2[2]);
-void		last_unpair(int fd1[2], int fd2[2]);
-void		last_pair(int fd1[2], int fd2[2]);
+void	first_cmd(int fd1[2], int fd2[2]);
+void	pair(int fd1[2], int fd2[2]);
+void	unpair(int fd1[2], int fd2[2]);
+void	last_unpair(int fd1[2], int fd2[2]);
+void	last_pair(int fd1[2], int fd2[2]);
 void    close_pipes(int fd1[2], int fd2[2]);
 
 //	redir
