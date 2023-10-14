@@ -22,6 +22,7 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/builtins/cd.c\
 		  elalj/builtins/pwd.c\
 		  elalj/builtins/export.c\
+			elalj/builtins/export_helper.c\
 		  elalj/builtins/unset.c\
 		  elalj/builtins/env.c\
 		  elalj/builtins/exit.c\
@@ -30,12 +31,14 @@ C_FILES = elalj/builtins/echo.c\
 		  elalj/libft/libft.c\
 		  elalj/libft/libft_2.c\
 		  elalj/libft/libft_3.c\
+			elalj/libft/libft_4.c\
 		  elalj/execute_one_cmd/execute_cmd.c\
 		  elalj/execute_one_cmd/execute_cmd_helper.c\
 		  elalj/signal_handler.c\
 		  elalj/pipes/pipes_handler.c\
 		  elalj/pipes/setup_pipes.c\
 		  elalj/redir/execute_redir.c\
+			elalj/redir/redir_helper.c\
 		  elalj/perror.c\
 		  0_main.c\
 		  houmam/0_others.c\
