@@ -44,8 +44,7 @@ int	main(int ac, char *av[], char **env)
 	t_data	data;
 	t_init	x;
 
-	(void)av;
-	if (ac != 1)
+	if (ac != 1 || !av)
 		return (0);
 	rl_initialize();
 	init_data_structs(&data);
@@ -53,13 +52,15 @@ int	main(int ac, char *av[], char **env)
 	signal_part();
 	while (1)
 	{
-		cmds = NULL;
 		set_exit_status(&data);
 		x.input_string = readline("🌙❓➜ ");
 		add_history(x.input_string);
-		ctrl_d(&data, x.input_string);
+		ctrl_d(x.input_string);
 		if (only_spaces(x.input_string) == 0)
+		{
+			free(x.input_string);
 			continue ;
+		}
 		main_p0(&x, &data, cmds);
 		system("leaks -q minishell");
 	}

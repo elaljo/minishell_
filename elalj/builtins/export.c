@@ -14,8 +14,8 @@
 
 int	same_key(t_data *data, char *line)
 {
-	int	i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while (data->key_env[i] != NULL)

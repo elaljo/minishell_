@@ -170,7 +170,7 @@ int			is_redir(char *str);
 void		put_error(char *str);
 // mohamed
 void		executer(t_cmd *cmds, t_data *data);
-void		ctrl_d(t_data *data, char *input_string);
+void		ctrl_d(char *input_string);
 void		set_exit_status(t_data *data);
 void		init_data_structs(t_data *data);
 void		copy_env(t_data *data, char **env);

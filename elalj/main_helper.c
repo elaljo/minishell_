@@ -18,9 +18,8 @@ void	set_exit_status(t_data *data)
 	data->new_st = 0;
 }
 
-void	ctrl_d(t_data *data, char *input_string)
+void	ctrl_d(char *input_string)
 {
-	(void)data;
 	if (!input_string)
 	{
 		printf("exit\n");
