@@ -15,16 +15,24 @@
 int	same_key(t_data *data, char *line)
 {
 	int	i;
+	char *tmp;
 
 	i = 0;
 	while (data->key_env[i] != NULL)
 	{
-		if (ft_strcmp(strback(line), data->key_env[i]) == 0)
+		tmp = strback(line);
+		if (ft_strcmp(tmp, data->key_env[i]) == 0)
 		{
-			if (ft_search(line, '='))
-				data->c_env[i] = ft_strdup(line);
+			if (ft_search(tmp, '='))
+			{
+				free(data->c_env[i]);
+				data->c_env[i] = ft_strdup(tmp);
+			}
+			free(tmp);
 			return (1);
 		}
+		free(tmp);
+		tmp = NULL;
 		i++;
 	}
 	return (0);
@@ -32,11 +40,13 @@ int	same_key(t_data *data, char *line)
 
 void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
-	int	n_arg;
-	int	i;
-	int	p;
-	int	len_env;
+	int		n_arg;
+	int		i;
+	int		p;
+	int		len_env;
+	char	*tmp;
 
+	get_key(data, 0);
 	len_env = len_arr(data->c_env);
 	n_arg = export_arg_count(cmd, I);
 	data->c_env = ft_realloc(data->c_env, (len_env + n_arg));
@@ -44,8 +54,8 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 	p = export_total_arg(cmd, I);
 	while (p != 0)
 	{
-		if (ft_isalpha(strback(cmd[I].argu[i])[0])
-			|| ft_isalnum(strback(cmd[I].argu[i])))
+		tmp = strback(cmd[I].argu[i]);
+		if (ft_isalpha(tmp[0]) || ft_isalnum(tmp))
 			print_not_identifier_ex(cmd[I].argu[i], data);
 		else if (!same_key(data, cmd[I].argu[i]))
 		{
@@ -54,7 +64,9 @@ void	if_there_var(t_cmd *cmd, t_data *data, int I)
 		}
 		i++;
 		p--;
-		get_key(data, n_arg);
+		free(tmp);
+		tmp = NULL;
+		get_key(data, len_env);
 	}
 }
 
@@ -75,7 +87,6 @@ void	my_export(t_cmd *cmd, t_data *data, int I)
 			printf("\n");
 			i++;
 		}
-		get_key(data, 0);
 	}
 	else
 		if_there_var(cmd, data, I);

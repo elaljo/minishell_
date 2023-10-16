@@ -22,7 +22,8 @@ void	print_not_identifier_ex(char *line, t_data *data)
 
 void	get_key(t_data *data, int n_arg)
 {
-	int	i;
+	int		i;
+	char	*tmp;
 
 	if (n_arg > 0)
 		data->key_env = ft_realloc(data->key_env,
@@ -30,7 +31,10 @@ void	get_key(t_data *data, int n_arg)
 	i = 0;
 	while (data->c_env[i] != NULL)
 	{
-		data->key_env[i] = ft_strdup(strback(data->c_env[i]));
+		tmp = strback(data->c_env[i]);
+		free(data->key_env[i]);
+		data->key_env[i] = ft_strdup(tmp);
+		free(tmp);
 		i++;
 	}
 	data->key_env[i] = NULL;
@@ -38,21 +42,24 @@ void	get_key(t_data *data, int n_arg)
 
 int	export_arg_count(t_cmd *cmd, int I)
 {
-	int	n_arg;
-	int	i;
+	int		n_arg;
+	int		i;
+	char	*tmp;
 
 	i = 1;
 	n_arg = 0;
 	while (cmd[I].argu[i] != NULL)
 	{
-		if (ft_isalnum(strback(cmd[I].argu[i]))
-			|| ft_isalpha(strback(cmd[I].argu[i])[0]))
+		tmp = strback(cmd[I].args[i]);
+		if (ft_isalnum(tmp)
+			|| ft_isalpha(tmp[0]))
 			i++;
 		else
 		{
 			n_arg++;
 			i++;
 		}
+		free(tmp);
 	}
 	return (n_arg);
 }

@@ -214,6 +214,7 @@ int			count_arg_un(t_cmd *cmd, int i);
 void		my_env(t_data *data);
 void		my_exit(t_cmd *cmd, int i, t_data *data);
 char		*my_getenv(char *name, t_data *data);
+void		error_curr_dir(char *curr_dir);
 //	pipes
 void		execute_pipe(t_cmd *cmd, t_data *data);
 void		start_executing_pipe(t_cmd *cmd, t_data *data,

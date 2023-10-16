@@ -36,7 +36,8 @@ void	remove_key(t_data *data, char *line)
 			{
 				while (data->c_env[i] != NULL)
 				{
-					data->c_env[i] = data->c_env[i + 1];
+					free(data->c_env[i]);
+					data->c_env[i] = ft_strdup(data->c_env[i + 1]);
 					i++;
 				}
 			}
@@ -59,17 +60,21 @@ int	count_arg_un(t_cmd *cmd, int i)
 void	my_unset(t_cmd *cmd, t_data *data, int i)
 {
 	int	arg;
+	char *tmp;
 
+	get_key(data, 0);
 	arg = count_arg_un(cmd, i);
 	arg--;
 	while (arg != 0)
 	{
-		if (ft_isalpha(strback(cmd[i].argu[arg])[0])
-		|| ft_isalnum(strback(cmd[i].argu[arg]))
-		|| ft_search(cmd[i].argu[arg], '='))
+		tmp = strback(cmd[i].argu[arg]);
+		printf("tmp = %s\n", tmp);
+		if (ft_isalpha(tmp[0]) || ft_isalnum(tmp)
+			|| ft_search(cmd[i].argu[arg], '='))
 			print_not_identifier_un(cmd[i].argu[arg], data);
 		else
 			remove_key(data, cmd[i].argu[arg]);
 		arg--;
+		free(tmp);
 	}
 }
