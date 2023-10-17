@@ -64,6 +64,8 @@ void	ft_str_free(char **s)
 {
 	int	i;
 
+	if (!s)
+		return ;
 	i = 0;
 	while (s[i])
 	{

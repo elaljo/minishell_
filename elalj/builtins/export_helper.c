@@ -37,6 +37,7 @@ void	get_key(t_data *data, int n_arg)
 		free(tmp);
 		i++;
 	}
+	free(data->key_env[i]);
 	data->key_env[i] = NULL;
 }
 
