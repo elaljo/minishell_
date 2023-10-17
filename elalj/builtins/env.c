@@ -18,14 +18,14 @@ void	copy_env(t_data *data, char **env)
 
 	while (env[data->len_env] != NULL)
 		data->len_env++;
-	data->c_env = ft_calloc(data->len_env + 2, sizeof(char *));
+	data->c_env = ft_calloc(data->len_env + 1, sizeof(char *));
 	i = 0;
 	while (env[i] != NULL)
 	{
 		data->c_env[i] = ft_strdup(env[i]);
 		i++;
 	}
-	data->key_env = ft_calloc(data->len_env + 2, sizeof(char *));
+	data->key_env = ft_calloc(data->len_env + 1, sizeof(char *));
 }
 
 void	my_env(t_data *data)
@@ -35,7 +35,7 @@ void	my_env(t_data *data)
 	i = 0;
 	if (data->c_env[i] == NULL)
 	{
-		ft_putstr_fd("minishell: env: No such file of directory\n", 2);
+		ft_putstr_fd("minishell: env: No env founded\n", 2);
 		data->new_st = 127;
 	}
 	while (data->c_env[i] != NULL)

@@ -64,6 +64,7 @@ void	execute_cmd(t_cmd *cmd, int i, t_data *data)
 
 void	found_cmd(t_cmd *cmd, int i, t_data *data)
 {
+	signal(SIGQUIT, signal_handler);
 	if (!cmd[i].argu[0])
 		exit (0);
 	if (is_builtin(cmd[i].argu[0]) == 1)

@@ -36,4 +36,6 @@ void	signal_handler(int signum)
 		rl_redisplay();
 		g_exit_status = 1;
 	}
+	if (signum == SIGQUIT)
+		exit (131);
 }
