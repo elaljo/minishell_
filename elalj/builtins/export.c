@@ -40,30 +40,27 @@ int	same_key(t_data *data, char *line)
 
 void	if_there_var(t_cmd *cmd, t_data *data, int I)
 {
-	int		n_arg;
-	int		i;
-	int		p;
 	int		len_env;
 	char	*tmp;
 
 	get_key(data, 0);
 	len_env = len_arr(data->c_env);
-	n_arg = export_arg_count(cmd, I);
-	data->c_env = ft_realloc(data->c_env, (len_env + n_arg));
-	i = 1;
-	p = export_total_arg(cmd, I);
-	while (p != 0)
+	data->n_arg = export_arg_count(cmd, I);
+	data->c_env = ft_realloc(data->c_env, (len_env + data->n_arg));
+	data->i = 1;
+	data->p = export_total_arg(cmd, I);
+	while (data->p != 0)
 	{
-		tmp = strback(cmd[I].argu[i]);
+		tmp = strback(cmd[I].argu[data->i]);
 		if (ft_isalpha(tmp[0]) || ft_isalnum(tmp))
-			print_not_identifier_ex(cmd[I].argu[i], data);
-		else if (!same_key(data, cmd[I].argu[i]))
+			print_not_identifier_ex(cmd[I].argu[data->i], data);
+		else if (!same_key(data, cmd[I].argu[data->i]))
 		{
-			data->c_env[len_env] = ft_strdup(cmd[I].argu[i]);
+			data->c_env[len_env] = ft_strdup(cmd[I].argu[data->i]);
 			len_env = len_arr(data->c_env);
 		}
-		i++;
-		p--;
+		data->i++;
+		data->p--;
 		free(tmp);
 		tmp = NULL;
 		get_key(data, len_env);

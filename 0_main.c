@@ -62,7 +62,7 @@ int	main(int ac, char *av[], char **env)
 			continue ;
 		}
 		main_p0(&x, &data, cmds);
-		system("leaks -q minishell");
+		system("leaks -q minishell"); //dont forget to remove this line..
 	}
 	return (EXIT_SUCCESS);
 }

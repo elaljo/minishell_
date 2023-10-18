@@ -112,6 +112,9 @@ typedef struct s_data
 	char	*tmp;
 	char	*line;
 	int		quoted;
+	int		n_arg;
+	int		i;
+	int		p;
 }t_data;
 
 /* - - - - - - - - - - - - - - Splitter - - - - - - - - - - - - - - */
