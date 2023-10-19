@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   0_main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/19 10:00:32 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 11:40:44 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	freee(t_init *x, t_data *data, t_cmd *cmds)
+{
+	free(cmds->redir[0].eof);
+	free(cmds->redir[0].redi);
+	free(cmds->redir);
+	free(cmds);
+	ft_str_free(x->splitted);
+	data->new_st = 258;
+}
 
 void	main_p0(t_init *x, t_data *data, t_cmd *cmds)
 {
@@ -29,14 +39,7 @@ void	main_p0(t_init *x, t_data *data, t_cmd *cmds)
 		cmds = get_cmds(x->splitted, data);
 		if (cmd_pipe(x->splitted, cmds) == 2 || \
 			redir_errors(cmds) == 2)
-		{
-			free(cmds->redir[0].eof);
-			free(cmds->redir[0].redi);
-			free(cmds->redir);
-			free(cmds);
-			ft_str_free(x->splitted);
-			data->new_st = 258;
-		}
+			freee(x, data, cmds);
 		else
 		{
 			ft_str_free(x->splitted);
@@ -72,7 +75,6 @@ int	main(int ac, char *av[], char **env)
 			continue ;
 		}
 		main_p0(&x, &data, cmds);
-		// system("leaks -q minishell"); //dont forget to remove this line..
 	}
 	return (EXIT_SUCCESS);
 }

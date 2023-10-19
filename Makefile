@@ -8,7 +8,7 @@ CFLAGS =  -I $(RL)/include -g
 
 RM = rm -rf
 
-# RL = ${shell brew --prefix readline}
+RL = ${shell brew --prefix readline}
 
 RESET = \033[0m
 RED = \033[1;31m

@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 20:48:37 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/11 19:59:36 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:30:07 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	export_old_pwd(char *old_pwd, t_data *data)
 	while (data->c_env[i] != 0)
 	{
 		tmp = strback(data->c_env[i]);
-		if (strcmp(tmp, "OLDPWD") == 0)
+		if (ft_strcmp(tmp, "OLDPWD") == 0)
 		{
 			free(data->c_env[i]);
 			data->c_env[i] = ft_strdup(full_env);
