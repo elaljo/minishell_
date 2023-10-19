@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/19 09:15:23 by codespace        ###   ########.fr       */
+/*   Updated: 2023/10/19 13:40:36 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ void		exit_status_func(t_data *data);
 void		signal_handler(int signum);
 void		signal_part(void);
 void		signal_herdoc(int signum);
+void		signal_in_cmd(int signum);
 //			split
 int			is_delimiter(char c);
 int			words_len(char *s);

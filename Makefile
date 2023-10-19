@@ -2,9 +2,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS =  -I $(RL)/include -g
-
-
+CFLAGS = -Wall -Wextra -Werror -I $(RL)/include
 
 RM = rm -rf
 
@@ -87,7 +85,6 @@ re: fclean all
 
 .PHONY: all re clean fclean
 
-# Define custom text with red color
 define MINI_SHELL
 
     ███╗   ███╗ ██╗ ███╗   ██╗ ██╗ ███████╗ ██╗  ██╗ ███████╗ ██╗      ██╗

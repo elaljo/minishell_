@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 16:32:53 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/19 11:40:44 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:57:46 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	main(int ac, char *av[], char **env)
 	if (ac != 1 || !av)
 		return (0);
 	rl_initialize();
+	cmds = NULL;
 	init_data_structs(&data);
 	copy_env(&data, env);
 	signal_part();

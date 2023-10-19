@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moelalj <moelalj@student.1337.ma>          +#+  +:+       +#+        */
+/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 20:45:08 by moelalj           #+#    #+#             */
-/*   Updated: 2023/08/19 20:45:09 by moelalj          ###   ########.fr       */
+/*   Updated: 2023/10/19 13:17:41 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	export_pwd(t_data *data)
 	while (data->c_env[i] != 0)
 	{
 		tmp = strback(data->c_env[i]);
-		if (strcmp(tmp, "PWD") == 0)
+		if (ft_strcmp(tmp, "PWD") == 0)
 		{
 			free(data->c_env[i]);
 			data->c_env[i] = ft_strdup(c_path);

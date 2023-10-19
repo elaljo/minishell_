@@ -6,7 +6,7 @@
 /*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:39:10 by moelalj           #+#    #+#             */
-/*   Updated: 2023/10/11 20:00:11 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:58:31 by hait-sal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	same_key(t_data *data, char *line)
 		tmp = strback(line);
 		if (ft_strcmp(tmp, data->key_env[i]) == 0)
 		{
-			if (ft_search(tmp, '='))
+			if (ft_search(line, '='))
 			{
 				free(data->c_env[i]);
-				data->c_env[i] = ft_strdup(tmp);
+				data->c_env[i] = ft_strdup(line);
 			}
 			free(tmp);
 			return (1);
