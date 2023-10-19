@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   5_get_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:05:29 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/14 15:51:41 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/19 09:50:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,12 @@ void	get_cmds_p0(char **tab, int *comnd_len, t_cmd *cmds, t_ndx *n)
 		cmds[n->j].redir[0].redi = ft_strdup(tab[n->i]);
 		cmds[n->j].redir[0].eof = NULL;
 	}
-	cmds[n->j].args = ft_calloc(1, 2 * sizeof(char *));
-	cmds[n->j].args[0] = ft_strdup(tab[n->i]);
-	cmds[n->j].args[1] = NULL;
+	else
+	{
+		cmds[n->j].args = ft_calloc(1, 2 * sizeof(char *));
+		cmds[n->j].args[0] = ft_strdup(tab[n->i]);
+		cmds[n->j].args[1] = NULL;
+	}
 	n->i++;
 	n->j++;
 }

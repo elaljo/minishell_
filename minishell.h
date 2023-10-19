@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hait-sal <hait-sal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:16:38 by hait-sal          #+#    #+#             */
-/*   Updated: 2023/10/14 20:09:46 by hait-sal         ###   ########.fr       */
+/*   Updated: 2023/10/19 09:15:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_exp
 	int		k;
 	int		quoted;
 	int		empty;
+	char	*expand;
+	char	*ito;
 	char	*tmp;
 	char	*joigned_0;
 	char	*joigned_1;

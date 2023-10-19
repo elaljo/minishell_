@@ -28,6 +28,7 @@ void	expander_p0(t_exp *x)
 			x->tmp = ft_strdup(x->quote_splitted[x->j]);
 			free(x->quote_splitted[x->j]);
 			x->quote_splitted[x->j] = handle_quoted(x->tmp);
+			free(x->tmp);
 		}
 	}
 	x->dollar_splitted = dollar_split(x->quote_splitted[x->j]);
@@ -52,6 +53,7 @@ void	expander_p1(t_exp *x)
 		x->tmp = ft_strdup(x->joigned_1);
 		free(x->joigned_1);
 		x->joigned_1 = ft_strjoin(x->tmp, x->quote_splitted[x->j]);
+		free(x->tmp);
 	}
 	x->j++;
 }
@@ -75,8 +77,9 @@ void	expander_p2(t_exp *x, t_data *data)
 	{
 		x->tmp = ft_strdup(x->dollar_splitted[x->k]);
 		free(x->dollar_splitted[x->k]);
-		x->dollar_splitted[x->k] = \
-		ft_strjoin(ft_itoa(data->old_st), &x->tmp[2]);
+		x->ito = ft_itoa(data->old_st);
+		x->dollar_splitted[x->k] = ft_strjoin(x->ito, &x->tmp[2]);
+		free(x->ito);
 	}
 }
 
@@ -92,8 +95,9 @@ void	expander_p3(t_exp *x, t_data *data)
 		{
 			x->tmp = ft_strdup(x->dollar_splitted[x->k]);
 			free(x->dollar_splitted[x->k]);
-			x->dollar_splitted[x->k] = \
-			ft_strdup(expand_var(x->tmp, *data));
+			x->expand = expand_var(x->tmp, *data);
+			x->dollar_splitted[x->k] = ft_strdup(x->expand);
+			free(x->expand);
 		}
 		if (x->k == 0)
 			x->joigned_0 = ft_strjoin("", x->dollar_splitted[x->k]);
@@ -102,6 +106,7 @@ void	expander_p3(t_exp *x, t_data *data)
 			x->tmp = ft_strdup(x->joigned_0);
 			free(x->joigned_0);
 			x->joigned_0 = ft_strjoin(x->tmp, x->dollar_splitted[x->k]);
+			free(x->tmp);
 		}
 		x->k++;
 	}
